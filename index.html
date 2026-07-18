@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samuel Eluyera — Senior Product Designer</title>
+  <meta name="description" content="Senior Product Designer. I design software where mistakes are expensive — across healthcare, fintech, AI & enterprise SaaS.">
+
+  <!-- Favicons -->
+  <link rel="icon" href="images/meta/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/meta/favicon-96.png" sizes="96x96" type="image/png">
+  <link rel="apple-touch-icon" href="images/meta/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Open Graph / social share. og:url and og:image are absolute — social
+       scrapers (LinkedIn/X/Slack) require that to render the preview. -->
+  <link rel="canonical" href="https://www.samueleluyera.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Samuel Eluyera">
+  <meta property="og:title" content="Samuel Eluyera — Senior Product Designer">
+  <meta property="og:description" content="I design software where mistakes are expensive — across healthcare, fintech, AI & enterprise SaaS.">
+  <meta property="og:url" content="https://www.samueleluyera.com/">
+  <meta property="og:image" content="https://www.samueleluyera.com/images/meta/og-home.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Samuel Eluyera — I design software where mistakes are expensive.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Samuel Eluyera — Senior Product Designer">
+  <meta name="twitter:description" content="I design software where mistakes are expensive — across healthcare, fintech, AI & enterprise SaaS.">
+  <meta name="twitter:image" content="https://www.samueleluyera.com/images/meta/og-home.jpg">
+  <meta name="twitter:site" content="@samueleluyera">
+
+  <style>
+    @font-face {
+      font-family: 'Saans';
+      src: url('fonts/SaansCollectionVF-TRIAL.woff2') format('woff2-variations');
+      font-weight: 100 900;
+      font-stretch: 75% 125%;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font: 'Saans', -apple-system, sans-serif;
+      /* Figma is a 1728px frame; large type + gutters scale fluidly below that. */
+      --pad-x: clamp(28px, 3.7vw, 64px);
+    }
+
+    html, body {
+      width: 100%;
+      font-family: var(--font);
+      overflow-x: clip;
+      background: #000;
+    }
+
+    /* ── SECTIONS (follow.art model: tall spacer + sticky panel) ── */
+    .section { position: relative; }
+    .panel { position: relative; min-height: 100vh; overflow: hidden; }
+
+    @media (min-width: 1025px) {
+      .section { height: 220vh; margin-bottom: -100vh; }   /* 0.2vh settle + 1vh transition */
+      #cases.section  { height: 320vh; }                    /* + horizontal card-scroll phase */
+      #footer.section { height: 100vh; margin-bottom: 0; }
+      .panel { position: sticky; top: 0; height: 100vh; }
+    }
+
+    /* ── NAVBAR — Figma: px-64 py-16, logo 192.6×18, links Medium 16/24 ls -0.48 ── */
+    .navbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px var(--pad-x);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: #fff; color: #000;
+      transition: background-color 0.45s ease, color 0.45s ease;
+    }
+    .nav-logo { display: flex; align-items: center; color: inherit; }
+    .nav-logo-svg { height: 18px; width: auto; display: block; }
+    .nav-menu { display: flex; align-items: center; gap: 16px; }
+    .nav-link {
+      font-size: 16px; font-weight: 500; line-height: 24px;
+      letter-spacing: -0.48px; color: inherit; text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+      transition: opacity 0.2s; cursor: pointer;
+    }
+    .nav-link:hover { opacity: 0.55; }
+    .btn-nav {
+      background: #000; color: #fff;
+      padding: 8px 16px; border-radius: 99px;
+      font-size: 16px; font-weight: 500; line-height: 24px;
+      letter-spacing: -0.48px;
+      cursor: pointer; border: none; font-family: inherit;
+      transition: background-color 0.45s ease, color 0.45s ease, opacity 0.2s;
+      display: inline-block; text-decoration: none;
+    }
+    .btn-nav:hover { opacity: 0.78; }
+
+    /* ── HERO — headline Bold 72/1.2 ls -2.16 uppercase, greys #707070 ── */
+    .panel--hero { background: #fff; display: flex; flex-direction: column; }
+
+    .hero-intro {
+      flex: 1; min-height: 0;
+      display: flex; align-items: center;
+      padding: clamp(104px, 13vh, 168px) var(--pad-x) 80px;
+    }
+    .hero-row {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: clamp(24px, 3vw, 48px); width: 100%;
+    }
+    .hero-copy {
+      flex: 1; min-width: 0; max-width: 1104px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .hero-heading {
+      font-size: clamp(30px, 4.17vw, 72px); font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.03em; text-transform: uppercase;
+      color: #000;
+    }
+    .hero-sub {
+      font-size: clamp(19px, 2.31vw, 40px); font-weight: 500; line-height: 1.25;
+      letter-spacing: -0.03em; color: #000; max-width: 872px;
+    }
+
+    .hero-list { width: clamp(240px, 23vw, 335px); flex-shrink: 0; display: flex; flex-direction: column; gap: 4px; }
+    .hero-li { display: flex; gap: 16px; align-items: center; }
+    .hero-li.top { align-items: flex-start; }
+    .hero-li .dash { width: 40px; height: 1px; background: #000; flex-shrink: 0; }
+    .hero-li.top .dash { margin-top: 15px; }
+    .hero-li p {
+      font-size: 20px; font-weight: 500; line-height: 1.5;
+      letter-spacing: -0.4px; color: #000;
+    }
+
+    /* Filmstrip — ~35% of the viewport tall (fluid), images keep native aspect */
+    .strip { height: clamp(190px, 35vh, 460px); background: #fff; overflow: hidden; flex-shrink: 0; position: relative; }
+    .strip-track { display: flex; height: 100%; width: max-content; will-change: transform; animation: strip-scroll 90s linear infinite; }
+    .strip-track img { height: 100%; width: auto; display: block; flex-shrink: 0; }
+    @keyframes strip-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── WORK SECTIONS — Figma: pt-128 pb-80 px-64, col gap-64 ── */
+    .work-section {
+      display: flex; flex-direction: column; gap: 64px;
+      align-items: flex-start; justify-content: center;
+      padding: 128px var(--pad-x) 80px;
+    }
+    .work-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 64px; width: 100%; }
+    .work-title {
+      font-size: clamp(30px, 3.7vw, 64px); font-weight: 700; line-height: 1.25;
+      letter-spacing: -0.03em; color: inherit;
+    }
+    .work-arrow { width: 48.45px; height: 48.06px; flex-shrink: 0; }
+    .work-arrow img { width: 100%; height: 100%; display: block; }
+
+    .work-video-area { flex: 1; min-height: 0; position: relative; width: 100%; }
+    .work-watermark {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(140px, 21vw, 360px); font-weight: 600; line-height: 1;
+      letter-spacing: -0.02em; white-space: nowrap;
+      pointer-events: none; user-select: none; z-index: 0;
+    }
+    .work-video-box {
+      position: absolute; left: 50%; top: 0;
+      transform: translateX(-50%);
+      height: min(525px, 100%);
+      aspect-ratio: 934 / 525;
+      background: #fff; overflow: hidden; z-index: 1;
+    }
+    .work-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* "Coming Soon" chip — hidden on desktop (the hover cursor already says it),
+       shown on mobile/tablet where there's no hover to carry that message. */
+    .work-badge {
+      display: none;
+      position: absolute; top: 0; right: 0; z-index: 2;
+      padding: 8px 12px; border-bottom-left-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      font-size: 12px; font-weight: 500; line-height: 1.5;
+      letter-spacing: -0.36px; color: #0a0a0a; white-space: nowrap;
+    }
+
+    .work-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; width: 100%; }
+    .work-tags { display: flex; flex-wrap: wrap; gap: 13px; align-items: center; }
+    .tag {
+      border: 1px solid currentColor; border-radius: 99px;
+      padding: 8px 16px;
+      font-size: 16px; font-weight: 400; line-height: 1.5;
+      letter-spacing: 0.16px; white-space: nowrap; color: inherit;
+    }
+    .work-desc {
+      font-size: 20px; font-weight: 500; line-height: 1.6;
+      letter-spacing: -0.4px; text-align: right; color: inherit;
+    }
+
+    /* Per-work palette */
+    .w-auto123   { background: #e4f0ff; color: #000; }
+    .w-auto123   .work-watermark { color: #d6e8ff; }
+    .w-spin      { background: #111014; color: #fff; }
+    .w-spin      .work-watermark { color: #17151c; }
+    .w-spin      .work-video-box { background: #000; }
+    .w-ilg       { background: #eff1fd; color: #000; }
+    .w-ilg       .work-watermark { color: #dfe3ff; }
+    .w-dropshot  { background: #dff2ff; color: #000; }
+    .w-dropshot  .work-watermark { color: #cae9ff; }
+    .w-boost     { background: #e9faf4; color: #000; }
+    .w-boost     .work-watermark { color: #c9fae9; }
+
+    /* ── CONFIDENTIAL CASE STUDIES — heading 72 Bold uppercase; cards 510w p-40 gap-24 ── */
+    .panel--cases { background: #fff; display: flex; flex-direction: column; gap: 40px; padding: 128px 0 80px; }
+    .cases-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 48px; padding: 0 var(--pad-x); width: 100%;
+    }
+    .cases-title {
+      font-size: clamp(32px, 4.17vw, 72px); font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.03em; text-transform: uppercase;
+      color: #000; max-width: 667px;
+    }
+    .cases-note {
+      font-size: 20px; font-weight: 500; line-height: 1.6;
+      letter-spacing: -0.4px; color: #000; width: clamp(300px, 30vw, 428px); flex-shrink: 0;
+    }
+    .cases-row {
+      flex: 1; min-height: 0;
+      padding: 0 var(--pad-x);
+      overflow: hidden;
+    }
+    .cases-track {
+      display: flex; gap: 24px; align-items: stretch;
+      height: 100%; width: max-content; will-change: transform;
+    }
+    .case-card {
+      width: 510px; flex-shrink: 0;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 40px; overflow: hidden;
+    }
+    .case-copy { display: flex; flex-direction: column; gap: 24px; }
+    .case-title {
+      font-size: clamp(24px, 1.85vw, 32px); font-weight: 700; line-height: 1.25;
+      letter-spacing: -0.03em; color: #000;
+    }
+    .case-body p {
+      font-size: 20px; font-weight: 500; line-height: 1.6;
+      letter-spacing: -0.4px; color: #000;
+    }
+    .case-body p + p { margin-top: 16px; }
+    .case-card .work-tags { color: #000; margin-top: 24px; }
+
+    /* Per-card "Request Case study" link — mobile/tablet only; on desktop the
+       hover cursor already reads "Request Case Study" over these cards. */
+    .case-cta {
+      display: none;
+      align-items: center; gap: 4px;
+      font-size: 16px; font-weight: 500; line-height: 24px;
+      letter-spacing: -0.48px; color: #000; text-decoration: none;
+      background: none; border: none; padding: 0;
+      font-family: inherit; cursor: pointer;
+    }
+    .case-cta svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* ── REQUEST ACCESS MODAL ─────────────────── */
+    .modal {
+      position: fixed; inset: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+    }
+    .modal.is-open { opacity: 1; visibility: visible; transition: opacity 0.4s ease, visibility 0s; }
+    .modal-panel {
+      position: relative;
+      background: #fff; width: 500px; max-width: 100%;
+      padding: 40px;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      transform: translateY(14px) scale(0.97);
+      transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .modal.is-open .modal-panel { transform: none; }
+    /* The panel is a fixed 500px, so its type stays at the Figma size rather than
+       scaling with the viewport; it only steps down once the panel itself shrinks. */
+    .modal-title {
+      font-size: 40px; font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.03em; text-transform: uppercase; color: #000; text-align: center;
+    }
+    .modal-body {
+      font-size: 16px; font-weight: 500; line-height: 1.6;
+      letter-spacing: -0.02em; color: #000; text-align: center; max-width: 330px;
+    }
+    .modal-form { display: flex; gap: 8px; align-items: stretch; width: 100%; }
+    .modal-input {
+      flex: 1; min-width: 0;
+      background: #f6f6f6; border: none; border-radius: 99px;
+      padding: 11px 16px;
+      font-family: inherit; font-size: 16px; font-weight: 400;
+      line-height: 1.6; letter-spacing: -0.02em; color: #000;
+    }
+    .modal-input::placeholder { color: #000; opacity: 0.5; }
+    .modal-input:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+    .modal-submit {
+      flex-shrink: 0; background: #000; color: #fff;
+      border: none; border-radius: 99px; padding: 12px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-family: inherit; transition: opacity 0.2s;
+    }
+    .modal-submit:hover { opacity: 0.8; }
+    .modal-submit svg { width: 24px; height: 24px; display: block; }
+    .modal-status {
+      font-size: 14px; font-weight: 500; line-height: 1.5;
+      letter-spacing: -0.02em; text-align: center; min-height: 21px; color: #000;
+    }
+    .modal-status.is-error { color: #b00020; }
+    .modal-status.is-ok    { color: #0a7a2f; }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: none; background: none; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; opacity: 0.4; transition: opacity 0.2s;
+    }
+    .modal-close:hover { opacity: 1; }
+    .modal-close svg { width: 16px; height: 16px; display: block; }
+
+    /* The site hides the native cursor; restore it while the modal is open. */
+    body.modal-open .cursor { display: none; }
+    @media (hover: hover) and (pointer: fine) {
+      body.modal-open, body.modal-open * { cursor: auto !important; }
+      body.modal-open .modal-submit,
+      body.modal-open .modal-close { cursor: pointer !important; }
+      body.modal-open .modal-input { cursor: text !important; }
+    }
+
+    /* Prev/next controls for the card row — mobile/tablet only; desktop keeps
+       the scroll-driven + drag interaction and has no need for buttons. */
+    .cases-nav { display: none; align-items: center; gap: 16px; padding: 0 var(--pad-x); }
+    .cases-nav-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid #000; background: none; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .cases-nav-btn:hover { opacity: 0.55; }
+    .cases-nav-btn svg { width: 16px; height: 16px; display: block; }
+
+    /* ── EXPERIENCE — heading 72 Bold; rows py-40, company SemiBold 24 ── */
+    .panel--exp { background: #fff; display: flex; flex-direction: column; gap: 40px; padding: 128px var(--pad-x) 80px; }
+    .exp-title {
+      font-size: clamp(32px, 4.17vw, 72px); font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.03em; text-transform: uppercase; color: #000;
+    }
+    .exp-list { flex: 1; min-height: 0; display: flex; flex-direction: column; width: 100%; }
+    .exp-row {
+      flex: 1; min-height: 0;
+      display: flex; align-items: center; gap: 24px;
+      padding: 24px 0; border-top: 1px solid #000;
+    }
+    .exp-row:last-child { border-bottom: 1px solid #000; }
+    .exp-company {
+      flex: 1; min-width: 0;
+      font-size: 24px; font-weight: 600; line-height: 1.4;
+      letter-spacing: -0.48px; text-transform: uppercase; color: #000;
+    }
+    .exp-role, .exp-country, .exp-date {
+      font-size: 20px; font-weight: 400; line-height: 1.5;
+      letter-spacing: 0.2px; color: #000;
+    }
+    .exp-role { flex: 1; min-width: 0; }
+    .exp-loc { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; }
+    .exp-flag {
+      width: 32px; height: 32px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0; background: #eee;
+    }
+    .exp-date { width: 240px; text-align: right; flex-shrink: 0; }
+
+    /* ── ABOUT — bg #121212, headline Bold 64/1.25 ls -1.92, quote italic ── */
+    .panel--about {
+      background: #121212; color: #fff;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 128px var(--pad-x) 80px;
+    }
+    .about-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 60px; width: 100%; }
+    .about-headline {
+      display: flex; flex-direction: column; gap: 24px;
+      font-size: clamp(24px, 2.78vw, 48px); font-weight: 700; line-height: 1.25;
+      letter-spacing: -0.03em;
+    }
+    .about-photo { width: 300px; height: 300px; flex-shrink: 0; background: #000; overflow: hidden; }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: bottom; display: block; }
+
+    .about-bottom { display: flex; align-items: flex-start; gap: 24px; width: 100%; }
+    .about-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+    .about-col.right { align-items: flex-end; }
+    .about-col-title { font-size: clamp(28px, 2.9vw, 48px); font-weight: 700; line-height: 1.25; letter-spacing: -0.03em; white-space: nowrap; }
+    .about-col-text {
+      font-size: 20px; font-weight: 500; line-height: 1.6;
+      letter-spacing: -0.4px; max-width: 415px;
+    }
+    .about-col.right .about-col-text { text-align: right; }
+    .about-divider { flex: 1; min-width: 0; height: 56px; display: flex; align-items: center; }
+    .about-divider img { width: 100%; display: block; }
+
+    /* ── FOOTER ───────────────────────────────── */
+    .panel--footer { background: #000; display: flex; flex-direction: column; }
+    .footer-center {
+      flex: 1; min-height: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 48px; padding: 80px var(--pad-x); width: 100%;
+    }
+    .footer-role { font-size: 20px; font-weight: 400; line-height: 1.5; letter-spacing: 0.2px; color: #fff; }
+    .footer-logo { width: 100%; max-width: 1400px; color: #fff; }
+    .footer-logo svg { width: 100%; height: auto; display: block; }
+    .btn-build {
+      background: #fff; color: #000;
+      padding: 12px 24px; border-radius: 99px;
+      font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -0.48px;
+      cursor: pointer; border: none; font-family: inherit;
+      transition: opacity 0.2s;
+      display: inline-block; text-decoration: none;
+    }
+    .btn-build:hover { opacity: 0.82; }
+    .footer-hr { width: 100%; height: 1px; background: rgba(255,255,255,0.14); flex-shrink: 0; }
+    .footer-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 48px; width: 100%; flex-shrink: 0;
+    }
+    .footer-bar-text {
+      font-size: 16px; font-weight: 400; line-height: 1.5;
+      letter-spacing: 0.16px; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color 0.25s ease;
+    }
+    a.footer-bar-text:hover { color: #fff; }
+    .footer-socials { display: flex; align-items: center; gap: 16px; }
+    .footer-vert { width: 1px; height: 12px; background: rgba(255,255,255,0.3); }
+
+    /* ── TEXT LINE-REVEAL (scroll-scrubbed) ────── */
+    .tl-line { display: block; overflow: hidden; }
+    .tl-inner { display: inline-block; will-change: transform, opacity; }
+
+    /* ── CUSTOM CURSOR (always on; label varies per section) ── */
+    .cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #000; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font);
+      font-size: 13px; font-weight: 500; letter-spacing: 0.01em;
+      text-transform: uppercase; text-align: center; line-height: 1.3;
+      pointer-events: none; opacity: 0;
+      will-change: transform;
+    }
+    .cursor .cursor-label { display: block; padding: 6px; }
+    @media (hover: hover) and (pointer: fine) {
+      body, body * { cursor: none !important; }
+    }
+    @media (hover: none), (pointer: coarse) {
+      .cursor { display: none; }
+    }
+
+    /* ── CASE CARD HOVER (subtle lift) ─────────── */
+    .case-card {
+      transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+                  box-shadow 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .case-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ── RESPONSIVE: TABLET ───────────────────── */
+    @media (max-width: 1024px) {
+      .navbar { padding: 12px 28px; }
+      .panel { height: auto; }
+
+      .hero-intro { padding: 110px 28px 48px; }
+      .hero-row { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .hero-heading { font-size: clamp(34px, 5.5vw, 56px); letter-spacing: -0.03em; }
+      .hero-list { width: 100%; max-width: 420px; }
+
+      /* Compact single-column work card: video → title → description/tags,
+         sized to its content instead of forcing a full viewport height.
+         (.panel's base min-height:100vh floor is what was forcing the extra
+         height — .work-section shares that element, so this override wins.) */
+      .work-section { padding: 100px 28px 52px; gap: 24px; min-height: 0; }
+      .work-video-area { order: 1; flex: none; }
+      .work-head { order: 2; }
+      .work-foot { order: 3; }
+      .work-title { font-size: 24px; letter-spacing: -0.72px; }
+      .work-arrow { width: 32px; height: 31.75px; }
+      .work-watermark { display: none; }
+      .work-badge { display: block; }
+      .work-video-box { position: relative; left: auto; top: auto; transform: none; margin: 0 auto; width: 100%; max-width: 934px; height: auto; }
+      .work-foot { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .work-desc { font-size: 16px; letter-spacing: -0.32px; text-align: left; max-width: 100% !important; }
+      .tag { font-size: 14px; letter-spacing: 0.14px; }
+
+      .panel--cases { padding: 100px 0 52px; gap: 28px; }
+      .cases-head { flex-direction: column; gap: 8px; padding: 0 28px; }
+      .cases-title { font-size: 32px; letter-spacing: -0.03em; }
+      .cases-note { width: 100%; max-width: 520px; font-size: 16px; letter-spacing: -0.32px; }
+      .cases-row { padding: 0 28px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+      .cases-row::-webkit-scrollbar { display: none; }
+      .case-card { width: 320px; padding: 20px; justify-content: flex-start; gap: 16px; }
+      .case-title { font-size: 24px; letter-spacing: -0.72px; }
+      .case-body p { font-size: 16px; letter-spacing: -0.32px; }
+      .case-cta { display: flex; margin-top: auto; }
+      .cases-nav { display: flex; }
+
+      .panel--exp { padding: 100px 28px 52px; gap: 28px; }
+      .exp-title { font-size: clamp(34px, 6vw, 56px); letter-spacing: -0.03em; }
+      .exp-row { flex-wrap: wrap; gap: 8px 20px; padding: 20px 0; }
+      .exp-company { flex: 1 1 100%; }
+      .exp-role, .exp-loc { flex: 0 0 auto; }
+      .exp-date { width: auto; text-align: left; }
+
+      .panel--about { padding: 100px 28px 52px; gap: 44px; }
+      .about-top { flex-direction: column-reverse; gap: 32px; }
+      .about-headline { font-size: clamp(26px, 4.6vw, 44px); letter-spacing: -0.02em; }
+      .about-photo { width: 220px; height: 220px; }
+      .about-bottom { flex-direction: column; gap: 32px; }
+      .about-divider { display: none; }
+      .about-col.right { align-items: flex-start; }
+      .about-col.right .about-col-text { text-align: left; }
+      .about-col-title { font-size: clamp(26px, 5vw, 40px); }
+
+      .footer-center { padding: 56px 28px; gap: 32px; }
+      .footer-bar { padding: 20px 28px; }
+    }
+
+    /* ── RESPONSIVE: MOBILE ───────────────────── */
+    @media (max-width: 640px) {
+      .navbar { padding: 10px 18px; }
+      .nav-menu { gap: 12px; }
+      .nav-collapse { display: none; }
+      /* Just the logo + "Get in touch" on true mobile — every other link goes. */
+      .nav-mobile-hide { display: none; }
+      .nav-logo-svg { height: 14px; }
+      .btn-nav { font-size: 14px; padding: 7px 14px; }
+
+      .hero-intro { padding: 92px 18px 36px; }
+
+      .work-section { padding: 88px 18px 44px; }
+
+      .cases-head, .cases-row { padding-left: 18px; padding-right: 18px; }
+      .cases-nav { padding-left: 18px; padding-right: 18px; }
+
+      .panel--exp { padding: 88px 18px 44px; }
+      .panel--about { padding: 88px 18px 44px; }
+
+      .modal { padding: 18px; }
+      .modal-panel { padding: 32px 24px; }
+      .modal-title { font-size: 28px; }
+
+      .footer-center { padding: 48px 18px; gap: 28px; }
+      .footer-bar { padding: 18px; flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAVBAR (fixed overlay) ══════════════ -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <svg class="nav-logo-svg" viewBox="0 0 107 10" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Samuel Eluyera">
+      <path d="M3.612 9.36C2.932 9.36 2.32 9.24 1.776 9C1.24 8.76 0.812 8.412 0.492 7.956C0.172 7.492 0.00799999 6.928 0 6.264H1.668C1.708 6.824 1.904 7.244 2.256 7.524C2.608 7.804 3.048 7.944 3.576 7.944C4.096 7.944 4.52 7.844 4.848 7.644C5.184 7.436 5.352 7.156 5.352 6.804C5.352 6.612 5.304 6.452 5.208 6.324C5.12 6.188 4.988 6.072 4.812 5.976C4.636 5.872 4.416 5.78 4.152 5.7L2.268 5.1C1.884 4.98 1.528 4.828 1.2 4.644C0.872 4.46 0.608 4.22 0.408 3.924C0.216 3.628 0.12 3.24 0.12 2.76C0.12 2.2 0.256 1.716 0.528 1.308C0.808 0.892 1.196 0.572 1.692 0.348C2.196 0.116 2.784 0 3.456 0C4.424 0 5.216 0.244 5.832 0.732C6.456 1.212 6.812 1.896 6.9 2.784H5.208C5.128 2.32 4.928 1.972 4.608 1.74C4.296 1.508 3.892 1.392 3.396 1.392C3.068 1.392 2.784 1.44 2.544 1.536C2.304 1.632 2.12 1.768 1.992 1.944C1.864 2.112 1.8 2.312 1.8 2.544C1.8 2.808 1.888 3.032 2.064 3.216C2.248 3.392 2.524 3.54 2.892 3.66L4.812 4.272C5.284 4.424 5.68 4.608 6 4.824C6.328 5.04 6.572 5.3 6.732 5.604C6.9 5.9 6.984 6.26 6.984 6.684C6.984 7.212 6.844 7.68 6.564 8.088C6.292 8.488 5.9 8.8 5.388 9.024C4.884 9.248 4.292 9.36 3.612 9.36Z" fill="currentColor"/>
+      <path d="M7.3905 9.18L10.7505 0.18H12.5625L15.8985 9.18H14.2065L11.4105 1.188H11.8785L9.0705 9.18H7.3905ZM9.2265 7.14L9.2865 5.736H14.0985L14.1705 7.14H9.2265Z" fill="currentColor"/>
+      <path d="M16.8108 9.18V0.18H19.0428L21.9588 7.956H21.2988L24.2628 0.18H26.4348V9.18H24.8268V1.332L25.1388 1.368L24.4908 3.324L22.2468 9.18H20.8788L18.7308 3.36L18.1068 1.368L18.3588 1.332V9.18H16.8108Z" fill="currentColor"/>
+      <path d="M31.7453 9.36C31.0013 9.36 30.3533 9.212 29.8013 8.916C29.2493 8.62 28.8173 8.208 28.5053 7.68C28.2013 7.144 28.0492 6.508 28.0492 5.772V0.18H29.7052V5.772C29.7052 6.436 29.8853 6.964 30.2453 7.356C30.6133 7.74 31.1053 7.932 31.7213 7.932C32.3453 7.932 32.8413 7.74 33.2093 7.356C33.5773 6.964 33.7612 6.436 33.7612 5.772V0.18H35.4173V5.772C35.4173 6.508 35.2612 7.144 34.9492 7.68C34.6452 8.208 34.2172 8.62 33.6652 8.916C33.1212 9.212 32.4813 9.36 31.7453 9.36Z" fill="currentColor"/>
+      <path d="M37.0439 9.18V0.18H42.8279V1.608H38.6759V3.852H42.5639V5.232H38.6759V7.74H42.8279V9.18H37.0439Z" fill="currentColor"/>
+      <path d="M44.0784 9.18V0.18H45.7344V7.716H49.8384V9.18H44.0784Z" fill="currentColor"/>
+      <circle cx="52.8384" cy="4.67999" r="1" fill="currentColor"/>
+      <path d="M57.8384 9.09V0.0899963H62.9744V0.593997H58.4144V4.17H62.6624V4.674H58.4144V8.586H62.9744V9.09H57.8384Z" fill="currentColor"/>
+      <path d="M64.2284 9.09V0.0899963H64.8044V8.586H69.4004V9.09H64.2284Z" fill="currentColor"/>
+      <path d="M72.8506 9.27C72.1626 9.27 71.5666 9.134 71.0626 8.862C70.5586 8.582 70.1706 8.19 69.8986 7.686C69.6266 7.174 69.4906 6.574 69.4906 5.886V0.0899963H70.0666V5.886C70.0666 6.766 70.3146 7.466 70.8106 7.986C71.3146 8.506 71.9946 8.766 72.8506 8.766C73.7066 8.766 74.3826 8.506 74.8786 7.986C75.3746 7.466 75.6226 6.766 75.6226 5.886V0.0899963H76.1986V5.886C76.1986 6.574 76.0626 7.174 75.7906 7.686C75.5186 8.19 75.1306 8.582 74.6266 8.862C74.1306 9.134 73.5386 9.27 72.8506 9.27Z" fill="currentColor"/>
+      <path d="M80.04 9.09V4.914L80.304 5.922L77.004 0.0899963H77.652L80.604 5.37H80.076L83.064 0.0899963H83.712L80.352 5.922L80.616 4.914V9.09H80.04Z" fill="currentColor"/>
+      <path d="M84.6523 9.09V0.0899963H89.7883V0.593997H85.2283V4.17H89.4763V4.674H85.2283V8.586H89.7883V9.09H84.6523Z" fill="currentColor"/>
+      <path d="M91.0423 9.09V0.0899963H94.1503C95.1503 0.0899963 95.9263 0.301996 96.4783 0.725997C97.0303 1.15 97.3063 1.742 97.3063 2.502C97.3063 3.086 97.1343 3.578 96.7903 3.978C96.4543 4.378 95.9543 4.626 95.2903 4.722L95.2783 4.578C95.6863 4.602 96.0263 4.702 96.2983 4.878C96.5703 5.046 96.7743 5.27 96.9103 5.55C97.0463 5.83 97.1143 6.138 97.1143 6.474V9.09H96.5383V6.57C96.5383 6.074 96.3823 5.678 96.0703 5.382C95.7583 5.078 95.3063 4.926 94.7143 4.926H91.6183V9.09H91.0423ZM91.6183 4.41H94.1383C94.9703 4.41 95.6063 4.246 96.0463 3.918C96.4943 3.582 96.7183 3.11 96.7183 2.502C96.7183 1.886 96.4943 1.414 96.0463 1.086C95.6063 0.757997 94.9703 0.593997 94.1383 0.593997H91.6183V4.41Z" fill="currentColor"/>
+      <path d="M97.7762 9.09L101.592 0.0899963H102.216L106.032 9.09H105.408L101.772 0.461997H102.036L98.3882 9.09H97.7762ZM99.0602 6.738L99.3002 6.234H104.496L104.736 6.738H99.0602Z" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="nav-menu">
+    <a class="nav-link nav-collapse" href="files/Samuel-Eluyera-Resume.pdf" download="Samuel-Eluyera-Resume.pdf">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M10 3v9m0 0-3.5-3m3.5 3 3.5-3M4 17h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Resume
+    </a>
+    <a class="btn-nav" href="mailto:samueleluyera@gmail.com?subject=Let%27s%20build%20something">Get in touch</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="section" id="hero">
+  <div class="panel panel--hero">
+    <div class="hero-intro">
+      <div class="hero-row">
+        <div class="hero-copy">
+          <h1 class="hero-heading">I design software where mistakes are expensive.</h1>
+          <p class="hero-sub">10 years. 56 clients. 100+ projects across healthcare, fintech, AI &amp; enterprise SaaS.</p>
+        </div>
+        <div class="hero-list">
+          <div class="hero-li"><span class="dash"></span><p>EHR platforms for hospitals</p></div>
+          <div class="hero-li"><span class="dash"></span><p>Commercial lending systems</p></div>
+          <div class="hero-li top"><span class="dash"></span><p>Clinical AI &amp; defense operations</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="strip">
+      <div class="strip-track">
+        <img src="images/strip-01.png" alt="" style="aspect-ratio:1206/2622">
+        <img src="images/strip-02.png" alt="" style="aspect-ratio:1460/3180">
+        <img src="images/strip-03.png" alt="" style="aspect-ratio:1040/1040">
+        <img src="images/strip-04.png" alt="" style="aspect-ratio:1462/3179">
+        <img src="images/strip-05.png" alt="" style="aspect-ratio:4096/2850">
+        <img src="images/strip-06.png" alt="" style="aspect-ratio:750/1660">
+        <img src="images/strip-07.png" alt="" style="aspect-ratio:1184/531">
+        <img src="images/strip-08.png" alt="" style="aspect-ratio:4096/2850">
+        <img src="images/strip-09.png" alt="" style="aspect-ratio:1206/2622">
+        <img src="images/strip-10.png" alt="" style="aspect-ratio:334/400">
+        <img src="images/strip-11.png" alt="" style="aspect-ratio:1206/2622">
+        <img src="images/strip-12.png" alt="" style="aspect-ratio:1464/3184">
+        <img src="images/strip-13.png" alt="" style="aspect-ratio:3360/2100">
+        <img src="images/strip-14.png" alt="" style="aspect-ratio:1460/3160">
+        <img src="images/strip-15.png" alt="" style="aspect-ratio:1206/2622">
+        <!-- duplicate set for seamless loop -->
+        <img src="images/strip-01.png" alt="" style="aspect-ratio:1206/2622">
+        <img src="images/strip-02.png" alt="" style="aspect-ratio:1460/3180">
+        <img src="images/strip-03.png" alt="" style="aspect-ratio:1040/1040">
+        <img src="images/strip-04.png" alt="" style="aspect-ratio:1462/3179">
+        <img src="images/strip-05.png" alt="" style="aspect-ratio:4096/2850">
+        <img src="images/strip-06.png" alt="" style="aspect-ratio:750/1660">
+        <img src="images/strip-07.png" alt="" style="aspect-ratio:1184/531">
+        <img src="images/strip-08.png" alt="" style="aspect-ratio:4096/2850">
+        <img src="images/strip-09.png" alt="" style="aspect-ratio:1206/2622">
+        <img src="images/strip-10.png" alt="" style="aspect-ratio:334/400">
+        <img src="images/strip-11.png" alt="" style="aspect-ratio:1206/2622">
+        <img src="images/strip-12.png" alt="" style="aspect-ratio:1464/3184">
+        <img src="images/strip-13.png" alt="" style="aspect-ratio:3360/2100">
+        <img src="images/strip-14.png" alt="" style="aspect-ratio:1460/3160">
+        <img src="images/strip-15.png" alt="" style="aspect-ratio:1206/2622">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ WORK 1 — AUTO123 ══════════════ -->
+<section class="section" id="work-1">
+  <div class="panel work-section w-auto123" onclick="location.href='auto123.html'">
+    <div class="work-head">
+      <h2 class="work-title" style="max-width:679px">Marketplace for Buying and Selling Vehicles</h2>
+      <div class="work-arrow"><img src="images/work-arrow.svg" alt=""></div>
+    </div>
+    <div class="work-video-area">
+      <p class="work-watermark">Auto 123</p>
+      <div class="work-video-box">
+        <video class="work-video" muted loop playsinline preload="metadata">
+          <source src="videos/auto123.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="work-foot">
+      <div class="work-tags">
+        <span class="tag">Auto123</span>
+        <span class="tag">Mobile App</span>
+        <span class="tag">2025</span>
+      </div>
+      <p class="work-desc" style="max-width:369px">A vehicle marketplace that brings clarity to one of the busiest and most information dense shopping experiences.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ WORK 2 — SPINREQUEST (dark) ══════════════ -->
+<section class="section" id="work-2">
+  <div class="panel work-section w-spin">
+    <div class="work-head">
+      <h2 class="work-title" style="max-width:555px">Paid Song Requests at Live Events</h2>
+    </div>
+    <div class="work-video-area">
+      <p class="work-watermark">Spin Request</p>
+      <span class="work-badge">Coming Soon</span>
+      <div class="work-video-box">
+        <video class="work-video" muted loop playsinline preload="metadata">
+          <source src="videos/spinrequest.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="work-foot">
+      <div class="work-tags">
+        <span class="tag">SpinRequest</span>
+        <span class="tag">WebApp</span>
+        <span class="tag">2024</span>
+      </div>
+      <p class="work-desc" style="max-width:289px">Helping DJs and MCs boost earnings from live shows with easy song and hype requests.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ WORK 3 — ILG360 ══════════════ -->
+<section class="section" id="work-3">
+  <div class="panel work-section w-ilg">
+    <div class="work-head">
+      <h2 class="work-title" style="max-width:555px">Communications for Sport Teams</h2>
+    </div>
+    <div class="work-video-area">
+      <p class="work-watermark">ILG 360</p>
+      <span class="work-badge">Coming Soon</span>
+      <div class="work-video-box">
+        <video class="work-video" muted loop playsinline preload="metadata">
+          <source src="videos/ilg360.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="work-foot">
+      <div class="work-tags">
+        <span class="tag">ILG360</span>
+        <span class="tag">WebApp &amp; iOS App</span>
+        <span class="tag">2022</span>
+      </div>
+      <p class="work-desc" style="max-width:428px">Designed for football &amp; tennis clubs, this platform unites communication, scheduling, wellbeing, injury management, and tactics.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ WORK 4 — DROPSHOT ══════════════ -->
+<section class="section" id="work-4">
+  <div class="panel work-section w-dropshot">
+    <div class="work-head">
+      <h2 class="work-title" style="max-width:603px">Creating &amp; Sharing Ai-Powered Fantasy</h2>
+    </div>
+    <div class="work-video-area">
+      <p class="work-watermark">DropShot</p>
+      <span class="work-badge">Coming Soon</span>
+      <div class="work-video-box">
+        <video class="work-video" muted loop playsinline preload="metadata">
+          <source src="videos/dropshot.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="work-foot">
+      <div class="work-tags">
+        <span class="tag">DropShot</span>
+        <span class="tag">iOS App</span>
+        <span class="tag">2024</span>
+      </div>
+      <p class="work-desc" style="max-width:380px">Built during the early wave of consumer image AI. Redesigned the MVP and shipped weekly as the space rapidly evolved.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ WORK 5 — BOOST ══════════════ -->
+<section class="section" id="work-5">
+  <div class="panel work-section w-boost">
+    <div class="work-head">
+      <h2 class="work-title" style="max-width:906px">Simplifying&nbsp; Carbon Accounting for Large Organizations</h2>
+    </div>
+    <div class="work-video-area">
+      <p class="work-watermark">Booost</p>
+      <span class="work-badge">Coming Soon</span>
+      <div class="work-video-box">
+        <video class="work-video" muted loop playsinline preload="metadata">
+          <source src="videos/boost.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="work-foot">
+      <div class="work-tags">
+        <span class="tag">Boost</span>
+        <span class="tag">Web</span>
+        <span class="tag">2024</span>
+      </div>
+      <p class="work-desc" style="max-width:461px">A UX-led redesign of a complex sustainability platform, introducing a design system and improved the workflows without rebuilding the entire product.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ CONFIDENTIAL CASE STUDIES ══════════════ -->
+<section class="section" id="cases">
+  <div class="panel panel--cases">
+    <div class="cases-head">
+      <h2 class="cases-title">Confidential Case Studies</h2>
+      <p class="cases-note">The projects that pushed my thinking the furthest are protected by NDA. Request access to explore selected case studies covering healthcare, finance, defense, and enterprise software.</p>
+    </div>
+    <div class="cases-row">
+     <div class="cases-track">
+      <div class="case-card" style="background:#e9f2fa">
+        <div class="case-copy">
+          <p class="case-title">Software for Defence Drone Command</p>
+          <div class="case-body">
+            <p>Built mission control software for remotely deploying and monitoring drones across defense operations. Live video, telemetry, environmental data, and mission controls had to work together in an interface where speed, clarity, and precision were non-negotiable.</p>
+          </div>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Defense</span>
+          <span class="tag">Real Time Systems</span>
+        </div>
+        <button class="case-cta" type="button">
+          Request Case study
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="case-card" style="background:#f0e9fa">
+        <div class="case-copy">
+          <p class="case-title">Making Complex Healthcare Data Useful</p>
+          <div class="case-body">
+            <p>Designed an analytics module that transformed clinical, operational, financial, and AI data into actionable insights for clinicians, executives, marketers, and finance teams.</p>
+            <p>The challenge was balancing clinical accuracy, business priorities, and usability across sixteen interconnected domains.</p>
+          </div>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Healthcare</span>
+          <span class="tag">Data Visualization</span>
+          <span class="tag">Information Design</span>
+        </div>
+        <button class="case-cta" type="button">
+          Request Case study
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="case-card" style="background:#e8ecff">
+        <div class="case-copy">
+          <p class="case-title">Operating System for Commercial Lending</p>
+          <div class="case-body">
+            <p>Designed software that helped lenders manage loan portfolios, assess customer eligibility, monitor performance, and make informed lending decisions.</p>
+            <p>Much of the challenge involved simplifying complex financial workflows built on decades of legacy systems without compromising security and compliance.</p>
+          </div>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Fin-tech</span>
+          <span class="tag">SaaS</span>
+          <span class="tag">Systems Thinking</span>
+        </div>
+        <button class="case-cta" type="button">
+          Request Case study
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="case-card" style="background:#faf6e9">
+        <div class="case-copy">
+          <p class="case-title">Automating Enterprise Financial Operations</p>
+          <div class="case-body">
+            <p>Designed an accounts payable platform that automated invoice processing, payment approvals, and discount optimization. Every workflow had to reduce manual effort while maintaining the accuracy and control expected in enterprise finance.</p>
+          </div>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Finance</span>
+          <span class="tag">SaaS</span>
+          <span class="tag">Ai</span>
+        </div>
+        <button class="case-cta" type="button">
+          Request Case study
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="case-card" style="background:#fae9e9">
+        <div class="case-copy">
+          <p class="case-title">Building Subscription Healthcare at Enterprise Scale</p>
+          <div class="case-body">
+            <p>Creating subscription software for healthcare goes far beyond recurring payments. This platform supports configurable treatment plans, member benefits, multi-location hospitals, clinical administration, refunds, and evolving patient care, all within a single ecosystem designed to adapt to the unique workflows of every provider.</p>
+          </div>
+        </div>
+        <div class="work-tags">
+          <span class="tag">Healthcare</span>
+          <span class="tag">Enterprise SaaS</span>
+          <span class="tag">Product Strategy</span>
+        </div>
+        <button class="case-cta" type="button">
+          Request Case study
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+     </div>
+    </div>
+    <div class="cases-nav">
+      <button class="cases-nav-btn" type="button" data-dir="prev" aria-label="Previous case study">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="cases-nav-btn" type="button" data-dir="next" aria-label="Next case study">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ EXPERIENCE ══════════════ -->
+<section class="section" id="experience">
+  <div class="panel panel--exp">
+    <h2 class="exp-title">Experience</h2>
+    <div class="exp-list">
+      <div class="exp-row">
+        <span class="exp-company">Kayen Peppa</span>
+        <span class="exp-role">Senior Product Designer</span>
+        <span class="exp-loc"><img class="exp-flag" src="images/flag-us.svg" alt=""><span class="exp-country">United States</span></span>
+        <span class="exp-date">Sep 2023 - Present</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-company">Codigi</span>
+        <span class="exp-role">Senior Product Designer</span>
+        <span class="exp-loc"><img class="exp-flag" src="images/flag-us.svg" alt=""><span class="exp-country">United States</span></span>
+        <span class="exp-date">Jul 2024 - Dec 2024</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-company">Reiz Tech</span>
+        <span class="exp-role">UI/UX Designer</span>
+        <span class="exp-loc"><img class="exp-flag" src="images/flag-lt.svg" alt=""><span class="exp-country">Lithuania</span></span>
+        <span class="exp-date">Dec 2023 - Jul 2024</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-company">Devsolutely</span>
+        <span class="exp-role">Product Designer</span>
+        <span class="exp-loc"><img class="exp-flag" src="images/flag-lt.svg" alt=""><span class="exp-country">Lithuania</span></span>
+        <span class="exp-date">Dec 2022 - Dec 2023</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-company">FutuX</span>
+        <span class="exp-role">Graphics &amp; Web Designer</span>
+        <span class="exp-loc"><img class="exp-flag" src="images/flag-ng.svg" alt=""><span class="exp-country">Nigeria</span></span>
+        <span class="exp-date">Dec 2021 - Dec 2022</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-company">CLB Systems</span>
+        <span class="exp-role">UI/UX Designer</span>
+        <span class="exp-loc"><img class="exp-flag" src="images/flag-jp.svg" alt="" style="border:1px solid #000"><span class="exp-country">Japan</span></span>
+        <span class="exp-date">Oct 2020 - Oct 2021</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-company">Cedar Productions</span>
+        <span class="exp-role">Graphics Designer</span>
+        <span class="exp-loc"><img class="exp-flag" src="images/flag-ng.svg" alt=""><span class="exp-country">Nigeria</span></span>
+        <span class="exp-date">Sep 2015 - Jan 2019</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<section class="section" id="about">
+  <div class="panel panel--about">
+    <div class="about-top">
+      <div class="about-headline">
+        <p>Anyone can ship an interface now.</p>
+        <p>Taste is scarce, and taste is pattern recognition.</p>
+        <p>Mine was built across 100+ projects, watching the same mistakes repeat.</p>
+        <p>One of my rules: no screen gets more than four actions.</p>
+      </div>
+      <div class="about-photo">
+        <img src="images/about-portrait.png" alt="Samuel Eluyera">
+      </div>
+    </div>
+    <div class="about-bottom">
+      <div class="about-col">
+        <h3 class="about-col-title">The Work I Take</h3>
+        <p class="about-col-text" style="max-width:412px">Founders with a vision and no brief.<br>Problems that resist easy solutions.<br>Deadlines that were technically yesterday. That's the work I take.</p>
+      </div>
+      <div class="about-col right">
+        <h3 class="about-col-title">What&rsquo;s Next</h3>
+        <p class="about-col-text" style="max-width:369px">Given the choice, I'll take a messy workflow over a landing page every time. The next chapter is doing that inside one team, on one problem, long enough to see it land.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<section class="section" id="footer">
+  <div class="panel panel--footer">
+    <div class="footer-center">
+      <p class="footer-role">Senior Product Designer</p>
+      <div class="footer-logo">
+        <svg viewBox="0 0 107 10" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Samuel Eluyera">
+          <path d="M3.612 9.36C2.932 9.36 2.32 9.24 1.776 9C1.24 8.76 0.812 8.412 0.492 7.956C0.172 7.492 0.00799999 6.928 0 6.264H1.668C1.708 6.824 1.904 7.244 2.256 7.524C2.608 7.804 3.048 7.944 3.576 7.944C4.096 7.944 4.52 7.844 4.848 7.644C5.184 7.436 5.352 7.156 5.352 6.804C5.352 6.612 5.304 6.452 5.208 6.324C5.12 6.188 4.988 6.072 4.812 5.976C4.636 5.872 4.416 5.78 4.152 5.7L2.268 5.1C1.884 4.98 1.528 4.828 1.2 4.644C0.872 4.46 0.608 4.22 0.408 3.924C0.216 3.628 0.12 3.24 0.12 2.76C0.12 2.2 0.256 1.716 0.528 1.308C0.808 0.892 1.196 0.572 1.692 0.348C2.196 0.116 2.784 0 3.456 0C4.424 0 5.216 0.244 5.832 0.732C6.456 1.212 6.812 1.896 6.9 2.784H5.208C5.128 2.32 4.928 1.972 4.608 1.74C4.296 1.508 3.892 1.392 3.396 1.392C3.068 1.392 2.784 1.44 2.544 1.536C2.304 1.632 2.12 1.768 1.992 1.944C1.864 2.112 1.8 2.312 1.8 2.544C1.8 2.808 1.888 3.032 2.064 3.216C2.248 3.392 2.524 3.54 2.892 3.66L4.812 4.272C5.284 4.424 5.68 4.608 6 4.824C6.328 5.04 6.572 5.3 6.732 5.604C6.9 5.9 6.984 6.26 6.984 6.684C6.984 7.212 6.844 7.68 6.564 8.088C6.292 8.488 5.9 8.8 5.388 9.024C4.884 9.248 4.292 9.36 3.612 9.36Z" fill="currentColor"/>
+          <path d="M7.3905 9.18L10.7505 0.18H12.5625L15.8985 9.18H14.2065L11.4105 1.188H11.8785L9.0705 9.18H7.3905ZM9.2265 7.14L9.2865 5.736H14.0985L14.1705 7.14H9.2265Z" fill="currentColor"/>
+          <path d="M16.8108 9.18V0.18H19.0428L21.9588 7.956H21.2988L24.2628 0.18H26.4348V9.18H24.8268V1.332L25.1388 1.368L24.4908 3.324L22.2468 9.18H20.8788L18.7308 3.36L18.1068 1.368L18.3588 1.332V9.18H16.8108Z" fill="currentColor"/>
+          <path d="M31.7453 9.36C31.0013 9.36 30.3533 9.212 29.8013 8.916C29.2493 8.62 28.8173 8.208 28.5053 7.68C28.2013 7.144 28.0492 6.508 28.0492 5.772V0.18H29.7052V5.772C29.7052 6.436 29.8853 6.964 30.2453 7.356C30.6133 7.74 31.1053 7.932 31.7213 7.932C32.3453 7.932 32.8413 7.74 33.2093 7.356C33.5773 6.964 33.7612 6.436 33.7612 5.772V0.18H35.4173V5.772C35.4173 6.508 35.2612 7.144 34.9492 7.68C34.6452 8.208 34.2172 8.62 33.6652 8.916C33.1212 9.212 32.4813 9.36 31.7453 9.36Z" fill="currentColor"/>
+          <path d="M37.0439 9.18V0.18H42.8279V1.608H38.6759V3.852H42.5639V5.232H38.6759V7.74H42.8279V9.18H37.0439Z" fill="currentColor"/>
+          <path d="M44.0784 9.18V0.18H45.7344V7.716H49.8384V9.18H44.0784Z" fill="currentColor"/>
+          <circle cx="52.8384" cy="4.67999" r="1" fill="currentColor"/>
+          <path d="M57.8384 9.09V0.0899963H62.9744V0.593997H58.4144V4.17H62.6624V4.674H58.4144V8.586H62.9744V9.09H57.8384Z" fill="currentColor"/>
+          <path d="M64.2284 9.09V0.0899963H64.8044V8.586H69.4004V9.09H64.2284Z" fill="currentColor"/>
+          <path d="M72.8506 9.27C72.1626 9.27 71.5666 9.134 71.0626 8.862C70.5586 8.582 70.1706 8.19 69.8986 7.686C69.6266 7.174 69.4906 6.574 69.4906 5.886V0.0899963H70.0666V5.886C70.0666 6.766 70.3146 7.466 70.8106 7.986C71.3146 8.506 71.9946 8.766 72.8506 8.766C73.7066 8.766 74.3826 8.506 74.8786 7.986C75.3746 7.466 75.6226 6.766 75.6226 5.886V0.0899963H76.1986V5.886C76.1986 6.574 76.0626 7.174 75.7906 7.686C75.5186 8.19 75.1306 8.582 74.6266 8.862C74.1306 9.134 73.5386 9.27 72.8506 9.27Z" fill="currentColor"/>
+          <path d="M80.04 9.09V4.914L80.304 5.922L77.004 0.0899963H77.652L80.604 5.37H80.076L83.064 0.0899963H83.712L80.352 5.922L80.616 4.914V9.09H80.04Z" fill="currentColor"/>
+          <path d="M84.6523 9.09V0.0899963H89.7883V0.593997H85.2283V4.17H89.4763V4.674H85.2283V8.586H89.7883V9.09H84.6523Z" fill="currentColor"/>
+          <path d="M91.0423 9.09V0.0899963H94.1503C95.1503 0.0899963 95.9263 0.301996 96.4783 0.725997C97.0303 1.15 97.3063 1.742 97.3063 2.502C97.3063 3.086 97.1343 3.578 96.7903 3.978C96.4543 4.378 95.9543 4.626 95.2903 4.722L95.2783 4.578C95.6863 4.602 96.0263 4.702 96.2983 4.878C96.5703 5.046 96.7743 5.27 96.9103 5.55C97.0463 5.83 97.1143 6.138 97.1143 6.474V9.09H96.5383V6.57C96.5383 6.074 96.3823 5.678 96.0703 5.382C95.7583 5.078 95.3063 4.926 94.7143 4.926H91.6183V9.09H91.0423ZM91.6183 4.41H94.1383C94.9703 4.41 95.6063 4.246 96.0463 3.918C96.4943 3.582 96.7183 3.11 96.7183 2.502C96.7183 1.886 96.4943 1.414 96.0463 1.086C95.6063 0.757997 94.9703 0.593997 94.1383 0.593997H91.6183V4.41Z" fill="currentColor"/>
+          <path d="M97.7762 9.09L101.592 0.0899963H102.216L106.032 9.09H105.408L101.772 0.461997H102.036L98.3882 9.09H97.7762ZM99.0602 6.738L99.3002 6.234H104.496L104.736 6.738H99.0602Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <a class="btn-build" href="mailto:samueleluyera@gmail.com?subject=Let%27s%20build%20something">Let's Build Something</a>
+    </div>
+    <div class="footer-hr"></div>
+    <div class="footer-bar">
+      <a class="footer-bar-text" href="mailto:samueleluyera@gmail.com">Samueleluyera@gmail.com</a>
+      <div class="footer-socials">
+        <a class="footer-bar-text" href="https://www.linkedin.com/in/samuel-eluyera/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="footer-vert"></span>
+        <a class="footer-bar-text" href="https://x.com/samueleluyera?s=11" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ REQUEST ACCESS MODAL ══════════════ -->
+<div class="modal" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestModalTitle" aria-hidden="true">
+  <div class="modal-panel">
+    <button class="modal-close" type="button" id="requestClose" aria-label="Close">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <p class="modal-title" id="requestModalTitle">Request Access</p>
+    <p class="modal-body">Enter your email below and I'll send you a private link with the selected case studies</p>
+    <form class="modal-form" id="requestForm" novalidate>
+      <input type="hidden" name="case_study" id="requestCase">
+      <input class="modal-input" id="requestEmail" type="email" name="email"
+             placeholder="Enter your email..." autocomplete="email" required aria-label="Your email address">
+      <button class="modal-submit" type="submit" aria-label="Send request">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+    <p class="modal-status" id="requestStatus" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+
+<!-- Custom cursor (always on; label varies per section) -->
+<div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  // ── Lenis smooth scroll ───────────────────────
+  // wheelMultiplier > 1 makes each wheel tick advance more scroll — combined with
+  // the shorter section spacers this cuts the per-section scroll effort roughly in half.
+  const lenis = new Lenis({ lerp: 0.095, smoothWheel: true, wheelMultiplier: 1.7 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  const sections = gsap.utils.toArray('.section');
+  const panels   = sections.map(s => s.querySelector('.panel'));
+  const last     = sections.length - 1;
+
+  const vh = () => window.innerHeight;
+
+  // Per-section flow offsets. Most sections advance a uniform 1.5vh, but the cases
+  // section is taller (it holds a horizontal card-scroll phase), so we read the
+  // real layout offsets instead of assuming a uniform stride.
+  let offsets = sections.map(s => s.offsetTop);
+  const recomputeOffsets = () => { offsets = sections.map(s => s.offsetTop); };
+  window.addEventListener('resize', recomputeOffsets);
+  ScrollTrigger.addEventListener('refresh', recomputeOffsets);
+
+  window.goTo = (i) =>
+    lenis.scrollTo(sections[i], { duration: 1.1, easing: t => 1 - Math.pow(1 - t, 3) });
+
+  // ── Nav colour-matching (adopts colour of the section at the top) ──
+  const navEl  = document.querySelector('.navbar');
+  const btnNav = navEl.querySelector('.btn-nav');
+  //             hero      auto123    spin       ilg        dropshot   boost      cases      exp        about      footer
+  const navColors = ['#ffffff','#e4f0ff','#111014','#eff1fd','#dff2ff','#e9faf4','#ffffff','#ffffff','#121212','#000000'];
+  const navDark   = [0,        0,        1,        0,        0,        0,        0,        0,        1,        1];
+
+  function navIndexFromScroll(scroll) {
+    if (window.innerWidth >= 1025) {
+      let idx = 0;
+      for (let k = 0; k <= last; k++) { if (offsets[k] <= scroll + 2) idx = k; }
+      return idx;
+    }
+    const line = 54;
+    for (let k = 0; k < panels.length; k++) {
+      const r = panels[k].getBoundingClientRect();
+      if (r.top <= line && r.bottom > line) return k;
+    }
+    return curNav < 0 ? 0 : curNav;
+  }
+  let curNav = -1;
+  function setNav(i) {
+    if (i === curNav) return;
+    curNav = i;
+    const dark = navDark[i];
+    navEl.style.backgroundColor  = navColors[i];
+    navEl.style.color            = dark ? '#fff' : '#000';
+    btnNav.style.backgroundColor = dark ? '#fff' : '#000';
+    btnNav.style.color           = dark ? '#000' : '#fff';
+  }
+  // Lenis drives the native scroller, so window.scrollY is authoritative and the
+  // native scroll event fires for every frame of Lenis motion — no rAF dependency.
+  const navUpdate = () => setNav(navIndexFromScroll(window.scrollY));
+  window.addEventListener('scroll', navUpdate, { passive: true });
+  lenis.on('scroll', navUpdate); // redundancy: Lenis's own emitter
+  window.addEventListener('resize', () => { curNav = -1; navUpdate(); });
+  setNav(0);
+
+  // ── Line splitter for scroll-scrubbed text reveals ──
+  // <br>-separated blocks keep their inline spans; plain blocks are measured and
+  // regrouped into visual lines. Each line: .tl-line (mask) > .tl-inner (slides up).
+  const fxOriginals = new Map(); // element → pre-split innerHTML (for rebuilds)
+  function splitLines(el) {
+    if (!el) return [];
+    if (el.dataset.split) return [...el.querySelectorAll('.tl-inner')];
+    if (!fxOriginals.has(el)) fxOriginals.set(el, el.innerHTML);
+    if (el.querySelector('br')) {
+      const groups = [[]];
+      [...el.childNodes].forEach(n => n.nodeName === 'BR' ? groups.push([]) : groups[groups.length - 1].push(n));
+      el.textContent = '';
+      groups.forEach(g => {
+        const line = document.createElement('span'); line.className = 'tl-line';
+        const inner = document.createElement('span'); inner.className = 'tl-inner';
+        g.forEach(n => inner.appendChild(n)); line.appendChild(inner); el.appendChild(line);
+      });
+    } else {
+      const words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map(w => `<span class="tl-w">${w}</span>`).join(' ');
+      const rows = []; let top = null;
+      [...el.querySelectorAll('.tl-w')].forEach(w => {
+        if (top === null || Math.abs(w.offsetTop - top) > 3) { rows.push([]); top = w.offsetTop; }
+        rows[rows.length - 1].push(w.textContent);
+      });
+      el.innerHTML = rows.map(r => `<span class="tl-line"><span class="tl-inner">${r.join(' ')}</span></span>`).join('');
+    }
+    el.dataset.split = '1';
+    return [...el.querySelectorAll('.tl-inner')];
+  }
+
+  // Text FX are built once fonts are ready (accurate line wraps) and rebuilt from
+  // the original markup whenever the viewport width meaningfully changes — line
+  // wrapping depends on layout width, so stale splits would be wrong.
+  let fxCtx = null, heroPlayed = false;
+
+  function buildFX() {
+    const desktop = window.innerWidth >= 1025;
+    fxCtx = gsap.context(() => {
+
+    // Hero enters once on load (it never scrolls in). On rebuilds it just
+    // snaps to its final state.
+    const heroLines = [
+      ...splitLines(document.querySelector('.hero-heading')),
+      ...splitLines(document.querySelector('.hero-sub')),
+    ];
+    const heroItems = gsap.utils.toArray('#hero .hero-li');
+    if (heroPlayed) {
+      gsap.set([...heroLines, ...heroItems], { yPercent: 0, y: 0, opacity: 1 });
+    } else {
+      heroPlayed = true;
+      gsap.set(heroLines, { yPercent: 110, opacity: 0 });
+      gsap.set(heroItems, { y: 24, opacity: 0 });
+      gsap.timeline({ delay: 0.15 })
+        .to(heroLines, { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.09, ease: 'power3.out' })
+        .to(heroItems, { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power3.out' }, 0.35);
+    }
+
+    // Masked line reveal, scrubbed across the section's arrival on desktop;
+    // played once on viewport entry on mobile.
+    const fx = (targets, k, extra) => {
+      if (!targets.length) return;
+      gsap.set(targets, { yPercent: 110, opacity: 0 });
+      gsap.to(targets, Object.assign({
+        yPercent: 0, opacity: 1, stagger: 0.09, ease: 'power2.out',
+        duration: desktop ? 1 : 0.8,
+        scrollTrigger: desktop ? {
+          start: () => sections[k].offsetTop - 0.45 * vh(),
+          end:   () => sections[k].offsetTop + 0.1 * vh(),
+          scrub: true, invalidateOnRefresh: true,
+        } : {
+          trigger: targets[0].closest('.panel'), start: 'top 75%', once: true,
+        },
+      }, extra || {}));
+    };
+    // Soft fade-up for non-text blocks (tags, rows, footer bits).
+    const fade = (targets, k) => {
+      targets = gsap.utils.toArray(targets); if (!targets.length) return;
+      gsap.set(targets, { y: 26, opacity: 0 });
+      gsap.to(targets, {
+        y: 0, opacity: 1, stagger: 0.06, ease: 'power2.out',
+        duration: desktop ? 1 : 0.7,
+        scrollTrigger: desktop ? {
+          start: () => sections[k].offsetTop - 0.35 * vh(),
+          end:   () => sections[k].offsetTop + 0.12 * vh(),
+          scrub: true, invalidateOnRefresh: true,
+        } : { trigger: targets[0].closest('.panel'), start: 'top 70%', once: true },
+      });
+    };
+
+    sections.forEach((sec, k) => {
+      if (k === 0) return;
+      const p = panels[k];
+
+      if (desktop) {
+        // follow.art cover transition: bottom-left pivot swings the incoming
+        // panel's right side past the viewport edge as it rises.
+        gsap.set(p, { transformOrigin: '0% 100%' });
+        gsap.fromTo(p, { rotation: 11 }, {
+          rotation: 0, ease: 'none',
+          scrollTrigger: {
+            start: () => sec.offsetTop - vh(),
+            end:   () => sec.offsetTop,
+            scrub: true, invalidateOnRefresh: true,
+          }
+        });
+        // Video box rotates in ~5° clockwise and settles flat with the section.
+        const box = p.querySelector('.work-video-box');
+        if (box) gsap.fromTo(box, { rotation: 5 }, {
+          rotation: 0, ease: 'none',
+          scrollTrigger: {
+            start: () => sec.offsetTop - vh(),
+            end:   () => sec.offsetTop,
+            scrub: true, invalidateOnRefresh: true,
+          }
+        });
+      }
+
+      // Text reveals per section type.
+      const title = p.querySelector('.work-title');
+      if (title) {
+        fx(splitLines(title), k);
+        fx(splitLines(p.querySelector('.work-desc')), k);
+        fade(p.querySelectorAll('.work-tags .tag'), k);
+      }
+      if (sec.id === 'cases') {
+        fx(splitLines(p.querySelector('.cases-title')), k);
+        fx(splitLines(p.querySelector('.cases-note')), k, { stagger: 0.05 });
+        // Cards: opacity only — their transform belongs to the CSS hover lift.
+        const cards = p.querySelectorAll('.case-card');
+        gsap.set(cards, { opacity: 0 });
+        gsap.to(cards, {
+          opacity: 1, stagger: 0.08, ease: 'power2.out', duration: desktop ? 1 : 0.7,
+          scrollTrigger: desktop ? {
+            start: () => sec.offsetTop - 0.35 * vh(),
+            end:   () => sec.offsetTop + 0.12 * vh(),
+            scrub: true, invalidateOnRefresh: true,
+          } : { trigger: p, start: 'top 70%', once: true },
+        });
+      }
+      if (sec.id === 'experience') {
+        fx(splitLines(p.querySelector('.exp-title')), k);
+        fade(p.querySelectorAll('.exp-row'), k);
+      }
+      if (sec.id === 'about') {
+        // The headline is several <p> blocks — split each so line wrapping is
+        // measured per paragraph rather than flattened into one run of words.
+        const headLines = [];
+        p.querySelectorAll('.about-headline p').forEach(el => headLines.push(...splitLines(el)));
+        fx(headLines, k, { stagger: 0.07 });
+        p.querySelectorAll('.about-col').forEach(col => {
+          fx(splitLines(col.querySelector('.about-col-title')), k);
+          fx(splitLines(col.querySelector('.about-col-text')), k, { stagger: 0.04 });
+        });
+      }
+      if (sec.id === 'footer') {
+        fade(p.querySelectorAll('.footer-role, .footer-logo, .btn-build'), k);
+      }
+    });
+
+    if (desktop) {
+      // Confidential cards: after the section settles, drive the row horizontally
+      // to the end BEFORE the next section rises (spacer extended in CSS).
+      const casesIdx = sections.findIndex(s => s.id === 'cases');
+      const track = document.querySelector('.cases-track');
+      const row   = document.querySelector('.cases-row');
+      if (casesIdx > -1 && track && row) {
+        gsap.to(track, {
+          x: () => {
+            const padX = parseFloat(getComputedStyle(row).paddingLeft) || 0;
+            return -Math.max(0, track.scrollWidth - row.clientWidth + 2 * padX);
+          },
+          ease: 'none',
+          scrollTrigger: {
+            start: () => sections[casesIdx].offsetTop,
+            end:   () => sections[casesIdx].offsetTop + 1.2 * vh(),
+            scrub: true, invalidateOnRefresh: true,
+          }
+        });
+      }
+    }
+
+    }); // gsap.context
+    ScrollTrigger.refresh();
+  }
+
+  document.fonts.ready.then(buildFX);
+
+  // Rebuild on meaningful width changes: revert tweens, restore pre-split markup,
+  // re-measure lines at the new width, and re-create everything.
+  let fxW = window.innerWidth, fxTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(fxTimer);
+    fxTimer = setTimeout(() => {
+      if (Math.abs(window.innerWidth - fxW) < 60) return;
+      fxW = window.innerWidth;
+      if (fxCtx) fxCtx.revert();
+      fxOriginals.forEach((html, el) => { el.innerHTML = html; delete el.dataset.split; });
+      buildFX();
+    }, 350);
+  });
+
+  // ── Confidential cards: prev/next buttons (mobile/tablet only — CSS hides
+  //    the buttons on desktop, where the scroll-driven track handles this). ──
+  (() => {
+    const row = document.querySelector('.cases-row');
+    const firstCard = document.querySelector('.case-card');
+    if (!row || !firstCard) return;
+    document.querySelectorAll('.cases-nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const gap = parseFloat(getComputedStyle(document.querySelector('.cases-track')).gap) || 24;
+        const step = firstCard.getBoundingClientRect().width + gap;
+        row.scrollBy({ left: btn.dataset.dir === 'prev' ? -step : step, behavior: 'smooth' });
+      });
+    });
+  })();
+
+  // ── Play only the on-screen work video; pause the rest ──
+  // Five simultaneous video decodes overload the compositor and make both the
+  // scroll and the filmstrip stutter. IntersectionObserver keeps at most the
+  // visible one(s) decoding; the rest stay paused on their first frame.
+  const workVideos = document.querySelectorAll('.work-video');
+  // All work videos are 16:9, so the boxes keep the design's uniform 934×525
+  // (aspect-ratio set in CSS); object-fit: cover fills each with no crop.
+
+  if ('IntersectionObserver' in window) {
+    const vo = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const v = e.target;
+        if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.12 });
+    workVideos.forEach(v => vo.observe(v));
+  } else {
+    workVideos.forEach(v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); });
+  }
+
+  // ── Request Access modal ──
+  (() => {
+    // ── WHERE SUBMISSIONS GO ────────────────────────────────────────────────
+    // Paste a form-backend endpoint here to receive each request by email
+    // (e.g. Formspree: 'https://formspree.io/f/xxxxxxxx'). It's a static site, so
+    // it can't send mail on its own — the service does that. Until this is set,
+    // submissions fall back to opening the visitor's own mail client.
+    const FORM_ENDPOINT = '';
+    const EMAIL = 'samueleluyera@gmail.com';
+
+    const modal  = document.getElementById('requestModal');
+    if (!modal) return;
+    const form   = document.getElementById('requestForm');
+    const input  = document.getElementById('requestEmail');
+    const status = document.getElementById('requestStatus');
+    const caseFl = document.getElementById('requestCase');
+    let lastFocus = null;
+
+    const setStatus = (msg, kind) => {
+      status.textContent = msg || '';
+      status.className = 'modal-status' + (kind ? ' is-' + kind : '');
+    };
+
+    const open = (caseName) => {
+      lastFocus = document.activeElement;
+      caseFl.value = caseName || 'Confidential case studies';
+      form.hidden = false;
+      input.value = '';
+      setStatus('');
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      lenis.stop();                      // freeze the page behind the modal
+      setTimeout(() => input.focus(), 80);
+    };
+    const close = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      lenis.start();
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    };
+
+    // Whole card is the trigger on desktop (the cursor reads "Request Case
+    // Study" over it); the in-card button covers tablet/mobile via bubbling.
+    document.querySelectorAll('.case-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const t = card.querySelector('.case-title');
+        open(t ? t.textContent.trim() : '');
+      });
+    });
+
+    document.getElementById('requestClose').addEventListener('click', close);
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = input.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setStatus('Please enter a valid email address.', 'error');
+        input.focus();
+        return;
+      }
+
+      if (!FORM_ENDPOINT) {
+        // No backend wired up yet — hand off to the visitor's mail client so the
+        // request still reaches you.
+        const subject = encodeURIComponent('Case study access request — ' + caseFl.value);
+        const body = encodeURIComponent(
+          'Please send me the private link to your case studies.\n\n' +
+          'Requested: ' + caseFl.value + '\nMy email: ' + email + '\n'
+        );
+        window.location.href = 'mailto:' + EMAIL + '?subject=' + subject + '&body=' + body;
+        setStatus('Opening your mail app…');
+        return;
+      }
+
+      setStatus('Sending…');
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        if (!res.ok) throw new Error('Bad response');
+        form.hidden = true;
+        setStatus("Thanks — I'll send your private link shortly.", 'ok');
+        setTimeout(close, 2600);
+      } catch (err) {
+        setStatus('Something went wrong. Please email ' + EMAIL, 'error');
+      }
+    });
+  })();
+
+  // ── Custom cursor — always visible; label + size vary per section ──
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const cursor = document.querySelector('.cursor');
+    const label  = cursor.querySelector('.cursor-label');
+    gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+    // Snappy but smoothed follow — enough easing to feel fluid without lagging.
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.18, ease: 'power3' });
+    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.18, ease: 'power3' });
+
+    // mode → [label text, bubble size]
+    const MODES = {
+      dot:  ['', 14],
+      view: ['View', 96],
+      soon: ['Coming Soon', 108],
+      rcs:  ['Request Case Study', 132],
+    };
+    const modeFor = (t) => {
+      const sec = t && t.closest ? t.closest('.section') : null;
+      if (!sec) return 'dot';
+      if (sec.id === 'work-1') return 'view';          // Auto 123
+      if (/^work-/.test(sec.id)) return 'soon';        // all other works
+      if (sec.id === 'cases') return 'rcs';            // confidential case studies
+      return 'dot';
+    };
+    // Bubble inverts on dark sections so it stays visible.
+    const darkFor = (t) => {
+      const sec = t && t.closest ? t.closest('.section') : null;
+      return !!(sec && (sec.id === 'work-2' || sec.id === 'about' || sec.id === 'footer'));
+    };
+
+    let curMode = null, curDark = null, seen = false;
+    window.addEventListener('mousemove', e => {
+      xTo(e.clientX); yTo(e.clientY);
+      if (!seen) { seen = true; gsap.to(cursor, { opacity: 1, duration: 0.25 }); }
+      const m = modeFor(e.target), d = darkFor(e.target);
+      if (m !== curMode) {
+        curMode = m;
+        const [txt, size] = MODES[m];
+        label.textContent = txt;
+        gsap.to(cursor, { width: size, height: size, duration: 0.4, ease: 'power3.out' });
+        if (txt) gsap.fromTo(label, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' });
+      }
+      if (d !== curDark) {
+        curDark = d;
+        gsap.to(cursor, {
+          backgroundColor: d ? '#ffffff' : '#000000',
+          color:           d ? '#000000' : '#ffffff',
+          duration: 0.35,
+        });
+      }
+    });
+    document.addEventListener('mouseleave', () => gsap.to(cursor, { opacity: 0, duration: 0.25 }));
+    document.addEventListener('mouseenter', () => { if (seen) gsap.to(cursor, { opacity: 1, duration: 0.25 }); });
+  }
+</script>
+</body>
+</html>

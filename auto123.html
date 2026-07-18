@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto123 Mobile App — Samuel Eluyera</title>
+  <meta name="description" content="A vehicle marketplace that brings clarity to one of the busiest and most information dense shopping experiences. Mobile app case study by Samuel Eluyera.">
+
+  <!-- Favicons -->
+  <link rel="icon" href="images/meta/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/meta/favicon-96.png" sizes="96x96" type="image/png">
+  <link rel="apple-touch-icon" href="images/meta/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Open Graph / social share. og:url and og:image are absolute — social
+       scrapers (LinkedIn/X/Slack) require that to render the preview. -->
+  <link rel="canonical" href="https://www.samueleluyera.com/auto123.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Samuel Eluyera">
+  <meta property="og:title" content="Auto123 — Marketplace for Buying and Selling Vehicles">
+  <meta property="og:description" content="A vehicle marketplace that brings clarity to one of the busiest and most information dense shopping experiences.">
+  <meta property="og:url" content="https://www.samueleluyera.com/auto123.html">
+  <meta property="og:image" content="https://www.samueleluyera.com/images/meta/og-auto123.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Auto123 mobile app screens — home, search, listings and vehicle detail.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Auto123 — Marketplace for Buying and Selling Vehicles">
+  <meta name="twitter:description" content="A vehicle marketplace that brings clarity to one of the busiest and most information dense shopping experiences.">
+  <meta name="twitter:image" content="https://www.samueleluyera.com/images/meta/og-auto123.jpg">
+  <meta name="twitter:site" content="@samueleluyera">
+
+  <style>
+    @font-face {
+      font-family: 'Saans';
+      src: url('fonts/SaansCollectionVF-TRIAL.woff2') format('woff2-variations');
+      font-weight: 100 900;
+      font-stretch: 75% 125%;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font: 'Saans', -apple-system, sans-serif;
+      /* Figma is a 1728px frame; type + gutters scale fluidly below that. */
+      --pad-x: clamp(20px, 3.7vw, 64px);
+      --page: #e4f0ff;   /* Auto123 brand blue — the case-study page ground */
+      --ink: #000;
+    }
+
+    html, body {
+      width: 100%;
+      font-family: var(--font);
+      background: var(--page);
+      color: var(--ink);
+      overflow-x: clip;
+    }
+
+    .wrap { max-width: 1728px; margin: 0 auto; padding: 0 var(--pad-x); }
+
+    /* ── NAVBAR (fixed, matches the main site) ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px var(--pad-x);
+      background: var(--page); color: #000;
+      transition: background-color .4s ease, color .4s ease;
+    }
+    .nav-logo { display: flex; align-items: center; color: inherit; }
+    .nav-logo-svg { height: 18px; width: auto; display: block; }
+    .nav-menu { display: flex; align-items: center; gap: 16px; }
+    .nav-link {
+      font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -0.48px;
+      color: inherit; text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+      transition: opacity .2s;
+    }
+    .nav-link:hover { opacity: .55; }
+    .btn-nav {
+      background: #000; color: #fff;
+      padding: 8px 16px; border-radius: 99px;
+      font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -0.48px;
+      border: none; font-family: inherit; text-decoration: none;
+      display: inline-block; transition: opacity .2s;
+    }
+    .btn-nav:hover { opacity: .78; }
+
+    /* ── HERO TITLE ── */
+    .case-title {
+      padding: clamp(140px, 12vw, 208px) 0 clamp(40px, 5vw, 80px);
+      display: flex; justify-content: center;
+    }
+    .case-title h1 {
+      font-size: clamp(40px, 6.95vw, 120px);
+      font-weight: 700; line-height: 1.2; letter-spacing: -0.03em;
+      text-transform: uppercase; text-align: center;
+      max-width: 700px;
+    }
+
+    /* ── META BAR + HERO IMAGE ── */
+    .rule { width: 100%; height: 1px; background: rgba(0,0,0,.15); }
+    .meta-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+      padding-top: 16px;
+    }
+    .meta-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pill {
+      border: 1px solid #000; border-radius: 99px;
+      padding: 8px 16px;
+      font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0.16px;
+      white-space: nowrap;
+    }
+    .pill--year { border: none; background: rgba(0,0,0,.1); }
+
+    .media {
+      width: 100%; border-radius: 0; overflow: hidden;
+      background: rgba(0,0,0,.04);
+      display: block; position: relative;
+    }
+    .media img, .media video {
+      width: 100%; height: 100%; display: block; object-fit: cover;
+    }
+    .hero-media { margin-top: 40px; aspect-ratio: 2560 / 1440; }
+
+    /* ── OVERVIEW ── */
+    .overview { padding-top: clamp(64px, 7vw, 120px); }
+    .statement {
+      font-size: clamp(26px, 3.7vw, 64px);
+      font-weight: 700; line-height: 1.2; letter-spacing: -0.03em;
+      max-width: 1164px;
+      margin-bottom: 40px;
+    }
+    .overview-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+      padding-top: 16px;
+    }
+    .ov-label {
+      font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0.16px;
+    }
+    .ov-body p {
+      font-size: clamp(16px, 1.16vw, 20px); font-weight: 400; line-height: 1.5;
+    }
+    .ov-body p + p { margin-top: 16px; }
+    .ov-facts { display: flex; flex-direction: column; gap: 16px; text-align: right; }
+    .ov-facts p {
+      font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0.16px;
+    }
+    .ov-facts .rule { background: rgba(0,0,0,.15); }
+
+    /* ── MEDIA GRID ── */
+    .grid { padding-top: clamp(64px, 7vw, 120px); display: flex; flex-direction: column; gap: 24px; }
+    .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .r-half { aspect-ratio: 788 / 985; }
+    .r-full { aspect-ratio: 1600 / 1000; }
+
+    /* ── CTA (dark band) ── */
+    /* NOTE: In Figma this band's frame has no fill, so its white text sits on the
+       page's light blue — illegible. The dark input + white arrow button show it was
+       designed for a dark ground, so it's rendered dark here. */
+    .cta {
+      margin-top: clamp(80px, 9vw, 160px);
+      background: #121212; color: #fff;
+      border-radius: 24px;
+      padding: clamp(64px, 7vw, 120px) clamp(24px, 4.6vw, 80px);
+      display: flex; flex-direction: column; align-items: center; gap: 24px;
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: clamp(30px, 4.17vw, 72px);
+      font-weight: 700; line-height: 1.2; letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+    .cta p {
+      font-size: clamp(16px, 1.16vw, 20px); font-weight: 500;
+      line-height: 1.6; letter-spacing: -0.4px;
+      max-width: 745px;
+    }
+    .cta-form { display: flex; gap: 8px; align-items: center; }
+    .cta-input {
+      background: #1c1b1f; border: none; border-radius: 99px;
+      width: clamp(200px, 26vw, 340px); padding: 11px 18px;
+      font-family: inherit; font-size: 16px; line-height: 1.6; letter-spacing: -0.32px;
+      color: #fff; text-align: center;
+    }
+    .cta-input::placeholder { color: rgba(255,255,255,.5); }
+    .cta-input:focus { outline: 1px solid rgba(255,255,255,.35); }
+    .cta-send {
+      background: #fff; border: none; border-radius: 99px;
+      width: 48px; height: 48px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit; transition: opacity .2s;
+    }
+    .cta-send:hover { opacity: .82; }
+    .cta-send svg { width: 24px; height: 24px; display: block; }
+    .cta-note { font-size: 14px; opacity: .6; min-height: 18px; }
+
+    /* ── RELATED WORKS ── */
+    .related {
+      background: #f3f6fd;
+      margin-top: clamp(80px, 9vw, 160px);
+      padding: clamp(48px, 5.5vw, 80px) 0;
+    }
+    .related-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap; margin-bottom: 32px;
+    }
+    .related-head h2 {
+      font-size: clamp(30px, 4.17vw, 72px);
+      font-weight: 700; line-height: 1.2; letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+    .btn-all {
+      background: #000; color: #fff; border-radius: 99px;
+      height: 52px; padding: 8px 24px;
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -0.48px;
+      text-decoration: none; transition: opacity .2s;
+    }
+    .btn-all:hover { opacity: .82; }
+    .btn-all svg { width: 20px; height: 20px; display: block; }
+
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .related-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 16px; }
+    .related-card .media {
+      aspect-ratio: 800 / 450; background: #fff;
+      transition: transform .5s cubic-bezier(.19,1,.22,1), box-shadow .5s cubic-bezier(.19,1,.22,1);
+    }
+    .related-card:hover .media {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.10);
+    }
+    .related-card h3 {
+      font-size: clamp(20px, 1.85vw, 32px);
+      font-weight: 700; line-height: 1.25; letter-spacing: -0.03em;
+    }
+
+    /* ── FOOTER (fills the viewport, like the main site) ── */
+    .footer {
+      background: #000; color: #fff;
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    .footer-center {
+      flex: 1; min-height: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 48px; padding: clamp(56px, 6vw, 80px) var(--pad-x);
+    }
+    .footer-role { font-size: 20px; font-weight: 400; line-height: 1.5; letter-spacing: .2px; }
+    .footer-logo { width: 100%; max-width: 1400px; color: #fff; }
+    .footer-logo svg { width: 100%; height: auto; display: block; }
+    .btn-build {
+      background: #fff; color: #000; border: none; border-radius: 99px;
+      padding: 12px 24px; font-family: inherit;
+      font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -0.48px;
+      text-decoration: none; display: inline-block; transition: opacity .2s;
+    }
+    .btn-build:hover { opacity: .82; }
+    .footer-hr { width: 100%; height: 1px; background: rgba(255,255,255,.14); }
+    .footer-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+      padding: 24px clamp(18px, 2.8vw, 48px);
+    }
+    .footer-bar-text { font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: .16px; color: rgba(255,255,255,.5); }
+    .footer-socials { display: flex; align-items: center; gap: 16px; }
+    .footer-vert { width: 1px; height: 12px; background: rgba(255,255,255,.3); }
+
+    /* ── TEXT REVEAL ── */
+    .tl-line { display: block; overflow: hidden; }
+    .tl-inner { display: inline-block; will-change: transform, opacity; }
+
+    /* ── CURSOR ── */
+    .cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #000; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 500; text-transform: uppercase; text-align: center;
+      pointer-events: none; opacity: 0; will-change: transform;
+    }
+    @media (hover: hover) and (pointer: fine) { body, body * { cursor: none !important; } }
+    @media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .navbar { padding: 12px var(--pad-x); }
+      .overview-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .ov-facts { text-align: left; }
+      .ov-facts .rule { display: none; }
+    }
+    @media (max-width: 720px) {
+      .nav-collapse { display: none; }
+      /* Just the logo + "Get in touch" on true mobile — every other link goes. */
+      .nav-mobile-hide { display: none; }
+      .nav-logo-svg { height: 14px; }
+      .btn-nav { font-size: 14px; padding: 7px 14px; }
+      .overview-grid { grid-template-columns: 1fr; gap: 24px; }
+      .grid-row { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      .cta { border-radius: 16px; }
+      .cta-form { flex-direction: column; width: 100%; }
+      .cta-input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<nav class="navbar">
+  <a class="nav-logo" href="index.html" aria-label="Samuel Eluyera — home">
+    <svg class="nav-logo-svg" viewBox="0 0 107 10" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Samuel Eluyera">
+      <path d="M3.612 9.36C2.932 9.36 2.32 9.24 1.776 9C1.24 8.76 0.812 8.412 0.492 7.956C0.172 7.492 0.00799999 6.928 0 6.264H1.668C1.708 6.824 1.904 7.244 2.256 7.524C2.608 7.804 3.048 7.944 3.576 7.944C4.096 7.944 4.52 7.844 4.848 7.644C5.184 7.436 5.352 7.156 5.352 6.804C5.352 6.612 5.304 6.452 5.208 6.324C5.12 6.188 4.988 6.072 4.812 5.976C4.636 5.872 4.416 5.78 4.152 5.7L2.268 5.1C1.884 4.98 1.528 4.828 1.2 4.644C0.872 4.46 0.608 4.22 0.408 3.924C0.216 3.628 0.12 3.24 0.12 2.76C0.12 2.2 0.256 1.716 0.528 1.308C0.808 0.892 1.196 0.572 1.692 0.348C2.196 0.116 2.784 0 3.456 0C4.424 0 5.216 0.244 5.832 0.732C6.456 1.212 6.812 1.896 6.9 2.784H5.208C5.128 2.32 4.928 1.972 4.608 1.74C4.296 1.508 3.892 1.392 3.396 1.392C3.068 1.392 2.784 1.44 2.544 1.536C2.304 1.632 2.12 1.768 1.992 1.944C1.864 2.112 1.8 2.312 1.8 2.544C1.8 2.808 1.888 3.032 2.064 3.216C2.248 3.392 2.524 3.54 2.892 3.66L4.812 4.272C5.284 4.424 5.68 4.608 6 4.824C6.328 5.04 6.572 5.3 6.732 5.604C6.9 5.9 6.984 6.26 6.984 6.684C6.984 7.212 6.844 7.68 6.564 8.088C6.292 8.488 5.9 8.8 5.388 9.024C4.884 9.248 4.292 9.36 3.612 9.36Z" fill="currentColor"/>
+      <path d="M7.3905 9.18L10.7505 0.18H12.5625L15.8985 9.18H14.2065L11.4105 1.188H11.8785L9.0705 9.18H7.3905ZM9.2265 7.14L9.2865 5.736H14.0985L14.1705 7.14H9.2265Z" fill="currentColor"/>
+      <path d="M16.8108 9.18V0.18H19.0428L21.9588 7.956H21.2988L24.2628 0.18H26.4348V9.18H24.8268V1.332L25.1388 1.368L24.4908 3.324L22.2468 9.18H20.8788L18.7308 3.36L18.1068 1.368L18.3588 1.332V9.18H16.8108Z" fill="currentColor"/>
+      <path d="M31.7453 9.36C31.0013 9.36 30.3533 9.212 29.8013 8.916C29.2493 8.62 28.8173 8.208 28.5053 7.68C28.2013 7.144 28.0492 6.508 28.0492 5.772V0.18H29.7052V5.772C29.7052 6.436 29.8853 6.964 30.2453 7.356C30.6133 7.74 31.1053 7.932 31.7213 7.932C32.3453 7.932 32.8413 7.74 33.2093 7.356C33.5773 6.964 33.7612 6.436 33.7612 5.772V0.18H35.4173V5.772C35.4173 6.508 35.2612 7.144 34.9492 7.68C34.6452 8.208 34.2172 8.62 33.6652 8.916C33.1212 9.212 32.4813 9.36 31.7453 9.36Z" fill="currentColor"/>
+      <path d="M37.0439 9.18V0.18H42.8279V1.608H38.6759V3.852H42.5639V5.232H38.6759V7.74H42.8279V9.18H37.0439Z" fill="currentColor"/>
+      <path d="M44.0784 9.18V0.18H45.7344V7.716H49.8384V9.18H44.0784Z" fill="currentColor"/>
+      <circle cx="52.8384" cy="4.67999" r="1" fill="currentColor"/>
+      <path d="M57.8384 9.09V0.0899963H62.9744V0.593997H58.4144V4.17H62.6624V4.674H58.4144V8.586H62.9744V9.09H57.8384Z" fill="currentColor"/>
+      <path d="M64.2284 9.09V0.0899963H64.8044V8.586H69.4004V9.09H64.2284Z" fill="currentColor"/>
+      <path d="M72.8506 9.27C72.1626 9.27 71.5666 9.134 71.0626 8.862C70.5586 8.582 70.1706 8.19 69.8986 7.686C69.6266 7.174 69.4906 6.574 69.4906 5.886V0.0899963H70.0666V5.886C70.0666 6.766 70.3146 7.466 70.8106 7.986C71.3146 8.506 71.9946 8.766 72.8506 8.766C73.7066 8.766 74.3826 8.506 74.8786 7.986C75.3746 7.466 75.6226 6.766 75.6226 5.886V0.0899963H76.1986V5.886C76.1986 6.574 76.0626 7.174 75.7906 7.686C75.5186 8.19 75.1306 8.582 74.6266 8.862C74.1306 9.134 73.5386 9.27 72.8506 9.27Z" fill="currentColor"/>
+      <path d="M80.04 9.09V4.914L80.304 5.922L77.004 0.0899963H77.652L80.604 5.37H80.076L83.064 0.0899963H83.712L80.352 5.922L80.616 4.914V9.09H80.04Z" fill="currentColor"/>
+      <path d="M84.6523 9.09V0.0899963H89.7883V0.593997H85.2283V4.17H89.4763V4.674H85.2283V8.586H89.7883V9.09H84.6523Z" fill="currentColor"/>
+      <path d="M91.0423 9.09V0.0899963H94.1503C95.1503 0.0899963 95.9263 0.301996 96.4783 0.725997C97.0303 1.15 97.3063 1.742 97.3063 2.502C97.3063 3.086 97.1343 3.578 96.7903 3.978C96.4543 4.378 95.9543 4.626 95.2903 4.722L95.2783 4.578C95.6863 4.602 96.0263 4.702 96.2983 4.878C96.5703 5.046 96.7743 5.27 96.9103 5.55C97.0463 5.83 97.1143 6.138 97.1143 6.474V9.09H96.5383V6.57C96.5383 6.074 96.3823 5.678 96.0703 5.382C95.7583 5.078 95.3063 4.926 94.7143 4.926H91.6183V9.09H91.0423ZM91.6183 4.41H94.1383C94.9703 4.41 95.6063 4.246 96.0463 3.918C96.4943 3.582 96.7183 3.11 96.7183 2.502C96.7183 1.886 96.4943 1.414 96.0463 1.086C95.6063 0.757997 94.9703 0.593997 94.1383 0.593997H91.6183V4.41Z" fill="currentColor"/>
+      <path d="M97.7762 9.09L101.592 0.0899963H102.216L106.032 9.09H105.408L101.772 0.461997H102.036L98.3882 9.09H97.7762ZM99.0602 6.738L99.3002 6.234H104.496L104.736 6.738H99.0602Z" fill="currentColor"/>
+    </svg>
+  </a>
+  <div class="nav-menu">
+    <a class="nav-link nav-mobile-hide" href="index.html">Works</a>
+    <span class="nav-link nav-collapse">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M10 3v9m0 0-3.5-3m3.5 3 3.5-3M4 17h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Resume
+    </span>
+    <a class="btn-nav" href="index.html">Get in touch</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════ TITLE ══════════════ -->
+<header class="wrap case-title">
+  <h1>Auto123 Mobile App</h1>
+</header>
+
+
+<!-- ══════════════ META + HERO IMAGE ══════════════ -->
+<section class="wrap">
+  <div class="rule"></div>
+  <div class="meta-bar">
+    <div class="meta-tags">
+      <span class="pill">0-1 Project</span>
+      <span class="pill">Mobile App</span>
+    </div>
+    <span class="pill pill--year">2025</span>
+  </div>
+
+  <div class="media hero-media reveal" data-media="hero" role="img" aria-label="Auto123 app — home, search and vehicle detail screens"></div>
+</section>
+
+
+<!-- ══════════════ OVERVIEW ══════════════ -->
+<section class="wrap overview">
+  <h2 class="statement split">A vehicle marketplace that brings clarity to one of the busiest and most information dense shopping experiences.</h2>
+
+  <div class="rule"></div>
+  <div class="overview-grid">
+    <div class="ov-label reveal">About</div>
+
+    <div class="ov-body reveal">
+      <p>Auto123 is the native iOS companion to an existing vehicle marketplace built for a Lithuanian startup. While the web platform already served buyers and sellers, the company wanted an iOS experience tailored to its most active users, who returned to the app multiple times a day while searching for their next vehicle.</p>
+      <p>As the sole product designer, I designed the app from the ground up, rethinking the experience for iOS rather than simply adapting the existing web product. The result is an interface that feels faster, more intuitive, and unmistakably native.</p>
+    </div>
+
+    <div class="ov-body reveal">
+      <p>The challenge wasn't creating another marketplace. It was simplifying one. Vehicle listings are dense, inconsistent, and often incomplete. Every screen was designed around real marketplace data, ensuring the experience remained usable even with poor photos, missing specifications, and imperfect listings.</p>
+      <p>To support future growth, I built the interface on a semantic token system with native iOS patterns, scalable components, and one click Light and Dark mode. Alongside traditional filters, AI powered search gives users a faster way to discover vehicles without sacrificing control.</p>
+    </div>
+
+    <div class="ov-facts reveal">
+      <p>Sole Product Designer</p>
+      <div class="rule"></div>
+      <p>8 Weeks</p>
+      <div class="rule"></div>
+      <p>Product Design, Design System, Prototyping</p>
+      <div class="rule"></div>
+      <p>Production Ready MVP</p>
+      <div class="rule"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ MEDIA GRID ══════════════ -->
+<section class="wrap grid">
+  <div class="grid-row">
+    <div class="media r-half reveal" data-media="tab-navigations" role="img" aria-label="Tab navigation"></div>
+    <div class="media r-half reveal" data-media="ai-search" role="img" aria-label="AI-powered search"></div>
+  </div>
+
+  <div class="media r-full reveal" data-media="car-details">
+    <img src="images/auto123/car-details.jpg" alt="Vehicle detail screen">
+  </div>
+
+  <div class="grid-row">
+    <div class="media r-half reveal" data-media="buying-a-car" role="img" aria-label="Buying a car flow"></div>
+    <div class="media r-half reveal" data-media="selling-a-car" role="img" aria-label="Selling a car flow"></div>
+  </div>
+
+  <div class="media r-full reveal" data-media="filters">
+    <img src="images/auto123/filters.jpg" alt="Filters">
+  </div>
+
+  <div class="grid-row">
+    <div class="media r-half reveal" data-media="token-systems">
+      <img src="images/auto123/token-systems.jpg" alt="Semantic token system">
+    </div>
+    <div class="media r-half reveal" data-media="bg-text-tokens">
+      <img src="images/auto123/bg-text-tokens.jpg" alt="Background and text tokens">
+    </div>
+  </div>
+
+  <div class="media r-full reveal" data-media="light-mode">
+    <img src="images/auto123/light-mode.jpg" alt="Light mode">
+  </div>
+
+  <div class="media r-full reveal" data-media="dark-mode">
+    <img src="images/auto123/dark-mode.jpg" alt="Dark mode">
+  </div>
+
+  <div class="media r-full reveal" data-media="components">
+    <img src="images/auto123/components.jpg" alt="Components">
+  </div>
+
+  <div class="media r-full reveal" data-media="figma">
+    <img src="images/auto123/figma.jpg" alt="Figma design system file">
+  </div>
+</section>
+
+
+<!-- ══════════════ CTA ══════════════ -->
+<section class="wrap">
+  <div class="cta">
+    <h2 class="split">Request Case Study</h2>
+    <p class="reveal">This portfolio highlights the visuals. Enter your email to receive the complete project walkthrough, product decisions, design iterations, key decisions and tradeoffs</p>
+    <form class="cta-form reveal" id="caseForm">
+      <input class="cta-input" id="caseEmail" type="email" placeholder="Enter your email..." required aria-label="Your email">
+      <button class="cta-send" type="submit" aria-label="Send">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </form>
+    <p class="cta-note" id="caseNote" role="status"></p>
+  </div>
+</section>
+
+
+<!-- ══════════════ RELATED WORKS ══════════════ -->
+<section class="related">
+  <div class="wrap">
+    <div class="related-head">
+      <h2 class="split">Related Works</h2>
+      <a class="btn-all" href="index.html">
+        All Works
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="related-grid">
+      <a class="related-card reveal" href="index.html">
+        <div class="media" data-media="dropshot" role="img" aria-label="Creating and Sharing AI-Powered Fantasy"></div>
+        <h3>Creating and Sharing AI-Powered Fantasy</h3>
+      </a>
+      <a class="related-card reveal" href="index.html">
+        <div class="media" data-media="spinrequest" role="img" aria-label="Paid Song Requests at Live Events"></div>
+        <h3>Paid Song Requests at Live Events</h3>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="footer-center">
+    <p class="footer-role">Senior Product Designer</p>
+    <div class="footer-logo">
+      <svg viewBox="0 0 107 10" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Samuel Eluyera">
+        <path d="M3.612 9.36C2.932 9.36 2.32 9.24 1.776 9C1.24 8.76 0.812 8.412 0.492 7.956C0.172 7.492 0.00799999 6.928 0 6.264H1.668C1.708 6.824 1.904 7.244 2.256 7.524C2.608 7.804 3.048 7.944 3.576 7.944C4.096 7.944 4.52 7.844 4.848 7.644C5.184 7.436 5.352 7.156 5.352 6.804C5.352 6.612 5.304 6.452 5.208 6.324C5.12 6.188 4.988 6.072 4.812 5.976C4.636 5.872 4.416 5.78 4.152 5.7L2.268 5.1C1.884 4.98 1.528 4.828 1.2 4.644C0.872 4.46 0.608 4.22 0.408 3.924C0.216 3.628 0.12 3.24 0.12 2.76C0.12 2.2 0.256 1.716 0.528 1.308C0.808 0.892 1.196 0.572 1.692 0.348C2.196 0.116 2.784 0 3.456 0C4.424 0 5.216 0.244 5.832 0.732C6.456 1.212 6.812 1.896 6.9 2.784H5.208C5.128 2.32 4.928 1.972 4.608 1.74C4.296 1.508 3.892 1.392 3.396 1.392C3.068 1.392 2.784 1.44 2.544 1.536C2.304 1.632 2.12 1.768 1.992 1.944C1.864 2.112 1.8 2.312 1.8 2.544C1.8 2.808 1.888 3.032 2.064 3.216C2.248 3.392 2.524 3.54 2.892 3.66L4.812 4.272C5.284 4.424 5.68 4.608 6 4.824C6.328 5.04 6.572 5.3 6.732 5.604C6.9 5.9 6.984 6.26 6.984 6.684C6.984 7.212 6.844 7.68 6.564 8.088C6.292 8.488 5.9 8.8 5.388 9.024C4.884 9.248 4.292 9.36 3.612 9.36Z" fill="currentColor"/>
+        <path d="M7.3905 9.18L10.7505 0.18H12.5625L15.8985 9.18H14.2065L11.4105 1.188H11.8785L9.0705 9.18H7.3905ZM9.2265 7.14L9.2865 5.736H14.0985L14.1705 7.14H9.2265Z" fill="currentColor"/>
+        <path d="M16.8108 9.18V0.18H19.0428L21.9588 7.956H21.2988L24.2628 0.18H26.4348V9.18H24.8268V1.332L25.1388 1.368L24.4908 3.324L22.2468 9.18H20.8788L18.7308 3.36L18.1068 1.368L18.3588 1.332V9.18H16.8108Z" fill="currentColor"/>
+        <path d="M31.7453 9.36C31.0013 9.36 30.3533 9.212 29.8013 8.916C29.2493 8.62 28.8173 8.208 28.5053 7.68C28.2013 7.144 28.0492 6.508 28.0492 5.772V0.18H29.7052V5.772C29.7052 6.436 29.8853 6.964 30.2453 7.356C30.6133 7.74 31.1053 7.932 31.7213 7.932C32.3453 7.932 32.8413 7.74 33.2093 7.356C33.5773 6.964 33.7612 6.436 33.7612 5.772V0.18H35.4173V5.772C35.4173 6.508 35.2612 7.144 34.9492 7.68C34.6452 8.208 34.2172 8.62 33.6652 8.916C33.1212 9.212 32.4813 9.36 31.7453 9.36Z" fill="currentColor"/>
+        <path d="M37.0439 9.18V0.18H42.8279V1.608H38.6759V3.852H42.5639V5.232H38.6759V7.74H42.8279V9.18H37.0439Z" fill="currentColor"/>
+        <path d="M44.0784 9.18V0.18H45.7344V7.716H49.8384V9.18H44.0784Z" fill="currentColor"/>
+        <circle cx="52.8384" cy="4.67999" r="1" fill="currentColor"/>
+        <path d="M57.8384 9.09V0.0899963H62.9744V0.593997H58.4144V4.17H62.6624V4.674H58.4144V8.586H62.9744V9.09H57.8384Z" fill="currentColor"/>
+        <path d="M64.2284 9.09V0.0899963H64.8044V8.586H69.4004V9.09H64.2284Z" fill="currentColor"/>
+        <path d="M72.8506 9.27C72.1626 9.27 71.5666 9.134 71.0626 8.862C70.5586 8.582 70.1706 8.19 69.8986 7.686C69.6266 7.174 69.4906 6.574 69.4906 5.886V0.0899963H70.0666V5.886C70.0666 6.766 70.3146 7.466 70.8106 7.986C71.3146 8.506 71.9946 8.766 72.8506 8.766C73.7066 8.766 74.3826 8.506 74.8786 7.986C75.3746 7.466 75.6226 6.766 75.6226 5.886V0.0899963H76.1986V5.886C76.1986 6.574 76.0626 7.174 75.7906 7.686C75.5186 8.19 75.1306 8.582 74.6266 8.862C74.1306 9.134 73.5386 9.27 72.8506 9.27Z" fill="currentColor"/>
+        <path d="M80.04 9.09V4.914L80.304 5.922L77.004 0.0899963H77.652L80.604 5.37H80.076L83.064 0.0899963H83.712L80.352 5.922L80.616 4.914V9.09H80.04Z" fill="currentColor"/>
+        <path d="M84.6523 9.09V0.0899963H89.7883V0.593997H85.2283V4.17H89.4763V4.674H85.2283V8.586H89.7883V9.09H84.6523Z" fill="currentColor"/>
+        <path d="M91.0423 9.09V0.0899963H94.1503C95.1503 0.0899963 95.9263 0.301996 96.4783 0.725997C97.0303 1.15 97.3063 1.742 97.3063 2.502C97.3063 3.086 97.1343 3.578 96.7903 3.978C96.4543 4.378 95.9543 4.626 95.2903 4.722L95.2783 4.578C95.6863 4.602 96.0263 4.702 96.2983 4.878C96.5703 5.046 96.7743 5.27 96.9103 5.55C97.0463 5.83 97.1143 6.138 97.1143 6.474V9.09H96.5383V6.57C96.5383 6.074 96.3823 5.678 96.0703 5.382C95.7583 5.078 95.3063 4.926 94.7143 4.926H91.6183V9.09H91.0423ZM91.6183 4.41H94.1383C94.9703 4.41 95.6063 4.246 96.0463 3.918C96.4943 3.582 96.7183 3.11 96.7183 2.502C96.7183 1.886 96.4943 1.414 96.0463 1.086C95.6063 0.757997 94.9703 0.593997 94.1383 0.593997H91.6183V4.41Z" fill="currentColor"/>
+        <path d="M97.7762 9.09L101.592 0.0899963H102.216L106.032 9.09H105.408L101.772 0.461997H102.036L98.3882 9.09H97.7762ZM99.0602 6.738L99.3002 6.234H104.496L104.736 6.738H99.0602Z" fill="currentColor"/>
+      </svg>
+    </div>
+    <a class="btn-build" href="index.html">Let's Build Something</a>
+  </div>
+  <div class="footer-hr"></div>
+  <div class="footer-bar">
+    <span class="footer-bar-text">Samueleluyera@gmail.com</span>
+    <div class="footer-socials">
+      <span class="footer-bar-text">LinkedIn</span>
+      <span class="footer-vert"></span>
+      <span class="footer-bar-text">X (Twitter)</span>
+    </div>
+  </div>
+</footer>
+
+<div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  // ── Smooth scroll only — no section pinning on the case study page ──
+  const lenis = new Lenis({ lerp: 0.095, smoothWheel: true, wheelMultiplier: 1.5 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((t) => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  // ── Nav goes black once the footer reaches it (case-study page only) ──
+  const navEl  = document.querySelector('.navbar');
+  const btnNav = navEl.querySelector('.btn-nav');
+  const footerEl = document.querySelector('.footer');
+  let navIsDark = null;
+  function updateNavForFooter() {
+    const navH = navEl.offsetHeight;
+    const dark = footerEl.getBoundingClientRect().top <= navH;
+    if (dark === navIsDark) return;
+    navIsDark = dark;
+    navEl.style.backgroundColor  = dark ? '#000' : '';
+    navEl.style.color            = dark ? '#fff' : '';
+    btnNav.style.backgroundColor = dark ? '#fff' : '#000';
+    btnNav.style.color           = dark ? '#000' : '#fff';
+  }
+  window.addEventListener('scroll', updateNavForFooter, { passive: true });
+  lenis.on('scroll', updateNavForFooter);
+  window.addEventListener('resize', updateNavForFooter);
+  updateNavForFooter();
+
+  // ── Media slots auto-upgrade to <video> when an mp4 is dropped into
+  //    videos/auto123/<name>.mp4. Until then the exported still is shown. ──
+  document.querySelectorAll('.media[data-media]').forEach(async (slot) => {
+    const name = slot.dataset.media;
+    const src  = `videos/auto123/${name}.mp4`;
+    let ok = false;
+    try { const r = await fetch(src, { method: 'HEAD' }); ok = r.ok; } catch (_) { ok = false; }
+    if (!ok) return;
+
+    const poster = slot.querySelector('img')?.getAttribute('src') || '';
+    const v = document.createElement('video');
+    v.muted = true; v.loop = true; v.playsInline = true;
+    v.preload = 'metadata'; v.poster = poster; v.src = src;
+    slot.innerHTML = '';
+    slot.appendChild(v);
+
+    // Only decode what's on screen.
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.15 }).observe(v);
+  });
+
+  // ── Text + block reveals (play once on entry) ──
+  function splitLines(el) {
+    if (!el || el.dataset.split) return [...(el?.querySelectorAll('.tl-inner') || [])];
+    const words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map(w => `<span class="tl-w">${w}</span>`).join(' ');
+    const rows = []; let top = null;
+    [...el.querySelectorAll('.tl-w')].forEach(w => {
+      if (top === null || Math.abs(w.offsetTop - top) > 3) { rows.push([]); top = w.offsetTop; }
+      rows[rows.length - 1].push(w.textContent);
+    });
+    el.innerHTML = rows.map(r => `<span class="tl-line"><span class="tl-inner">${r.join(' ')}</span></span>`).join('');
+    el.dataset.split = '1';
+    return [...el.querySelectorAll('.tl-inner')];
+  }
+
+  document.fonts.ready.then(() => {
+    document.querySelectorAll('.split').forEach(el => {
+      const lines = splitLines(el);
+      gsap.set(lines, { yPercent: 110, opacity: 0 });
+      gsap.to(lines, {
+        yPercent: 0, opacity: 1, duration: 1, stagger: 0.08, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+      });
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      gsap.set(el, { y: 34, opacity: 0 });
+      gsap.to(el, {
+        y: 0, opacity: 1, duration: 1.1, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      });
+    });
+
+    ScrollTrigger.refresh();
+  });
+
+  // ── Request-case-study form (no backend yet — opens a prefilled email) ──
+  const form = document.getElementById('caseForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('caseEmail').value.trim();
+    if (!email) return;
+    document.getElementById('caseNote').textContent = 'Opening your email client…';
+    const subject = encodeURIComponent('Auto123 case study request');
+    const body = encodeURIComponent(`Please send me the full Auto123 case study.\n\nMy email: ${email}`);
+    window.location.href = `mailto:Samueleluyera@gmail.com?subject=${subject}&body=${body}`;
+  });
+
+  // ── Cursor: dot that expands on links ──
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const cursor = document.querySelector('.cursor');
+    const label  = cursor.querySelector('.cursor-label');
+    gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+    // Snappy but smoothed follow — enough easing to feel fluid without lagging.
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.18, ease: 'power3' });
+    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.18, ease: 'power3' });
+
+    let mode = null, seen = false;
+    window.addEventListener('mousemove', (e) => {
+      xTo(e.clientX); yTo(e.clientY);
+      if (!seen) { seen = true; gsap.to(cursor, { opacity: 1, duration: 0.25 }); }
+
+      const card = e.target.closest && e.target.closest('.related-card');
+      const link = e.target.closest && e.target.closest('a, button, input');
+      const m = card ? 'soon' : (link ? 'link' : 'dot');
+      if (m === mode) return;
+      mode = m;
+      const dark = !!(e.target.closest && e.target.closest('.cta, .footer'));
+      label.textContent = m === 'soon' ? 'Coming Soon' : '';
+      gsap.to(cursor, {
+        width:  m === 'soon' ? 108 : (m === 'link' ? 40 : 14),
+        height: m === 'soon' ? 108 : (m === 'link' ? 40 : 14),
+        backgroundColor: dark ? '#fff' : '#000',
+        color: dark ? '#000' : '#fff',
+        duration: 0.4, ease: 'power3.out',
+      });
+    });
+    document.addEventListener('mouseleave', () => gsap.to(cursor, { opacity: 0, duration: 0.25 }));
+    document.addEventListener('mouseenter', () => { if (seen) gsap.to(cursor, { opacity: 1, duration: 0.25 }); });
+  }
+</script>
+</body>
+</html>

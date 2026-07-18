@@ -1,0 +1,6 @@
+# Local tool/editor config — not part of the deployed site
+.agents/
+.claude/
+.codex/
+.impeccable/
+**/.impeccable/
