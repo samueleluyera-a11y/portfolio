@@ -121,7 +121,7 @@
     }
     .hero-sub {
       font-size: clamp(19px, 2.31vw, 40px); font-weight: 500; line-height: 1.25;
-      letter-spacing: -0.03em; color: #000; max-width: 872px;
+      letter-spacing: -0.03em; color: #000; max-width: 21.8em;
     }
 
     .hero-list { width: clamp(240px, 23vw, 335px); flex-shrink: 0; display: flex; flex-direction: column; gap: 4px; }
@@ -218,7 +218,7 @@
     .cases-title {
       font-size: clamp(32px, 4.17vw, 72px); font-weight: 700; line-height: 1.2;
       letter-spacing: -0.03em; text-transform: uppercase;
-      color: #000; max-width: 667px;
+      color: #000; max-width: 9.27em;
     }
     .cases-note {
       font-size: 20px; font-weight: 500; line-height: 1.6;
@@ -471,6 +471,90 @@
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
     }
 
+    /* ── RESPONSIVE: SHORT DESKTOP VIEWPORTS ─────
+       The pinned 100vh panels were sized against Figma's 1117px-tall frame.
+       Laptops are far shorter (~700–900px of viewport), so type, padding and
+       gaps step down with viewport HEIGHT — otherwise videos get squeezed to
+       slivers and copy clips against the panel edge. Widths keep scaling via
+       vw/em; these queries handle the vertical axis. */
+    @media (min-width: 1025px) and (max-height: 920px) {
+      .hero-intro { padding: clamp(88px, 12vh, 128px) var(--pad-x) 48px; }
+      .hero-heading { font-size: clamp(30px, 3.6vw, 60px); }
+      .hero-sub { font-size: clamp(18px, 2vw, 32px); }
+      .hero-li p { font-size: 17px; }
+
+      .work-section { padding: 96px var(--pad-x) 48px; gap: 32px; }
+      .work-title { font-size: clamp(30px, 3.2vw, 48px); }
+      .work-desc { font-size: 17px; }
+      .tag { font-size: 14px; padding: 6px 14px; }
+      .work-arrow { width: 40px; height: 39.7px; }
+      .work-watermark { font-size: clamp(120px, 17vw, 280px); }
+      .work-video-area { min-height: 30vh; }
+
+      .panel--cases { padding: 96px 0 48px; gap: 24px; }
+      .cases-title { font-size: clamp(30px, 3.4vw, 52px); }
+      .cases-note { font-size: 17px; }
+      .case-card { width: 440px; padding: 28px; }
+      .case-title { font-size: clamp(22px, 1.7vw, 28px); }
+      .case-body p { font-size: 16px; }
+      .case-body p + p { margin-top: 12px; }
+      .case-card .work-tags { margin-top: 16px; }
+
+      .panel--exp { padding: 96px var(--pad-x) 48px; gap: 24px; }
+      .exp-title { font-size: clamp(30px, 3.4vw, 52px); }
+      .exp-company { font-size: 20px; }
+      .exp-role, .exp-country, .exp-date { font-size: 17px; }
+      .exp-row { padding: 12px 0; gap: 20px; }
+      .exp-flag { width: 28px; height: 28px; }
+
+      .panel--about { padding: 96px var(--pad-x) 48px; }
+      .about-top { gap: 40px; }
+      .about-headline { font-size: clamp(22px, 2.3vw, 36px); gap: 18px; }
+      .about-photo { width: 240px; height: 240px; }
+      .about-col-title { font-size: clamp(24px, 2.3vw, 36px); }
+      .about-col-text { font-size: 17px; }
+
+      .footer-center { gap: 36px; }
+      .footer-role { font-size: 18px; }
+    }
+
+    @media (min-width: 1025px) and (max-height: 780px) {
+      .hero-intro { padding-bottom: 36px; }
+      .hero-heading { font-size: clamp(28px, 3.2vw, 52px); }
+      .hero-sub { font-size: clamp(16px, 1.8vw, 28px); }
+      .hero-li p { font-size: 15px; }
+
+      .work-section { padding: 84px var(--pad-x) 40px; gap: 20px; }
+      .work-title { font-size: clamp(26px, 2.8vw, 40px); }
+      .work-desc { font-size: 15px; }
+      .work-watermark { font-size: clamp(100px, 14vw, 220px); }
+      .work-video-area { min-height: 32vh; }
+
+      .panel--cases { padding: 84px 0 40px; gap: 18px; }
+      .cases-title { font-size: clamp(28px, 3vw, 44px); }
+      .cases-note { font-size: 15px; }
+      .case-card { width: 400px; padding: 22px; }
+      .case-title { font-size: 22px; }
+      .case-body p { font-size: 15px; line-height: 1.5; }
+
+      .panel--exp { padding: 84px var(--pad-x) 40px; gap: 18px; }
+      .exp-title { font-size: clamp(28px, 3vw, 44px); }
+      .exp-company { font-size: 18px; }
+      .exp-role, .exp-country, .exp-date { font-size: 15px; }
+      .exp-row { padding: 10px 0; }
+      .exp-flag { width: 24px; height: 24px; }
+
+      .panel--about { padding: 84px var(--pad-x) 40px; }
+      .about-headline { font-size: clamp(19px, 2vw, 30px); gap: 14px; }
+      .about-photo { width: 200px; height: 200px; }
+      .about-col-title { font-size: clamp(20px, 2vw, 30px); }
+      .about-col-text { font-size: 15px; }
+
+      .footer-center { gap: 28px; }
+      .footer-role { font-size: 16px; }
+      .btn-build { font-size: 14px; padding: 10px 20px; }
+    }
+
     /* ── RESPONSIVE: TABLET ───────────────────── */
     @media (max-width: 1024px) {
       .navbar { padding: 12px 28px; }
@@ -653,7 +737,7 @@
 <section class="section" id="work-1">
   <div class="panel work-section w-auto123" onclick="location.href='auto123.html'">
     <div class="work-head">
-      <h2 class="work-title" style="max-width:679px">Marketplace for Buying and Selling Vehicles</h2>
+      <h2 class="work-title" style="max-width:10.61em">Marketplace for Buying and Selling Vehicles</h2>
       <div class="work-arrow"><img src="images/work-arrow.svg" alt=""></div>
     </div>
     <div class="work-video-area">
@@ -670,7 +754,7 @@
         <span class="tag">Mobile App</span>
         <span class="tag">2025</span>
       </div>
-      <p class="work-desc" style="max-width:369px">A vehicle marketplace that brings clarity to one of the busiest and most information dense shopping experiences.</p>
+      <p class="work-desc" style="max-width:18.45em">A vehicle marketplace that brings clarity to one of the busiest and most information dense shopping experiences.</p>
     </div>
   </div>
 </section>
@@ -680,7 +764,7 @@
 <section class="section" id="work-2">
   <div class="panel work-section w-spin">
     <div class="work-head">
-      <h2 class="work-title" style="max-width:555px">Paid Song Requests at Live Events</h2>
+      <h2 class="work-title" style="max-width:8.68em">Paid Song Requests at Live Events</h2>
     </div>
     <div class="work-video-area">
       <p class="work-watermark">Spin Request</p>
@@ -697,7 +781,7 @@
         <span class="tag">WebApp</span>
         <span class="tag">2024</span>
       </div>
-      <p class="work-desc" style="max-width:289px">Helping DJs and MCs boost earnings from live shows with easy song and hype requests.</p>
+      <p class="work-desc" style="max-width:14.45em">Helping DJs and MCs boost earnings from live shows with easy song and hype requests.</p>
     </div>
   </div>
 </section>
@@ -707,7 +791,7 @@
 <section class="section" id="work-3">
   <div class="panel work-section w-ilg">
     <div class="work-head">
-      <h2 class="work-title" style="max-width:555px">Communications for Sport Teams</h2>
+      <h2 class="work-title" style="max-width:8.68em">Communications for Sport Teams</h2>
     </div>
     <div class="work-video-area">
       <p class="work-watermark">ILG 360</p>
@@ -724,7 +808,7 @@
         <span class="tag">WebApp &amp; iOS App</span>
         <span class="tag">2022</span>
       </div>
-      <p class="work-desc" style="max-width:428px">Designed for football &amp; tennis clubs, this platform unites communication, scheduling, wellbeing, injury management, and tactics.</p>
+      <p class="work-desc" style="max-width:21.4em">Designed for football &amp; tennis clubs, this platform unites communication, scheduling, wellbeing, injury management, and tactics.</p>
     </div>
   </div>
 </section>
@@ -734,7 +818,7 @@
 <section class="section" id="work-4">
   <div class="panel work-section w-dropshot">
     <div class="work-head">
-      <h2 class="work-title" style="max-width:603px">Creating &amp; Sharing Ai-Powered Fantasy</h2>
+      <h2 class="work-title" style="max-width:9.43em">Creating &amp; Sharing Ai-Powered Fantasy</h2>
     </div>
     <div class="work-video-area">
       <p class="work-watermark">DropShot</p>
@@ -751,7 +835,7 @@
         <span class="tag">iOS App</span>
         <span class="tag">2024</span>
       </div>
-      <p class="work-desc" style="max-width:380px">Built during the early wave of consumer image AI. Redesigned the MVP and shipped weekly as the space rapidly evolved.</p>
+      <p class="work-desc" style="max-width:19em">Built during the early wave of consumer image AI. Redesigned the MVP and shipped weekly as the space rapidly evolved.</p>
     </div>
   </div>
 </section>
@@ -761,7 +845,7 @@
 <section class="section" id="work-5">
   <div class="panel work-section w-boost">
     <div class="work-head">
-      <h2 class="work-title" style="max-width:906px">Simplifying&nbsp; Carbon Accounting for Large Organizations</h2>
+      <h2 class="work-title" style="max-width:14.16em">Simplifying&nbsp; Carbon Accounting for Large Organizations</h2>
     </div>
     <div class="work-video-area">
       <p class="work-watermark">Booost</p>
@@ -778,7 +862,7 @@
         <span class="tag">Web</span>
         <span class="tag">2024</span>
       </div>
-      <p class="work-desc" style="max-width:461px">A UX-led redesign of a complex sustainability platform, introducing a design system and improved the workflows without rebuilding the entire product.</p>
+      <p class="work-desc" style="max-width:23.05em">A UX-led redesign of a complex sustainability platform, introducing a design system and improved the workflows without rebuilding the entire product.</p>
     </div>
   </div>
 </section>
@@ -962,11 +1046,11 @@
     <div class="about-bottom">
       <div class="about-col">
         <h3 class="about-col-title">The Work I Take</h3>
-        <p class="about-col-text" style="max-width:412px">Founders with a vision and no brief.<br>Problems that resist easy solutions.<br>Deadlines that were technically yesterday. That's the work I take.</p>
+        <p class="about-col-text" style="max-width:20.6em">Founders with a vision and no brief.<br>Problems that resist easy solutions.<br>Deadlines that were technically yesterday. That's the work I take.</p>
       </div>
       <div class="about-col right">
         <h3 class="about-col-title">What&rsquo;s Next</h3>
-        <p class="about-col-text" style="max-width:369px">Given the choice, I'll take a messy workflow over a landing page every time. The next chapter is doing that inside one team, on one problem, long enough to see it land.</p>
+        <p class="about-col-text" style="max-width:18.45em">Given the choice, I'll take a messy workflow over a landing page every time. The next chapter is doing that inside one team, on one problem, long enough to see it land.</p>
       </div>
     </div>
   </div>
