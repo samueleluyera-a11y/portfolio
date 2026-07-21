@@ -171,16 +171,18 @@
     }
     .work-video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* "Coming Soon" chip — hidden on desktop (the hover cursor already says it),
-       shown on mobile/tablet where there's no hover to carry that message. */
+    /* "Coming Soon" chip — hidden on desktop (the hover cursor carries it),
+       shown on mobile/tablet. Figma: top-4 right-4, h-24, px-6, white 20%
+       + 8px blur, 12px white Medium, no radius. */
     .work-badge {
       display: none;
-      position: absolute; top: 0; right: 0; z-index: 2;
-      padding: 8px 12px; border-bottom-left-radius: 16px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      position: absolute; top: 4px; right: 4px; z-index: 2;
+      height: 24px; padding: 0 6px;
+      align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       font-size: 12px; font-weight: 500; line-height: 1.5;
-      letter-spacing: -0.36px; color: #0a0a0a; white-space: nowrap;
+      letter-spacing: -0.36px; color: #fff; white-space: nowrap;
     }
 
     .work-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; width: 100%; }
@@ -568,22 +570,28 @@
       .hero-heading { font-size: clamp(34px, 5.5vw, 56px); letter-spacing: -0.03em; }
       .hero-list { width: 100%; max-width: 420px; }
 
-      /* Compact single-column work card: video → title → description/tags,
-         sized to its content instead of forcing a full viewport height.
-         (.panel's base min-height:100vh floor is what was forcing the extra
-         height — .work-section shares that element, so this override wins.) */
-      .work-section { padding: 100px 28px 52px; gap: 24px; min-height: 0; }
+      /* Work card — verbatim from the Figma mobile comp (node 399:1699):
+         video (16:9), then a title+description group (gap 8), then tags
+         (gap 20). pt-20 pb-40, 20px gutter. The desktop layout wraps the
+         title in .work-head and the tags+desc in .work-foot; display:contents
+         dissolves those wrappers so all four items order directly, letting
+         each gap be set exactly (20 / 8 / 20) via margins. */
+      .work-section {
+        display: flex; flex-direction: column; align-items: stretch;
+        gap: 0; padding: 20px 20px 40px; min-height: 0;
+      }
+      .work-head, .work-foot { display: contents; }
       .work-video-area { order: 1; flex: none; }
-      .work-head { order: 2; }
-      .work-foot { order: 3; }
-      .work-title { font-size: 24px; letter-spacing: -0.72px; }
-      .work-arrow { width: 32px; height: 31.75px; }
-      .work-watermark { display: none; }
-      .work-badge { display: block; }
-      .work-video-box { position: relative; left: auto; top: auto; transform: none; margin: 0 auto; width: 100%; max-width: 934px; height: auto; }
-      .work-foot { flex-direction: column; align-items: flex-start; gap: 24px; }
-      .work-desc { font-size: 16px; letter-spacing: -0.32px; text-align: left; max-width: 100% !important; }
-      .tag { font-size: 14px; letter-spacing: 0.14px; }
+      .work-video-box { position: relative; left: auto; top: auto; transform: none;
+        margin: 0; width: 100%; max-width: none; height: auto; }
+      .work-watermark, .work-arrow, .work-soon { display: none; }
+      .work-badge { display: flex; }
+      .work-title { order: 2; margin-top: 20px; font-size: 24px; line-height: 1.4;
+        letter-spacing: -0.72px; max-width: none !important; }
+      .work-desc { order: 3; margin-top: 8px; font-size: 16px; line-height: 1.5;
+        letter-spacing: -0.32px; text-align: left; max-width: none !important; }
+      .work-tags { order: 4; margin-top: 20px; gap: 4px; }
+      .tag { font-size: 14px; line-height: 1.5; letter-spacing: 0.14px; padding: 4px 10px; }
 
       .panel--cases { padding: 100px 0 52px; gap: 28px; }
       .cases-head { flex-direction: column; gap: 8px; padding: 0 28px; }
@@ -649,11 +657,7 @@
       .hero-li p { font-size: 16px; line-height: 1.5; }
       .strip { height: clamp(240px, 36vh, 300px); }
 
-      /* Work — video (16:9) then title, description, tags */
-      .work-section { padding: 40px 20px; gap: 20px; }
-      .work-title { font-size: 24px; }
-      .work-desc { font-size: 16px; }
-      .tag { font-size: 14px; padding: 4px 10px; }
+      /* Work card fully handled at <=1024 (matches the Figma comp). */
 
       /* Confidential cases — horizontal card scroll + arrows */
       .panel--cases { padding: 40px 0; gap: 20px; }
