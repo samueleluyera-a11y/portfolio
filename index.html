@@ -578,7 +578,7 @@
          each gap be set exactly (20 / 8 / 20) via margins. */
       .work-section {
         display: flex; flex-direction: column; align-items: stretch;
-        gap: 0; padding: 20px 20px 40px; min-height: 0;
+        gap: 0; padding: 40px 20px; min-height: 0;
       }
       .work-head, .work-foot { display: contents; }
       .work-video-area { order: 1; flex: none; }
@@ -810,7 +810,7 @@
     <div class="work-video-area">
       <p class="work-watermark">Auto 123</p>
       <div class="work-video-box">
-        <video class="work-video" muted loop playsinline preload="metadata">
+        <video class="work-video" autoplay muted loop playsinline preload="metadata">
           <source src="videos/auto123.mp4" type="video/mp4">
         </video>
       </div>
@@ -837,7 +837,7 @@
       <p class="work-watermark">Spin Request</p>
       <span class="work-badge">Coming Soon</span>
       <div class="work-video-box">
-        <video class="work-video" muted loop playsinline preload="metadata">
+        <video class="work-video" autoplay muted loop playsinline preload="metadata">
           <source src="videos/spinrequest.mp4" type="video/mp4">
         </video>
       </div>
@@ -864,7 +864,7 @@
       <p class="work-watermark">ILG 360</p>
       <span class="work-badge">Coming Soon</span>
       <div class="work-video-box">
-        <video class="work-video" muted loop playsinline preload="metadata">
+        <video class="work-video" autoplay muted loop playsinline preload="metadata">
           <source src="videos/ilg360.mp4" type="video/mp4">
         </video>
       </div>
@@ -891,7 +891,7 @@
       <p class="work-watermark">DropShot</p>
       <span class="work-badge">Coming Soon</span>
       <div class="work-video-box">
-        <video class="work-video" muted loop playsinline preload="metadata">
+        <video class="work-video" autoplay muted loop playsinline preload="metadata">
           <source src="videos/dropshot.mp4" type="video/mp4">
         </video>
       </div>
@@ -918,7 +918,7 @@
       <p class="work-watermark">Booost</p>
       <span class="work-badge">Coming Soon</span>
       <div class="work-video-box">
-        <video class="work-video" muted loop playsinline preload="metadata">
+        <video class="work-video" autoplay muted loop playsinline preload="metadata">
           <source src="videos/boost.mp4" type="video/mp4">
         </video>
       </div>
@@ -1486,7 +1486,16 @@
   // All work videos are 16:9, so the boxes keep the design's uniform 934×525
   // (aspect-ratio set in CSS); object-fit: cover fills each with no crop.
 
-  if ('IntersectionObserver' in window) {
+  // The videos ship with the native `autoplay` attribute so they reliably play
+  // in-view on mobile — a paused, poster-less muted video paints nothing there
+  // and reads as an empty frame; mobile browsers also pause the off-screen ones
+  // themselves. On the >=1025px desktop the pinned, five-video layout would
+  // decode all of them at once (the old jank), so there we strip autoplay and
+  // let an IntersectionObserver play only the visible one.
+  const isDesktop = matchMedia('(min-width: 1025px)').matches &&
+                    matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (isDesktop && 'IntersectionObserver' in window) {
+    workVideos.forEach(v => { v.autoplay = false; v.pause(); });
     const vo = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         const v = e.target;
@@ -1495,9 +1504,9 @@
       });
     }, { threshold: 0.12 });
     workVideos.forEach(v => vo.observe(v));
-  } else {
-    workVideos.forEach(v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); });
   }
+  // Mobile / tablet: keep the HTML autoplay attribute (native handles play +
+  // off-screen pause), no observer needed.
 
   // ── Request Access modal ──
   (() => {
