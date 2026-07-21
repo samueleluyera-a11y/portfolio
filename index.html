@@ -117,7 +117,7 @@
     .hero-heading {
       font-size: clamp(30px, 4.17vw, 72px); font-weight: 700; line-height: 1.2;
       letter-spacing: -0.03em; text-transform: uppercase;
-      color: #000;
+      color: #000; text-wrap: balance;
     }
     .hero-sub {
       font-size: clamp(19px, 2.31vw, 40px); font-weight: 500; line-height: 1.25;
@@ -391,6 +391,9 @@
     }
     .about-photo { width: 300px; height: 300px; flex-shrink: 0; background: #000; overflow: hidden; }
     .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: bottom; display: block; }
+    /* Mobile-only portrait (Figma places it last, below the two blocks). */
+    .about-photo-m { display: none; flex-shrink: 0; background: #000; overflow: hidden; }
+    .about-photo-m img { width: 100%; height: 100%; object-fit: cover; object-position: bottom; display: block; }
 
     .about-bottom { display: flex; align-items: flex-start; gap: 24px; width: 100%; }
     .about-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
@@ -615,32 +618,92 @@
       .footer-bar { padding: 20px 28px; }
     }
 
-    /* ── RESPONSIVE: MOBILE ───────────────────── */
+    /* ── RESPONSIVE: MOBILE — Figma node 399:1637 ────────
+       Faithful to the mobile comp. Only the hero fills the screen; every
+       other section hugs its content (the base .panel min-height:100vh
+       floor is lifted here, which is what made sections feel over-tall).
+       Type + spacing come straight from the Figma: nav & hero large,
+       content sections on a 40px rhythm with a 20px gutter. */
     @media (max-width: 640px) {
-      .navbar { padding: 10px 18px; }
+      /* Sections hug content; the hero alone is full-height. */
+      .panel { min-height: 0; }
+      .panel--hero { min-height: 100vh; }
+
+      /* Nav — 72px bar: 16px logo + "Get in touch" pill */
+      .navbar { padding: 16px 20px; }
       .nav-menu { gap: 12px; }
       .nav-collapse { display: none; }
-      /* Just the logo + "Get in touch" on true mobile — every other link goes. */
       .nav-mobile-hide { display: none; }
-      .nav-logo-svg { height: 14px; }
-      .btn-nav { font-size: 14px; padding: 7px 14px; }
+      .nav-logo-svg { height: 16px; }
+      .btn-nav { font-size: 16px; padding: 8px 16px; }
 
-      .hero-intro { padding: 92px 18px 36px; }
+      /* Hero — copy centers in the frame; filmstrip pinned 300px at base */
+      .hero-intro { padding: 88px 20px 40px; }
+      .hero-row { gap: 56px; }
+      .hero-heading { font-size: 32px; line-height: 1.2; letter-spacing: -0.03em; }
+      .hero-sub { font-size: 20px; line-height: 1.25; letter-spacing: -0.03em; }
+      .hero-list { gap: 4px; }
+      .hero-li { gap: 16px; }
+      .hero-li .dash { width: 24px; }
+      .hero-li.top .dash { margin-top: 12px; }
+      .hero-li p { font-size: 16px; line-height: 1.5; }
+      .strip { height: clamp(240px, 36vh, 300px); }
 
-      .work-section { padding: 88px 18px 44px; }
+      /* Work — video (16:9) then title, description, tags */
+      .work-section { padding: 40px 20px; gap: 20px; }
+      .work-title { font-size: 24px; }
+      .work-desc { font-size: 16px; }
+      .tag { font-size: 14px; padding: 4px 10px; }
 
-      .cases-head, .cases-row { padding-left: 18px; padding-right: 18px; }
-      .cases-nav { padding-left: 18px; padding-right: 18px; }
+      /* Confidential cases — horizontal card scroll + arrows */
+      .panel--cases { padding: 40px 0; gap: 20px; }
+      .cases-head { padding: 0 20px; gap: 10px; }
+      .cases-title { font-size: 28px; }
+      .cases-note { font-size: 16px; }
+      .cases-row { padding: 0 20px; }
+      .cases-nav { padding: 0 20px; }
+      .case-card { width: 320px; padding: 20px; }
 
-      .panel--exp { padding: 88px 18px 44px; }
-      .panel--about { padding: 88px 18px 44px; }
+      /* Experience — two-line grid per row (auto-placed from the flat
+         company / role / loc / date markup):
+           company        |  role
+           flag country   |  date   */
+      .panel--exp { padding: 40px 20px; gap: 20px; }
+      .exp-title { font-size: 28px; }
+      .exp-row {
+        display: grid; grid-template-columns: 1fr auto;
+        align-items: center; column-gap: 24px; row-gap: 10px;
+        padding: 10px 0;
+      }
+      .exp-company { font-size: 16px; line-height: 1.4; }
+      .exp-role, .exp-country, .exp-date { color: #000; font-size: 14px; }
+      .exp-role, .exp-date { justify-self: end; text-align: right; }
+      .exp-loc { gap: 12px; }
+      .exp-date { width: auto; }
+      .exp-flag { width: 24px; height: 24px; }
 
+      /* About — statement, two labelled blocks, portrait last (150px) */
+      .panel--about { padding: 40px 20px; gap: 40px; }
+      .about-top { flex-direction: column; gap: 0; }
+      .about-headline { font-size: 24px; line-height: 1.5; gap: 0; }
+      .about-photo { display: none; }            /* desktop portrait hidden */
+      .about-photo-m { display: block; width: 150px; height: 150px; }
+      .about-bottom { gap: 24px; }
+      .about-col-title { font-size: 20px; line-height: 1.25; white-space: normal; }
+      .about-col-text { font-size: 16px; line-height: 1.5; }
+
+      /* Footer — tall centered brand block, then meta bar as a row */
+      .footer-center { min-height: 70vh; justify-content: center; padding: 64px 20px; gap: 20px; }
+      .footer-role { font-size: 16px; }
+      .btn-build { font-size: 16px; padding: 10px 20px; }
+      .footer-bar { flex-direction: row; align-items: center; padding: 20px; gap: 16px; }
+      .footer-bar-text { font-size: 14px; letter-spacing: -0.42px; }
+      .footer-socials { gap: 8px; }
+
+      /* Modal */
       .modal { padding: 18px; }
       .modal-panel { padding: 32px 24px; }
       .modal-title { font-size: 28px; }
-
-      .footer-center { padding: 48px 18px; gap: 28px; }
-      .footer-bar { padding: 18px; flex-direction: column; align-items: flex-start; gap: 10px; }
     }
   </style>
 </head>
@@ -684,7 +747,7 @@
     <div class="hero-intro">
       <div class="hero-row">
         <div class="hero-copy">
-          <h1 class="hero-heading">I design software where<br>mistakes are expensive.</h1>
+          <h1 class="hero-heading">I design software where mistakes are expensive.</h1>
           <p class="hero-sub">10 years. 56 clients. 100+ projects across healthcare, fintech, AI &amp; enterprise SaaS.</p>
         </div>
         <div class="hero-list">
@@ -996,7 +1059,7 @@
       </div>
       <div class="exp-row">
         <span class="exp-company">Reiz Tech</span>
-        <span class="exp-role">UI/UX Designer</span>
+        <span class="exp-role">Product Designer</span>
         <span class="exp-loc"><img class="exp-flag" src="images/flag-lt.svg" alt=""><span class="exp-country">Lithuania</span></span>
         <span class="exp-date">Dec 2023 - Jul 2024</span>
       </div>
@@ -1007,16 +1070,16 @@
         <span class="exp-date">Dec 2022 - Dec 2023</span>
       </div>
       <div class="exp-row">
+        <span class="exp-company">CLB Systems</span>
+        <span class="exp-role">Product Designer</span>
+        <span class="exp-loc"><img class="exp-flag" src="images/flag-jp.svg" alt="" style="border:1px solid #000"><span class="exp-country">Japan</span></span>
+        <span class="exp-date">Oct 2020 - Oct 2021</span>
+      </div>
+      <div class="exp-row">
         <span class="exp-company">FutuX</span>
         <span class="exp-role">Graphics &amp; Web Designer</span>
         <span class="exp-loc"><img class="exp-flag" src="images/flag-ng.svg" alt=""><span class="exp-country">Nigeria</span></span>
-        <span class="exp-date">Dec 2021 - Dec 2022</span>
-      </div>
-      <div class="exp-row">
-        <span class="exp-company">CLB Systems</span>
-        <span class="exp-role">UI/UX Designer</span>
-        <span class="exp-loc"><img class="exp-flag" src="images/flag-jp.svg" alt="" style="border:1px solid #000"><span class="exp-country">Japan</span></span>
-        <span class="exp-date">Oct 2020 - Oct 2021</span>
+        <span class="exp-date">Sep 2018 - Dec 2020</span>
       </div>
       <div class="exp-row">
         <span class="exp-company">Cedar Productions</span>
@@ -1050,8 +1113,11 @@
       </div>
       <div class="about-col right">
         <h3 class="about-col-title">What&rsquo;s Next</h3>
-        <p class="about-col-text" style="max-width:18.45em">Given the choice, I'll take a messy workflow over a landing page every time. The next chapter is doing that inside one team, on one problem, long enough to see it land.</p>
+        <p class="about-col-text" style="max-width:18.45em">Given the choice, I'll take a messy workflow over a landing page every time. The next chapter is doing that inside one team, on one problem, long enough to see it become a unicorn.</p>
       </div>
+    </div>
+    <div class="about-photo-m">
+      <img src="images/about-portrait.png" alt="Samuel Eluyera">
     </div>
   </div>
 </section>
