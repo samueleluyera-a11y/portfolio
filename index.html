@@ -252,91 +252,6 @@
     .case-body p + p { margin-top: 16px; }
     .case-card .work-tags { color: #000; margin-top: 24px; }
 
-    /* Per-card "Request Case study" link — mobile/tablet only; on desktop the
-       hover cursor already reads "Request Case Study" over these cards. */
-    .case-cta {
-      display: none;
-      align-items: center; gap: 4px;
-      font-size: 16px; font-weight: 500; line-height: 24px;
-      letter-spacing: -0.48px; color: #000; text-decoration: none;
-      background: none; border: none; padding: 0;
-      font-family: inherit; cursor: pointer;
-    }
-    .case-cta svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-    /* ── REQUEST ACCESS MODAL ─────────────────── */
-    .modal {
-      position: fixed; inset: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: center;
-      padding: 24px;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      opacity: 0; visibility: hidden;
-      transition: opacity 0.4s ease, visibility 0s linear 0.4s;
-    }
-    .modal.is-open { opacity: 1; visibility: visible; transition: opacity 0.4s ease, visibility 0s; }
-    .modal-panel {
-      position: relative;
-      background: #fff; width: 500px; max-width: 100%;
-      padding: 40px;
-      display: flex; flex-direction: column; align-items: center; gap: 16px;
-      transform: translateY(14px) scale(0.97);
-      transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-    .modal.is-open .modal-panel { transform: none; }
-    /* The panel is a fixed 500px, so its type stays at the Figma size rather than
-       scaling with the viewport; it only steps down once the panel itself shrinks. */
-    .modal-title {
-      font-size: 40px; font-weight: 700; line-height: 1.2;
-      letter-spacing: -0.03em; text-transform: uppercase; color: #000; text-align: center;
-    }
-    .modal-body {
-      font-size: 16px; font-weight: 500; line-height: 1.6;
-      letter-spacing: -0.02em; color: #000; text-align: center; max-width: 330px;
-    }
-    .modal-form { display: flex; gap: 8px; align-items: stretch; width: 100%; }
-    .modal-input {
-      flex: 1; min-width: 0;
-      background: #f6f6f6; border: none; border-radius: 99px;
-      padding: 11px 16px;
-      font-family: inherit; font-size: 16px; font-weight: 400;
-      line-height: 1.6; letter-spacing: -0.02em; color: #000;
-    }
-    .modal-input::placeholder { color: #000; opacity: 0.5; }
-    .modal-input:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
-    .modal-submit {
-      flex-shrink: 0; background: #000; color: #fff;
-      border: none; border-radius: 99px; padding: 12px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-family: inherit; transition: opacity 0.2s;
-    }
-    .modal-submit:hover { opacity: 0.8; }
-    .modal-submit svg { width: 24px; height: 24px; display: block; }
-    .modal-status {
-      font-size: 14px; font-weight: 500; line-height: 1.5;
-      letter-spacing: -0.02em; text-align: center; min-height: 21px; color: #000;
-    }
-    .modal-status.is-error { color: #b00020; }
-    .modal-status.is-ok    { color: #0a7a2f; }
-    .modal-close {
-      position: absolute; top: 14px; right: 14px;
-      width: 32px; height: 32px; border-radius: 50%;
-      border: none; background: none; padding: 0;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; opacity: 0.4; transition: opacity 0.2s;
-    }
-    .modal-close:hover { opacity: 1; }
-    .modal-close svg { width: 16px; height: 16px; display: block; }
-
-    /* The site hides the native cursor; restore it while the modal is open. */
-    body.modal-open .cursor { display: none; }
-    @media (hover: hover) and (pointer: fine) {
-      body.modal-open, body.modal-open * { cursor: auto !important; }
-      body.modal-open .modal-submit,
-      body.modal-open .modal-close { cursor: pointer !important; }
-      body.modal-open .modal-input { cursor: text !important; }
-    }
-
     /* Prev/next controls for the card row — mobile/tablet only; desktop keeps
        the scroll-driven + drag interaction and has no need for buttons. */
     .cases-nav { display: none; align-items: center; gap: 16px; padding: 0 var(--pad-x); }
@@ -466,16 +381,6 @@
       .cursor { display: none; }
     }
 
-    /* ── CASE CARD HOVER (subtle lift) ─────────── */
-    .case-card {
-      transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
-                  box-shadow 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-    .case-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-    }
-
     /* ── RESPONSIVE: SHORT DESKTOP VIEWPORTS ─────
        The pinned 100vh panels were sized against Figma's 1117px-tall frame.
        Laptops are far shorter (~700–900px of viewport), so type, padding and
@@ -602,7 +507,6 @@
       .case-card { width: 320px; padding: 20px; justify-content: flex-start; gap: 16px; }
       .case-title { font-size: 24px; letter-spacing: -0.72px; }
       .case-body p { font-size: 16px; letter-spacing: -0.32px; }
-      .case-cta { display: flex; margin-top: auto; }
       .cases-nav { display: flex; }
 
       .panel--exp { padding: 100px 28px 52px; gap: 28px; }
@@ -703,11 +607,6 @@
       .footer-bar { flex-direction: row; align-items: center; padding: 20px; gap: 16px; }
       .footer-bar-text { font-size: 14px; letter-spacing: -0.42px; }
       .footer-socials { gap: 8px; }
-
-      /* Modal */
-      .modal { padding: 18px; }
-      .modal-panel { padding: 32px 24px; }
-      .modal-title { font-size: 28px; }
     }
   </style>
 </head>
@@ -939,8 +838,8 @@
 <section class="section" id="cases">
   <div class="panel panel--cases">
     <div class="cases-head">
-      <h2 class="cases-title">Confidential Case Studies</h2>
-      <p class="cases-note">The projects that pushed my thinking the furthest are protected by NDA. Request access to explore selected case studies covering healthcare, finance, defense, and enterprise software.</p>
+      <h2 class="cases-title">Selected Confidential Work</h2>
+      <p class="cases-note">My strongest work is protected by NDA. While I can't share the case studies publicly or privately, I'm happy to discuss the challenges, decisions, and outcomes in an interview.</p>
     </div>
     <div class="cases-row">
      <div class="cases-track">
@@ -955,10 +854,6 @@
           <span class="tag">Defense</span>
           <span class="tag">Real Time Systems</span>
         </div>
-        <button class="case-cta" type="button">
-          Request Case study
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
       </div>
       <div class="case-card" style="background:#f0e9fa">
         <div class="case-copy">
@@ -973,10 +868,6 @@
           <span class="tag">Data Visualization</span>
           <span class="tag">Information Design</span>
         </div>
-        <button class="case-cta" type="button">
-          Request Case study
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
       </div>
       <div class="case-card" style="background:#e8ecff">
         <div class="case-copy">
@@ -991,10 +882,6 @@
           <span class="tag">SaaS</span>
           <span class="tag">Systems Thinking</span>
         </div>
-        <button class="case-cta" type="button">
-          Request Case study
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
       </div>
       <div class="case-card" style="background:#faf6e9">
         <div class="case-copy">
@@ -1008,10 +895,6 @@
           <span class="tag">SaaS</span>
           <span class="tag">Ai</span>
         </div>
-        <button class="case-cta" type="button">
-          Request Case study
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
       </div>
       <div class="case-card" style="background:#fae9e9">
         <div class="case-copy">
@@ -1025,10 +908,6 @@
           <span class="tag">Enterprise SaaS</span>
           <span class="tag">Product Strategy</span>
         </div>
-        <button class="case-cta" type="button">
-          Request Case study
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
       </div>
      </div>
     </div>
@@ -1163,27 +1042,6 @@
     </div>
   </div>
 </section>
-
-
-<!-- ══════════════ REQUEST ACCESS MODAL ══════════════ -->
-<div class="modal" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestModalTitle" aria-hidden="true">
-  <div class="modal-panel">
-    <button class="modal-close" type="button" id="requestClose" aria-label="Close">
-      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    </button>
-    <p class="modal-title" id="requestModalTitle">Request Access</p>
-    <p class="modal-body">Enter your email below and I'll send you a private link with the selected case studies</p>
-    <form class="modal-form" id="requestForm" novalidate>
-      <input type="hidden" name="case_study" id="requestCase">
-      <input class="modal-input" id="requestEmail" type="email" name="email"
-             placeholder="Enter your email..." autocomplete="email" required aria-label="Your email address">
-      <button class="modal-submit" type="submit" aria-label="Send request">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </form>
-    <p class="modal-status" id="requestStatus" role="status" aria-live="polite"></p>
-  </div>
-</div>
 
 
 <!-- Custom cursor (always on; label varies per section) -->
@@ -1508,103 +1366,6 @@
   // Mobile / tablet: keep the HTML autoplay attribute (native handles play +
   // off-screen pause), no observer needed.
 
-  // ── Request Access modal ──
-  (() => {
-    // ── WHERE SUBMISSIONS GO ────────────────────────────────────────────────
-    // Paste a form-backend endpoint here to receive each request by email
-    // (e.g. Formspree: 'https://formspree.io/f/xxxxxxxx'). It's a static site, so
-    // it can't send mail on its own — the service does that. Until this is set,
-    // submissions fall back to opening the visitor's own mail client.
-    const FORM_ENDPOINT = '';
-    const EMAIL = 'samueleluyera@gmail.com';
-
-    const modal  = document.getElementById('requestModal');
-    if (!modal) return;
-    const form   = document.getElementById('requestForm');
-    const input  = document.getElementById('requestEmail');
-    const status = document.getElementById('requestStatus');
-    const caseFl = document.getElementById('requestCase');
-    let lastFocus = null;
-
-    const setStatus = (msg, kind) => {
-      status.textContent = msg || '';
-      status.className = 'modal-status' + (kind ? ' is-' + kind : '');
-    };
-
-    const open = (caseName) => {
-      lastFocus = document.activeElement;
-      caseFl.value = caseName || 'Confidential case studies';
-      form.hidden = false;
-      input.value = '';
-      setStatus('');
-      modal.classList.add('is-open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-      lenis.stop();                      // freeze the page behind the modal
-      setTimeout(() => input.focus(), 80);
-    };
-    const close = () => {
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-      lenis.start();
-      if (lastFocus && lastFocus.focus) lastFocus.focus();
-    };
-
-    // Whole card is the trigger on desktop (the cursor reads "Request Case
-    // Study" over it); the in-card button covers tablet/mobile via bubbling.
-    document.querySelectorAll('.case-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const t = card.querySelector('.case-title');
-        open(t ? t.textContent.trim() : '');
-      });
-    });
-
-    document.getElementById('requestClose').addEventListener('click', close);
-    modal.addEventListener('click', e => { if (e.target === modal) close(); });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = input.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        setStatus('Please enter a valid email address.', 'error');
-        input.focus();
-        return;
-      }
-
-      if (!FORM_ENDPOINT) {
-        // No backend wired up yet — hand off to the visitor's mail client so the
-        // request still reaches you.
-        const subject = encodeURIComponent('Case study access request — ' + caseFl.value);
-        const body = encodeURIComponent(
-          'Please send me the private link to your case studies.\n\n' +
-          'Requested: ' + caseFl.value + '\nMy email: ' + email + '\n'
-        );
-        window.location.href = 'mailto:' + EMAIL + '?subject=' + subject + '&body=' + body;
-        setStatus('Opening your mail app…');
-        return;
-      }
-
-      setStatus('Sending…');
-      try {
-        const res = await fetch(FORM_ENDPOINT, {
-          method: 'POST',
-          headers: { Accept: 'application/json' },
-          body: new FormData(form),
-        });
-        if (!res.ok) throw new Error('Bad response');
-        form.hidden = true;
-        setStatus("Thanks — I'll send your private link shortly.", 'ok');
-        setTimeout(close, 2600);
-      } catch (err) {
-        setStatus('Something went wrong. Please email ' + EMAIL, 'error');
-      }
-    });
-  })();
-
   // ── Custom cursor — always visible; label + size vary per section ──
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const cursor = document.querySelector('.cursor');
@@ -1619,15 +1380,13 @@
       dot:  ['', 14],
       view: ['View', 96],
       soon: ['Coming Soon', 108],
-      rcs:  ['Request Case Study', 132],
     };
     const modeFor = (t) => {
       const sec = t && t.closest ? t.closest('.section') : null;
       if (!sec) return 'dot';
       if (sec.id === 'work-1') return 'view';          // Auto 123
       if (/^work-/.test(sec.id)) return 'soon';        // all other works
-      if (sec.id === 'cases') return 'rcs';            // confidential case studies
-      return 'dot';
+      return 'dot';                                    // cases stay a plain dot
     };
     // Bubble inverts on dark sections so it stays visible.
     const darkFor = (t) => {
