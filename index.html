@@ -220,7 +220,11 @@
     .cases-title {
       font-size: clamp(32px, 4.17vw, 72px); font-weight: 700; line-height: 1.2;
       letter-spacing: -0.03em; text-transform: uppercase;
-      color: #000; max-width: 9.27em;
+      /* 10.6em fits "Confidential Work" (10.04em) but not "Selected
+         Confidential" (11.77em), so the title always breaks to exactly two
+         lines: "Selected" / "Confidential Work". In em so it holds at every
+         font size. */
+      color: #000; max-width: 10.6em;
     }
     .cases-note {
       font-size: 20px; font-weight: 500; line-height: 1.6;
@@ -608,6 +612,13 @@
       .footer-bar-text { font-size: 14px; letter-spacing: -0.42px; }
       .footer-socials { gap: 8px; }
     }
+
+    /* Narrow phones (<=360px): at 28px "Confidential Work" needs 281px but a
+       320px screen only leaves 280px, which would push the title to three
+       lines. A 2px step-down keeps it at two. */
+    @media (max-width: 360px) {
+      .cases-title { font-size: 26px; }
+    }
   </style>
 </head>
 <body>
@@ -654,9 +665,11 @@
           <p class="hero-sub">10 years. 56 clients. 100+ projects across healthcare, fintech, AI &amp; enterprise SaaS.</p>
         </div>
         <div class="hero-list">
-          <div class="hero-li"><span class="dash"></span><p>EHR platforms for hospitals</p></div>
+          <div class="hero-li"><span class="dash"></span><p>Clinical AI &amp; EHR platforms</p></div>
           <div class="hero-li"><span class="dash"></span><p>Commercial lending systems</p></div>
-          <div class="hero-li top"><span class="dash"></span><p>Clinical AI &amp; defense operations</p></div>
+          <div class="hero-li"><span class="dash"></span><p>Enterprise financial systems</p></div>
+          <div class="hero-li"><span class="dash"></span><p>Developer tools &amp; deployment</p></div>
+          <div class="hero-li"><span class="dash"></span><p>Defense drone command</p></div>
         </div>
       </div>
     </div>
