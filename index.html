@@ -491,102 +491,15 @@
       .btn-build { font-size: 14px; padding: 10px 20px; }
     }
 
-    /* ── RESPONSIVE: TABLET (641–1024) ─────────────────
-       Between the 1728 desktop and the 380 mobile comp: same structure as
-       mobile (stacked sections, full-bleed work video) with type sitting
-       between the two scales. */
+    /* ── RESPONSIVE: MOBILE + TABLET — Figma node 415:1523 ────
+       The mobile comp (380px frame) drives everything below 1025px, tablet
+       included. Only the hero fills the screen; every other section hugs its
+       content. Work cards are px-24 py-44 gap-16: title, inset 16:9 video,
+       description, tags. Nav drops to logo + Get in touch.
+       Type: hero 28, section/work title 20, body 14, meta 12. */
     @media (max-width: 1024px) {
-      .navbar { padding: 14px 28px; }
-      .panel { height: auto; min-height: 0; }
-      .panel--hero { min-height: 100vh; }
-
-      .nav-logo-svg { height: 15px; }
-
-      /* Hero — copy top, bullets bottom */
-      .hero-intro { padding: 120px 28px 48px; }
-      .hero-row {
-        flex-direction: column; align-items: stretch;
-        justify-content: space-between; height: 100%; gap: 40px;
-      }
-      .hero-copy { flex: none; gap: 16px; }
-      .hero-heading { font-size: clamp(28px, 4.2vw, 40px); letter-spacing: -0.02em; max-width: none; }
-      .hero-sub { font-size: clamp(16px, 2.1vw, 20px); max-width: none; }
-      .hero-li p { font-size: 15px; letter-spacing: -0.3px; }
-      .strip { height: clamp(240px, 34vh, 320px); }
-
-      /* Work — full-bleed 16:9 video, copy inset 28px */
-      .work-section { padding: 0; align-items: stretch; }
-      .work-inner { display: flex; flex-direction: column; gap: 0; max-width: none; }
-      .work-head, .work-foot { display: contents; }
-      .work-video-area { order: 1; width: 100%; }
-      .work-video-box { width: 100%; aspect-ratio: 16 / 9; max-height: none; }
-      .work-title { order: 2; padding: 32px 28px 0; font-size: clamp(20px, 2.6vw, 26px);
-        line-height: 1.35; letter-spacing: -0.02em; max-width: none !important; }
-      .work-desc { order: 3; padding: 14px 28px 0; font-size: 15px; line-height: 1.5;
-        letter-spacing: -0.3px; text-align: left; max-width: none !important; }
-      .work-tags { order: 4; padding: 14px 28px 56px; gap: 6px; }
-      .work-wip, .work-arrow { display: none; }
-      .work-badge { display: flex; top: 8px; right: 8px; padding: 8px 6px; font-weight: 400; }
-      .tag { font-size: 13px; line-height: 16px; letter-spacing: 0.13px; padding: 4px 10px; }
-
-      /* Confidential */
-      .panel--cases { padding: 56px 0; }
-      .cases-inner { gap: 28px; }
-      .cases-head { flex-direction: column; align-items: flex-start; gap: 24px; padding: 0 28px; max-width: none; }
-      .cases-headl { gap: 10px; }
-      .cases-title { font-size: clamp(20px, 2.6vw, 26px); letter-spacing: -0.02em; }
-      .cases-note { font-size: 15px; letter-spacing: -0.3px; max-width: 46em; }
-      .cases-arrows { display: none; }
-      .cases-row { padding: 0 28px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
-      .cases-row::-webkit-scrollbar { display: none; }
-      .cases-track { gap: 12px; }
-      .case-card, .case-card--wide { width: 360px; padding: 32px; gap: 24px; }
-      .case-title { font-size: clamp(18px, 2.2vw, 22px); letter-spacing: -0.02em; }
-      .case-body p { font-size: 15px; letter-spacing: -0.3px; }
-      .case-card .work-tags { margin-top: 0; padding: 0; gap: 8px; }
-      .cases-nav { display: flex; padding: 0 28px; }
-
-      /* Experience — two-line grid rows */
-      .panel--exp { padding: 56px 28px; }
-      .exp-inner { gap: 28px; }
-      .exp-title { font-size: clamp(20px, 2.6vw, 26px); letter-spacing: -0.02em; }
-      .exp-row {
-        display: grid; grid-template-columns: 1fr auto;
-        align-items: center; column-gap: 24px; row-gap: 10px;
-        padding: 14px 0;
-      }
-      .exp-company { font-size: 16px; letter-spacing: -0.32px; }
-      .exp-role, .exp-country, .exp-date { font-size: 13px; letter-spacing: -0.26px; color: #000; }
-      .exp-role, .exp-date { justify-self: end; text-align: right; }
-      .exp-date { width: auto; }
-      .exp-flag { width: 24px; height: 24px; }
-
-      /* About — portrait below the copy, like mobile */
-      .panel--about { padding: 64px 28px; }
-      .about-inner { max-width: none; }
-      .about-top { flex-direction: column; gap: 40px; }
-      .about-photo { display: none; }
-      .about-photo-m { display: block; width: 200px; height: 200px; }
-      .about-main { gap: 40px; }
-      .about-headline { font-size: 17px; line-height: 1.5; letter-spacing: -0.34px; }
-      .about-headline p + p { margin-top: 18px; }
-      .about-bottom { flex-direction: row; gap: 40px; }
-      .about-col { gap: 10px; }
-      .about-col-title { font-size: 20px; letter-spacing: -0.4px; }
-      .about-col-text { font-size: 14px; letter-spacing: -0.28px; }
-
-      .footer-center { padding: 64px 28px; gap: 28px; }
-      .footer-bar { padding: 20px 28px; }
-    }
-
-    /* ── RESPONSIVE: MOBILE — Figma node 415:1523 ────────
-       380px frame. Only the hero fills the screen; every other section hugs
-       its content. Work cards go full-bleed: the 16:9 video spans the whole
-       width with the copy inset 24px below it. Nav drops to logo + Get in
-       touch. Type: hero 28, section/work title 20, body 14, meta 12. */
-    @media (max-width: 640px) {
       /* Sections hug content; the hero alone is full-height. */
-      .panel { min-height: 0; }
+      .panel { height: auto; min-height: 0; }
       .panel--hero { min-height: 100vh; }
 
       /* Nav — 64px bar: 14px logo + "Get in touch" pill only */
@@ -640,7 +553,8 @@
       .cases-title { font-size: 20px; line-height: 1.35; letter-spacing: -0.4px; }
       .cases-note { font-size: 14px; line-height: 1.5; letter-spacing: -0.28px; max-width: none; }
       .cases-arrows { display: none; }          /* shown below the row instead */
-      .cases-row { padding: 0 24px; }
+      .cases-row { padding: 0 24px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+      .cases-row::-webkit-scrollbar { display: none; }
       .cases-track { gap: 10px; }
       .case-card, .case-card--wide { width: 320px; padding: 24px; gap: 24px; }
       .case-title { font-size: 20px; line-height: 1.6; letter-spacing: -0.4px; }
@@ -690,6 +604,72 @@
       .footer-logo { max-width: 300px; }
       .footer-bar-text { font-size: 14px; letter-spacing: -0.42px; }
       .footer-socials { gap: 8px; }
+    }
+
+
+    /* ── RESPONSIVE: TABLET (641–1024) ─────────────────
+       Layout comes from the mobile block above — same stacked sections and
+       the same work card (title, inset 16:9 video, description, tags). This
+       block only scales the gutters, spacing and type up for the larger
+       screen; it deliberately overrides no structure. */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .navbar { padding: 14px 40px; }
+      .nav-logo-svg { height: 15px; }
+
+      /* Hero */
+      .hero-intro { padding: 128px 40px 48px; }
+      .hero-row { gap: 40px; }
+      .hero-heading { font-size: clamp(30px, 4.4vw, 40px); letter-spacing: -0.02em; }
+      .hero-sub { font-size: clamp(17px, 2.2vw, 20px); }
+      .hero-li p { font-size: 15px; letter-spacing: -0.3px; }
+      .strip { height: clamp(300px, 34vh, 340px); }
+
+      /* Work — same order and structure, roomier */
+      .work-section { padding: 56px 40px; }
+      .work-inner { gap: 20px; }
+      .work-title { font-size: clamp(22px, 2.8vw, 26px); letter-spacing: -0.02em; }
+      .work-desc { font-size: 16px; letter-spacing: -0.32px; }
+      .work-tags { gap: 6px; }
+      .tag { font-size: 13px; letter-spacing: 0.13px; }
+      .work-badge { top: 12px; right: 12px; height: 24px; padding: 0 8px; }
+
+      /* Confidential */
+      .panel--cases { padding: 56px 0; }
+      .cases-inner { gap: 28px; }
+      .cases-head { gap: 28px; padding: 0 40px; }
+      .cases-headl { gap: 10px; }
+      .cases-title { font-size: clamp(22px, 2.8vw, 26px); letter-spacing: -0.02em; }
+      .cases-note { font-size: 16px; letter-spacing: -0.32px; max-width: 46em; }
+      .cases-row { padding: 0 40px; }
+      .cases-track { gap: 12px; }
+      .case-card, .case-card--wide { width: 380px; padding: 32px; }
+      .case-title { font-size: 22px; letter-spacing: -0.44px; }
+      .case-body p { font-size: 15px; letter-spacing: -0.3px; }
+      .cases-nav { padding: 0 40px; }
+
+      /* Experience */
+      .panel--exp { padding: 28px 40px 56px; }
+      .exp-inner { gap: 24px; }
+      .exp-title { font-size: clamp(22px, 2.8vw, 26px); letter-spacing: -0.02em; }
+      .exp-row { padding: 14px 0; }
+      .exp-company { font-size: 17px; }
+      .exp-role, .exp-country, .exp-date { font-size: 13px; letter-spacing: -0.26px; }
+
+      /* About */
+      .panel--about { padding: 56px 40px; }
+      .about-main { gap: 48px; }
+      .about-headline { font-size: 17px; letter-spacing: -0.34px; }
+      .about-headline p + p { margin-top: 18px; }
+      .about-photo-m { width: 200px; height: 200px; }
+      .about-bottom { flex-direction: row; gap: 40px; }
+      .about-col-title { font-size: 22px; letter-spacing: -0.44px; }
+      .about-col-text { font-size: 15px; letter-spacing: -0.3px; }
+
+      /* Footer */
+      .footer-center { padding: 64px 40px; gap: 24px; }
+      .footer-logo { max-width: 460px; }
+      .footer-bar { padding: 20px 40px; }
+      .footer-bar-text { font-size: 15px; }
     }
 
     /* Narrow phones: keep the confidential heading on one line. */
