@@ -180,7 +180,8 @@
       white-space: nowrap; flex-shrink: 0;
     }
 
-    .work-video-area { width: 100%; display: flex; justify-content: center; }
+    /* position: relative anchors the "WIP" chip, which is a sibling of the box. */
+    .work-video-area { position: relative; width: 100%; display: flex; justify-content: center; }
     /* Full container width and exactly 16:9 — never cropped. The container
        itself is capped by available height (see .work-inner), so this always
        fits the pinned panel. */
@@ -584,11 +585,9 @@
        width with the copy inset 24px below it. Nav drops to logo + Get in
        touch. Type: hero 28, section/work title 20, body 14, meta 12. */
     @media (max-width: 640px) {
-      /* Sections hug content; the hero alone is full-height. The hero's own
-         white background shows below the filmstrip as a breathing gap before
-         the work section starts. */
+      /* Sections hug content; the hero alone is full-height. */
       .panel { min-height: 0; }
-      .panel--hero { min-height: 100vh; padding-bottom: 40px; }
+      .panel--hero { min-height: 100vh; }
 
       /* Nav — 64px bar: 14px logo + "Get in touch" pill only */
       .navbar { padding: 12px 20px; }
@@ -612,28 +611,29 @@
       .hero-li p { font-size: 14px; line-height: 1.5; letter-spacing: -0.28px; }
       .strip { height: 300px; }
 
-      /* Work — full-bleed 16:9 video, then copy inset 24px.
-         The section padding is dropped so the video reaches the edges; the
-         copy carries its own 24px inset. display:contents dissolves the
-         desktop .work-head/.work-foot wrappers so video → title →
-         description → tags can be ordered directly (the DOM has tags
-         before the description, for the desktop row). */
-      .work-section { padding: 0; align-items: stretch; }
-      .work-inner { display: flex; flex-direction: column; gap: 0; max-width: none; }
+      /* Work — px-24 py-32, gap 16, in Figma order: title, 16:9 video (inset,
+         not full-bleed), description, tags. display:contents dissolves the
+         desktop .work-head/.work-foot wrappers so the four items order
+         directly — the DOM has tags before the description, for the
+         desktop row. */
+      .work-section { padding: 44px 24px; align-items: stretch; }
+      .work-inner { display: flex; flex-direction: column; gap: 16px; max-width: none; }
       .work-head, .work-foot { display: contents; }
-      .work-video-area { order: 1; width: 100%; }
-      .work-video-box { width: 100%; aspect-ratio: 16 / 9; max-height: none; }
-      .work-title { order: 2; padding: 24px 24px 0; font-size: 20px; line-height: 1.35; letter-spacing: -0.4px; max-width: none !important; }
-      .work-desc { order: 3; padding: 12px 24px 0; font-size: 14px; line-height: 1.5; letter-spacing: -0.28px; text-align: left; max-width: none !important; }
-      .work-tags { order: 4; padding: 12px 24px 48px; gap: 4px; }
+      /* padding:0 clears the tablet block's insets — the section padding and
+         the 16px gap handle spacing here. */
+      .work-title { order: 1; padding: 0; font-size: 20px; line-height: 1.35; letter-spacing: -0.4px; max-width: none !important; }
+      .work-video-area { order: 2; width: 100%; }
+      .work-video-box { width: 100%; aspect-ratio: 16 / 9; }
+      .work-desc { order: 3; padding: 0; font-size: 14px; line-height: 1.5; letter-spacing: -0.28px; text-align: left; max-width: none !important; }
+      .work-tags { order: 4; padding: 0; gap: 4px; }
       .tag { font-size: 12px; line-height: 16px; letter-spacing: 0.12px; padding: 4px 10px; }
       /* The desktop title row is title + WIP/arrow; on mobile the marker moves
          onto the video as a chip, so hide the inline one. */
       .work-wip, .work-arrow { display: none; }
-      .work-badge { display: flex; top: 8px; right: 8px; padding: 8px 6px; font-weight: 400; }
+      .work-badge { display: flex; top: 8px; right: 8px; height: 20px; padding: 0 6px; font-weight: 400; }
 
       /* Confidential — header inset 24, cards 320 wide at p-24 */
-      .panel--cases { padding: 48px 0; }
+      .panel--cases { padding: 40px 0; }
       .cases-inner { gap: 24px; }
       .cases-head { flex-direction: column; align-items: flex-start; gap: 24px; padding: 0 24px; max-width: none; }
       .cases-headl { gap: 8px; }
@@ -649,7 +649,7 @@
       .cases-nav { display: flex; padding: 0 24px; }
 
       /* Experience — two-line rows: company + role, then flag + date */
-      .panel--exp { padding: 40px 20px; }
+      .panel--exp { padding: 20px 20px 40px; }
       .exp-inner { gap: 20px; }
       .exp-title { font-size: 20px; line-height: 1.35; letter-spacing: -0.4px; }
       .exp-row {
@@ -669,7 +669,7 @@
       .exp-country { display: none; }
 
       /* About — bio, the two labelled blocks, then the portrait (150px) */
-      .panel--about { padding: 48px 24px; }
+      .panel--about { padding: 40px 24px; }
       .about-inner { max-width: none; }
       .about-top { flex-direction: column; gap: 40px; }
       .about-photo { display: none; }            /* desktop portrait */
@@ -683,10 +683,11 @@
       .about-col-text { font-size: 14px; line-height: 1.6; letter-spacing: -0.28px; }
 
       /* Footer */
-      .footer-center { min-height: 70vh; justify-content: center; padding: 64px 20px; gap: 20px; }
+      .footer-center { min-height: 63vh; justify-content: center; padding: 56px 20px; gap: 20px; }
       .footer-role { font-size: 16px; }
       .btn-build { font-size: 16px; padding: 10px 20px; }
-      .footer-bar { flex-direction: row; align-items: center; padding: 20px; gap: 16px; }
+      .footer-bar { flex-direction: row; align-items: center; padding: 16px 24px; gap: 16px; }
+      .footer-logo { max-width: 300px; }
       .footer-bar-text { font-size: 14px; letter-spacing: -0.42px; }
       .footer-socials { gap: 8px; }
     }
