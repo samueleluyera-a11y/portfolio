@@ -48,7 +48,7 @@
     :root {
       --font: 'Saans', -apple-system, sans-serif;
       /* Figma is a 1728px frame; type + gutters scale fluidly below that. */
-      --pad-x: clamp(20px, 3.7vw, 64px);
+      --pad-x: clamp(20px, 4.63vw, 80px);
       --page: #e4f0ff;   /* Auto123 brand blue — the case-study page ground */
       --ink: #000;
     }
@@ -61,7 +61,8 @@
       overflow-x: clip;
     }
 
-    .wrap { max-width: 1728px; margin: 0 auto; padding: 0 var(--pad-x); }
+    /* 1400px of content inside 80px gutters, like the home page. */
+    .wrap { max-width: calc(1400px + 2 * var(--pad-x)); margin: 0 auto; padding: 0 var(--pad-x); }
 
     /* ── NAVBAR (fixed, matches the main site) ── */
     .navbar {
@@ -93,14 +94,13 @@
 
     /* ── HERO TITLE ── */
     .case-title {
-      padding: clamp(140px, 12vw, 208px) 0 clamp(40px, 5vw, 80px);
-      display: flex; justify-content: center;
+      /* keep .wrap gutters — a bare 0 here would zero them */
+      padding: clamp(112px, 9.3vw, 160px) var(--pad-x) 0;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
     }
     .case-title h1 {
-      font-size: clamp(40px, 6.95vw, 120px);
-      font-weight: 700; line-height: 1.2; letter-spacing: -0.03em;
-      text-transform: uppercase; text-align: center;
-      max-width: 5.83em;
+      font-size: clamp(30px, 3.24vw, 56px);
+      font-weight: 400; line-height: 1.2; letter-spacing: -0.02em;
     }
 
     /* ── META BAR + HERO IMAGE ── */
@@ -113,11 +113,10 @@
     .meta-tags { display: flex; gap: 8px; flex-wrap: wrap; }
     .pill {
       border: 1px solid #000; border-radius: 99px;
-      padding: 8px 16px;
-      font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0.16px;
+      padding: 8px 12px;
+      font-size: 14px; font-weight: 400; line-height: 16px; letter-spacing: 0.14px;
       white-space: nowrap;
     }
-    .pill--year { border: none; background: rgba(0,0,0,.1); }
 
     .media {
       width: 100%; border-radius: 0; overflow: hidden;
@@ -128,13 +127,14 @@
       width: 100%; height: 100%; display: block; object-fit: cover;
     }
     .hero-media { margin-top: 40px; aspect-ratio: 2560 / 1440; }
+    .case-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; }
 
     /* ── OVERVIEW ── */
     .overview { padding-top: clamp(64px, 7vw, 120px); }
     .statement {
-      font-size: clamp(26px, 3.7vw, 64px);
-      font-weight: 700; line-height: 1.2; letter-spacing: -0.03em;
-      max-width: 18.19em;
+      font-size: clamp(22px, 1.85vw, 32px);
+      font-weight: 400; line-height: 1.35; letter-spacing: -0.02em;
+      max-width: 25.5em;
       margin-bottom: 40px;
     }
     .overview-grid {
@@ -142,23 +142,23 @@
       padding-top: 16px;
     }
     .ov-label {
-      font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0.16px;
+      font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: -0.32px;
     }
     .ov-body p {
-      font-size: clamp(16px, 1.16vw, 20px); font-weight: 400; line-height: 1.5;
+      font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: -0.32px;
     }
     .ov-body p + p { margin-top: 16px; }
     .ov-facts { display: flex; flex-direction: column; gap: 16px; text-align: right; }
     .ov-facts p {
-      font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0.16px;
+      font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: -0.32px;
     }
     .ov-facts .rule { background: rgba(0,0,0,.15); }
 
     /* ── MEDIA GRID ── */
     .grid { padding-top: clamp(64px, 7vw, 120px); display: flex; flex-direction: column; gap: 24px; }
     .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .r-half { aspect-ratio: 788 / 985; }
-    .r-full { aspect-ratio: 1600 / 1000; }
+    .r-half { aspect-ratio: 688 / 860; }
+    .r-full { aspect-ratio: 1400 / 875; }
 
     /* ── CTA (dark band) ── */
     /* NOTE: In Figma this band's frame has no fill, so its white text sits on the
@@ -212,15 +212,14 @@
       gap: 24px; flex-wrap: wrap; margin-bottom: 32px;
     }
     .related-head h2 {
-      font-size: clamp(30px, 4.17vw, 72px);
-      font-weight: 700; line-height: 1.2; letter-spacing: -0.03em;
-      text-transform: uppercase;
+      font-size: clamp(22px, 1.85vw, 32px);
+      font-weight: 400; line-height: 1.35; letter-spacing: -0.02em;
     }
     .btn-all {
       background: #000; color: #fff; border-radius: 99px;
-      height: 52px; padding: 8px 24px;
+      padding: 8px 16px;
       display: inline-flex; align-items: center; gap: 4px;
-      font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -0.48px;
+      font-size: 14px; font-weight: 400; line-height: 24px; letter-spacing: -0.42px;
       text-decoration: none; transition: opacity .2s;
     }
     .btn-all:hover { opacity: .82; }
@@ -237,8 +236,8 @@
       box-shadow: 0 18px 40px rgba(0,0,0,.10);
     }
     .related-card h3 {
-      font-size: clamp(20px, 1.85vw, 32px);
-      font-weight: 700; line-height: 1.25; letter-spacing: -0.03em;
+      font-size: clamp(18px, 1.39vw, 24px);
+      font-weight: 400; line-height: 1.5; letter-spacing: -0.02em;
     }
 
     /* ── FOOTER (fills the viewport, like the main site) ── */
@@ -252,7 +251,7 @@
       gap: 48px; padding: clamp(56px, 6vw, 80px) var(--pad-x);
     }
     .footer-role { font-size: 20px; font-weight: 400; line-height: 1.5; letter-spacing: .2px; }
-    .footer-logo { width: 100%; max-width: 1400px; color: #fff; }
+    .footer-logo { width: 100%; max-width: 800px; color: #fff; }
     .footer-logo svg { width: 100%; height: auto; display: block; }
     .btn-build {
       background: #fff; color: #000; border: none; border-radius: 99px;
@@ -290,16 +289,19 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
       .navbar { padding: 12px var(--pad-x); }
+      /* Nav matches the mobile comp from tablet down: logo + Get in touch. */
+      .nav-collapse, .nav-mobile-hide { display: none; }
       .overview-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
       .ov-facts { text-align: left; }
       .ov-facts .rule { display: none; }
     }
     @media (max-width: 720px) {
-      .nav-collapse { display: none; }
-      /* Just the logo + "Get in touch" on true mobile — every other link goes. */
-      .nav-mobile-hide { display: none; }
       .nav-logo-svg { height: 14px; }
       .btn-nav { font-size: 14px; padding: 7px 14px; }
+      /* Title and tags stack rather than squeezing side by side. */
+      .case-title { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .case-tags { justify-content: flex-start; }
+      .hero-media { margin-top: 24px; }
       .overview-grid { grid-template-columns: 1fr; gap: 24px; }
       .grid-row { grid-template-columns: 1fr; }
       .related-grid { grid-template-columns: 1fr; }
@@ -332,7 +334,7 @@
     </svg>
   </a>
   <div class="nav-menu">
-    <a class="nav-link nav-mobile-hide" href="index.html">Works</a>
+    <a class="nav-link nav-mobile-hide" href="index.html#about">About</a>
     <a class="nav-link nav-collapse" href="files/Samuel-Eluyera-Resume.pdf" download="Samuel-Eluyera-Resume.pdf">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M10 3v9m0 0-3.5-3m3.5 3 3.5-3M4 17h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -347,20 +349,16 @@
 <!-- ══════════════ TITLE ══════════════ -->
 <header class="wrap case-title">
   <h1>Auto123 Mobile App</h1>
+  <div class="case-tags">
+    <span class="pill">Auto123</span>
+    <span class="pill">Mobile App</span>
+    <span class="pill">2025</span>
+  </div>
 </header>
 
 
 <!-- ══════════════ META + HERO IMAGE ══════════════ -->
 <section class="wrap">
-  <div class="rule"></div>
-  <div class="meta-bar">
-    <div class="meta-tags">
-      <span class="pill">0-1 Project</span>
-      <span class="pill">Mobile App</span>
-    </div>
-    <span class="pill pill--year">2025</span>
-  </div>
-
   <div class="media hero-media reveal" data-media="hero" role="img" aria-label="Auto123 app — home, search and vehicle detail screens"></div>
 </section>
 
