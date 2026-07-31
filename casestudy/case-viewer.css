@@ -1,0 +1,55 @@
+/* Fullscreen image viewer for case-study body images, injected by case-viewer.js. */
+
+.viewer-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0, 0, 0, .92);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease;
+  padding: 24px;
+}
+.viewer-overlay.is-open { opacity: 1; pointer-events: auto; }
+
+.viewer-img-wrap { max-width: min(1400px, 92vw); max-height: 86vh; display: flex; align-items: center; justify-content: center; }
+.viewer-img-wrap img {
+  max-width: 100%; max-height: 86vh; width: auto; height: auto; object-fit: contain; display: block; border-radius: 2px; cursor: default;
+  -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; user-select: none; -webkit-user-select: none;
+}
+
+.viewer-close, .viewer-arrow {
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background-color .2s, opacity .2s;
+}
+.viewer-close {
+  position: absolute; top: 24px; right: 24px; z-index: 1;
+  width: 44px; height: 44px; border-radius: 99px; background: #fff;
+}
+.viewer-close:hover { opacity: .8; }
+.viewer-close svg { width: 20px; height: 20px; display: block; }
+
+.viewer-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 48px; height: 48px; border-radius: 99px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.3);
+  color: #fff;
+}
+.viewer-arrow:hover { background: rgba(255,255,255,.22); }
+.viewer-arrow svg { width: 22px; height: 22px; display: block; }
+.viewer-prev { left: 24px; }
+.viewer-next { right: 24px; }
+.viewer-arrow:disabled { opacity: .3; cursor: default; }
+.viewer-arrow:disabled:hover { background: rgba(255,255,255,.12); }
+
+.viewer-count {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,.65); font-size: 14px; font-family: 'Saans', -apple-system, sans-serif;
+  letter-spacing: -0.28px;
+}
+
+@media (max-width: 720px) {
+  .viewer-arrow { width: 40px; height: 40px; }
+  .viewer-prev { left: 8px; }
+  .viewer-next { right: 8px; }
+  .viewer-close { top: 12px; right: 12px; }
+}
