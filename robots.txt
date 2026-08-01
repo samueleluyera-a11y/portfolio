@@ -1,2 +1,13 @@
+# Case-study pages are kept OUT of search engines via a per-page
+#   <meta name="robots" content="noindex, follow">
+# tag — deliberately NOT via a Disallow here.
+#
+# Why: a Disallow only stops crawling, it does not prevent indexing, and it
+# also blocks legitimate on-demand readers (AI assistants a visitor pastes the
+# link into, hiring/ATS tools fetching the URL). Those must be able to READ the
+# pages. Crawlers must also be allowed to fetch a page so they can SEE the
+# noindex tag — that tag is what actually removes it from search results.
+#
+# So: allow fetching everywhere; rely on noindex for search exclusion.
 User-agent: *
-Disallow: /casestudy/
+Allow: /
