@@ -81,7 +81,6 @@
 
     @media (min-width: 1025px) {
       .section { height: 220vh; margin-bottom: -100vh; }   /* 0.2vh settle + 1vh transition */
-      #cases.section  { height: 320vh; }                    /* + horizontal card-scroll phase */
       #footer.section { height: 100vh; margin-bottom: 0; }
       .panel { position: sticky; top: 0; height: 100vh; }
     }
@@ -237,73 +236,8 @@
     .w-dropshot  { background: #dff2ff; color: #000; }
     .w-boost     { background: #e9faf4; color: #000; }
 
-    /* ── SELECTED CONFIDENTIAL WORK — title 32 Regular; cards 460w p-56 gap-16 ── */
-    .panel--cases {
-      background: #fff; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 112px 0 80px;
-    }
-    .cases-inner {
-      display: flex; flex-direction: column; gap: 40px;
-      flex: 1; min-height: 0; width: 100%;
-    }
-    .cases-head {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      gap: 48px; padding: 0 var(--pad-x); width: 100%;
-      max-width: calc(var(--container) + 2 * var(--pad-x)); margin: 0 auto;
-    }
-    .cases-title {
-      font-size: clamp(22px, 1.85vw, 32px); font-weight: 400; line-height: 1.35;
-      letter-spacing: -0.02em; color: #000;
-    }
-    .cases-note {
-      font-size: 16px; font-weight: 400; line-height: 1.5;
-      letter-spacing: -0.32px; color: #000; max-width: 28.6em;
-    }
-    .cases-headl { display: flex; flex-direction: column; gap: 16px; }
-    .cases-row {
-      flex: 1; min-height: 0;
-      /* The row bleeds full-bleed but the first card lines up with the
-         container edge, so cards can scroll past the right gutter. */
-      padding: 0 max(var(--pad-x), calc((100vw - var(--container)) / 2));
-      overflow: hidden;
-    }
-    .cases-track {
-      display: flex; gap: 16px; align-items: stretch;
-      height: 100%; width: max-content; will-change: transform;
-    }
-    .case-card {
-      width: 460px; flex-shrink: 0;
-      display: flex; flex-direction: column; justify-content: space-between;
-      padding: 56px; overflow: hidden;
-    }
-    .case-card--wide { width: 510px; padding: 64px; }
-    .case-copy { display: flex; flex-direction: column; gap: 24px; }
-    .case-title {
-      font-size: clamp(20px, 1.39vw, 24px); font-weight: 400; line-height: 1.5;
-      letter-spacing: -0.02em; color: #000;
-    }
-    .case-body p {
-      font-size: 16px; font-weight: 400; line-height: 1.6;
-      letter-spacing: -0.32px; color: #000;
-    }
-    .case-body p + p { margin-top: 16px; }
-    .case-card .work-tags { color: #000; margin-top: 24px; }
-
-    /* Prev/next arrows sit at the top-right of the header on desktop. */
-    .cases-arrows { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
-
     /* Prev/next controls for the card row — mobile/tablet only; desktop keeps
        the scroll-driven + drag interaction and has no need for buttons. */
-    .cases-nav { display: none; align-items: center; gap: 16px; padding: 0 var(--pad-x); }
-    .cases-nav-btn {
-      width: 32px; height: 32px; border-radius: 50%;
-      border: 1px solid #000; background: none; padding: 0;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: opacity 0.2s;
-    }
-    .cases-nav-btn:hover { opacity: 0.55; }
-    .cases-nav-btn svg { width: 16px; height: 16px; display: block; }
 
     /* ── EXPERIENCE — title 32 Regular; rows py-32 with hairline rules ── */
     .panel--exp {
@@ -447,10 +381,6 @@
       .work-section { padding: 96px var(--pad-x) 56px; }
       .work-inner { gap: 20px; }
 
-      .panel--cases { padding: 96px 0 56px; }
-      .cases-inner { gap: 32px; }
-      .case-card { padding: 40px; }
-      .case-card--wide { padding: 44px; }
 
       .panel--exp { padding: 96px var(--pad-x) 56px; }
       .exp-inner { gap: 32px; }
@@ -476,12 +406,6 @@
       .work-inner { gap: 16px; }
       .work-title { font-size: clamp(20px, 1.6vw, 26px); }
 
-      .panel--cases { padding: 84px 0 44px; }
-      .cases-inner { gap: 24px; }
-      .cases-title { font-size: clamp(20px, 1.6vw, 26px); }
-      .case-card { padding: 32px; }
-      .case-card--wide { padding: 36px; }
-      .case-body p { font-size: 15px; }
 
       .panel--exp { padding: 84px var(--pad-x) 44px; }
       .exp-inner { gap: 24px; }
@@ -554,23 +478,6 @@
       .work-wip, .work-arrow { display: none; }
       .work-badge { display: flex; top: 8px; right: 8px; height: 20px; padding: 0 6px; font-weight: 400; }
 
-      /* Confidential — header inset 24, cards 320 wide at p-24 */
-      .panel--cases { padding: 40px 0; }
-      .cases-inner { gap: 24px; }
-      .cases-head { flex-direction: column; align-items: flex-start; gap: 24px; padding: 0 24px; max-width: none; }
-      .cases-headl { gap: 8px; }
-      .cases-title { font-size: 20px; line-height: 1.35; letter-spacing: -0.4px; }
-      .cases-note { font-size: 14px; line-height: 1.5; letter-spacing: -0.28px; max-width: none; }
-      .cases-arrows { display: none; }          /* shown below the row instead */
-      .cases-row { padding: 0 24px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
-      .cases-row::-webkit-scrollbar { display: none; }
-      .cases-track { gap: 10px; }
-      .case-card, .case-card--wide { width: 320px; padding: 24px; gap: 24px; }
-      .case-title { font-size: 20px; line-height: 1.6; letter-spacing: -0.4px; }
-      .case-body p { font-size: 14px; line-height: 1.6; letter-spacing: -0.28px; }
-      .case-card .work-tags { margin-top: 0; padding: 0; gap: 8px; }
-      .cases-nav { display: flex; padding: 0 24px; }
-
       /* Experience — two-line rows: company + role, then flag + date */
       .panel--exp { padding: 20px 20px 40px; }
       .exp-inner { gap: 20px; }
@@ -642,20 +549,6 @@
       .tag { font-size: 13px; letter-spacing: 0.13px; }
       .work-badge { top: 12px; right: 12px; height: 24px; padding: 0 8px; }
 
-      /* Confidential */
-      .panel--cases { padding: 56px 0; }
-      .cases-inner { gap: 28px; }
-      .cases-head { gap: 28px; padding: 0 40px; }
-      .cases-headl { gap: 10px; }
-      .cases-title { font-size: clamp(22px, 2.8vw, 26px); letter-spacing: -0.02em; }
-      .cases-note { font-size: 16px; letter-spacing: -0.32px; max-width: 46em; }
-      .cases-row { padding: 0 40px; }
-      .cases-track { gap: 12px; }
-      .case-card, .case-card--wide { width: 380px; padding: 32px; }
-      .case-title { font-size: 22px; letter-spacing: -0.44px; }
-      .case-body p { font-size: 15px; letter-spacing: -0.3px; }
-      .cases-nav { padding: 0 40px; }
-
       /* Experience */
       .panel--exp { padding: 28px 40px 56px; }
       .exp-inner { gap: 24px; }
@@ -679,11 +572,6 @@
       .footer-logo { max-width: 460px; }
       .footer-bar { padding: 20px 40px; }
       .footer-bar-text { font-size: 15px; }
-    }
-
-    /* Narrow phones: keep the confidential heading on one line. */
-    @media (max-width: 360px) {
-      .cases-title { font-size: 18px; }
     }
   </style>
 </head>
@@ -711,14 +599,14 @@
     </svg>
   </div>
   <div class="nav-menu">
-    <span class="nav-link nav-mobile-hide" onclick="goTo(8)">About</span>
+    <span class="nav-link nav-mobile-hide" onclick="goTo('about')">About</span>
     <a class="nav-link nav-collapse" href="files/Samuel-Eluyera-Resume.pdf" download="Samuel-Eluyera-Resume.pdf">
       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M10 3v9m0 0-3.5-3m3.5 3 3.5-3M4 17h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       Resume
     </a>
-    <span class="btn-nav" onclick="goTo(9)">Get in touch</span>
+    <span class="btn-nav" onclick="goTo('footer')">Get in touch</span>
   </div>
  </div>
 </nav>
@@ -925,107 +813,6 @@
 </section>
 
 
-<!-- ══════════════ CONFIDENTIAL CASE STUDIES ══════════════ -->
-<section class="section" id="cases">
-  <div class="panel panel--cases">
-   <div class="cases-inner">
-    <div class="cases-head">
-      <div class="cases-headl">
-        <h2 class="cases-title">Selected Confidential Work</h2>
-        <p class="cases-note">My strongest work is protected by NDA. While I can't share the case studies publicly or privately, I'm happy to discuss the challenges, decisions, and outcomes in an interview.</p>
-      </div>
-      <div class="cases-arrows">
-        <button class="cases-nav-btn" type="button" data-dir="prev" aria-label="Previous case study">
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="cases-nav-btn" type="button" data-dir="next" aria-label="Next case study">
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="cases-row">
-     <div class="cases-track">
-      <div class="case-card" style="background:#e9f2fa">
-        <div class="case-copy">
-          <p class="case-title">Software for Defence Drone Command</p>
-          <div class="case-body">
-            <p>Built mission control software for remotely deploying and monitoring drones across defense operations. Live video, telemetry, environmental data, and mission controls had to work together in an interface where speed, clarity, and precision were non-negotiable.</p>
-          </div>
-        </div>
-        <div class="work-tags">
-          <span class="tag">Defense</span>
-          <span class="tag">Real Time Systems</span>
-        </div>
-      </div>
-      <div class="case-card" style="background:#f0e9fa">
-        <div class="case-copy">
-          <p class="case-title">Making Complex Healthcare Data Useful</p>
-          <div class="case-body">
-            <p>Designed an analytics module that transformed clinical, operational, financial, and AI data into actionable insights for clinicians, executives, marketers, and finance teams.</p>
-            <p>The challenge was balancing clinical accuracy, business priorities, and usability across sixteen interconnected domains.</p>
-          </div>
-        </div>
-        <div class="work-tags">
-          <span class="tag">Healthcare</span>
-          <span class="tag">Data Visualization</span>
-          <span class="tag">Information Design</span>
-        </div>
-      </div>
-      <div class="case-card" style="background:#e8ecff">
-        <div class="case-copy">
-          <p class="case-title">Operating System for Commercial Lending</p>
-          <div class="case-body">
-            <p>Designed software that helped lenders manage loan portfolios, assess customer eligibility, monitor performance, and make informed lending decisions.</p>
-            <p>Much of the challenge involved simplifying complex financial workflows built on decades of legacy systems without compromising security and compliance.</p>
-          </div>
-        </div>
-        <div class="work-tags">
-          <span class="tag">Fin-tech</span>
-          <span class="tag">SaaS</span>
-          <span class="tag">Systems Thinking</span>
-        </div>
-      </div>
-      <div class="case-card case-card--wide" style="background:#faf6e9">
-        <div class="case-copy">
-          <p class="case-title">Automating Enterprise Financial Operations</p>
-          <div class="case-body">
-            <p>Designed an accounts payable platform that automated invoice processing, payment approvals, and discount optimization. Every workflow had to reduce manual effort while maintaining the accuracy and control expected in enterprise finance.</p>
-          </div>
-        </div>
-        <div class="work-tags">
-          <span class="tag">Finance</span>
-          <span class="tag">SaaS</span>
-          <span class="tag">Ai</span>
-        </div>
-      </div>
-      <div class="case-card case-card--wide" style="background:#fae9e9">
-        <div class="case-copy">
-          <p class="case-title">Building Subscription Healthcare at Enterprise Scale</p>
-          <div class="case-body">
-            <p>Creating subscription software for healthcare goes far beyond recurring payments. This platform supports configurable treatment plans, member benefits, multi-location hospitals, clinical administration, refunds, and evolving patient care, all within a single ecosystem designed to adapt to the unique workflows of every provider.</p>
-          </div>
-        </div>
-        <div class="work-tags">
-          <span class="tag">Healthcare</span>
-          <span class="tag">Enterprise SaaS</span>
-          <span class="tag">Product Strategy</span>
-        </div>
-      </div>
-     </div>
-    </div>
-    <div class="cases-nav">
-      <button class="cases-nav-btn" type="button" data-dir="prev" aria-label="Previous case study">
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button class="cases-nav-btn" type="button" data-dir="next" aria-label="Next case study">
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
-   </div>
-  </div>
-</section>
-
-
 <!-- ══════════════ EXPERIENCE ══════════════ -->
 <section class="section" id="experience">
   <div class="panel panel--exp">
@@ -1179,23 +966,25 @@
 
   const vh = () => window.innerHeight;
 
-  // Per-section flow offsets. Most sections advance a uniform 1.5vh, but the cases
-  // section is taller (it holds a horizontal card-scroll phase), so we read the
-  // real layout offsets instead of assuming a uniform stride.
+  // Per-section flow offsets, read from real layout rather than assuming a
+  // uniform stride, so sections of differing heights stay in sync.
   let offsets = sections.map(s => s.offsetTop);
   const recomputeOffsets = () => { offsets = sections.map(s => s.offsetTop); };
   window.addEventListener('resize', recomputeOffsets);
   ScrollTrigger.addEventListener('refresh', recomputeOffsets);
 
-  window.goTo = (i) =>
-    lenis.scrollTo(sections[i], { duration: 1.1, easing: t => 1 - Math.pow(1 - t, 3) });
+  // Accepts a section id (robust to sections being added/removed) or an index.
+  window.goTo = (ref) => {
+    const el = typeof ref === 'string' ? document.getElementById(ref) : sections[ref];
+    if (el) lenis.scrollTo(el, { duration: 1.1, easing: t => 1 - Math.pow(1 - t, 3) });
+  };
 
   // ── Nav colour-matching (adopts colour of the section at the top) ──
   const navEl  = document.querySelector('.navbar');
   const btnNav = navEl.querySelector('.btn-nav');
-  //             hero      auto123    spin       ilg        dropshot   boost      cases      exp        about      footer
-  const navColors = ['#ffffff','#e4f0ff','#111014','#eff1fd','#dff2ff','#e9faf4','#ffffff','#ffffff','#121212','#000000'];
-  const navDark   = [0,        0,        1,        0,        0,        0,        0,        0,        1,        1];
+  //             hero      auto123    spin       ilg        dropshot   boost      exp        about      footer
+  const navColors = ['#ffffff','#e4f0ff','#111014','#eff1fd','#dff2ff','#e9faf4','#ffffff','#131313','#000000'];
+  const navDark   = [0,        0,        1,        0,        0,        0,        0,        1,        1];
 
   function navIndexFromScroll(scroll) {
     if (window.innerWidth >= 1025) {
@@ -1354,21 +1143,6 @@
         fx(splitLines(p.querySelector('.work-desc')), k);
         fade(p.querySelectorAll('.work-tags .tag'), k);
       }
-      if (sec.id === 'cases') {
-        fx(splitLines(p.querySelector('.cases-title')), k);
-        fx(splitLines(p.querySelector('.cases-note')), k, { stagger: 0.05 });
-        // Cards: opacity only — their transform belongs to the CSS hover lift.
-        const cards = p.querySelectorAll('.case-card');
-        gsap.set(cards, { opacity: 0 });
-        gsap.to(cards, {
-          opacity: 1, stagger: 0.08, ease: 'power2.out', duration: desktop ? 1 : 0.7,
-          scrollTrigger: desktop ? {
-            start: () => sec.offsetTop - 0.35 * vh(),
-            end:   () => sec.offsetTop + 0.12 * vh(),
-            scrub: true, invalidateOnRefresh: true,
-          } : { trigger: p, start: 'top 70%', once: true },
-        });
-      }
       if (sec.id === 'experience') {
         fx(splitLines(p.querySelector('.exp-title')), k);
         fade(p.querySelectorAll('.exp-row'), k);
@@ -1387,28 +1161,6 @@
         fade(p.querySelectorAll('.footer-role, .footer-logo, .btn-build'), k);
       }
     });
-
-    if (desktop) {
-      // Confidential cards: after the section settles, drive the row horizontally
-      // to the end BEFORE the next section rises (spacer extended in CSS).
-      const casesIdx = sections.findIndex(s => s.id === 'cases');
-      const track = document.querySelector('.cases-track');
-      const row   = document.querySelector('.cases-row');
-      if (casesIdx > -1 && track && row) {
-        gsap.to(track, {
-          x: () => {
-            const padX = parseFloat(getComputedStyle(row).paddingLeft) || 0;
-            return -Math.max(0, track.scrollWidth - row.clientWidth + 2 * padX);
-          },
-          ease: 'none',
-          scrollTrigger: {
-            start: () => sections[casesIdx].offsetTop,
-            end:   () => sections[casesIdx].offsetTop + 1.2 * vh(),
-            scrub: true, invalidateOnRefresh: true,
-          }
-        });
-      }
-    }
 
     }); // gsap.context
     ScrollTrigger.refresh();
@@ -1430,20 +1182,6 @@
     }, 350);
   });
 
-  // ── Confidential cards: prev/next buttons (mobile/tablet only — CSS hides
-  //    the buttons on desktop, where the scroll-driven track handles this). ──
-  (() => {
-    const row = document.querySelector('.cases-row');
-    const firstCard = document.querySelector('.case-card');
-    if (!row || !firstCard) return;
-    document.querySelectorAll('.cases-nav-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const gap = parseFloat(getComputedStyle(document.querySelector('.cases-track')).gap) || 24;
-        const step = firstCard.getBoundingClientRect().width + gap;
-        row.scrollBy({ left: btn.dataset.dir === 'prev' ? -step : step, behavior: 'smooth' });
-      });
-    });
-  })();
 
   // ── Play only the on-screen work video; pause the rest ──
   // Five simultaneous video decodes overload the compositor and make both the
@@ -1495,7 +1233,7 @@
       if (!sec) return 'dot';
       if (sec.id === 'work-1') return 'view';          // Auto 123
       if (/^work-/.test(sec.id)) return 'soon';        // all other works
-      return 'dot';                                    // cases stay a plain dot
+      return 'dot';
     };
     // Bubble inverts on dark sections so it stays visible.
     const darkFor = (t) => {
