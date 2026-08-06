@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Microsoft Clarity (analytics) -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -11,6 +10,7 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "xvil3emkub");
   </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, follow">
   <title>Case Studies — Samuel Eluyera</title>
   <meta name="description" content="A collection of product design case studies across healthcare, enterprise, finance, marketplaces, mobile and AI products, by Samuel Eluyera.">
@@ -22,6 +22,11 @@
   <meta name="theme-color" content="#f4f6fa">
 
   <link rel="stylesheet" href="about-modal.css">
+  <script>
+    // Gate the card pre-animation state on JS actually running, so the screens
+    // can never be left invisible if scripting fails.
+    if ('IntersectionObserver' in window) document.documentElement.classList.add('js-cards');
+  </script>
   <style>
     body { animation: pageFadeIn .25s ease both; transition: opacity .18s ease; }
     @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -43,8 +48,6 @@
 
     :root {
       --font: 'Saans', -apple-system, sans-serif;
-      /* Figma frame is 1512px wide with a 56px gutter; scale fluidly below that. */
-      --pad-x: clamp(20px, 3.7vw, 56px);
       --page: #f4f6fa;
       --ink: #000;
       --muted: #374259;
@@ -58,28 +61,31 @@
       overflow-x: clip;
     }
 
-    .wrap { max-width: 1512px; margin: 0 auto; }
+    /* Figma: content max 1400px; sidebar 240px + content 1160px (48px padding -> 1064px inner) */
+    .wrap { max-width: 1400px; margin: 0 auto; }
 
     a { color: inherit; text-decoration: none; }
 
     /* ── HUB LAYOUT ── */
-    .hub { display: flex; align-items: flex-start; }
+    .hub { display: flex; align-items: flex-start; justify-content: center; }
 
     .sidebar {
       width: 240px; flex-shrink: 0;
       position: sticky; top: 0;
-      display: flex; flex-direction: column; gap: 32px;
-      /* Fixed 16px gutter (matches the Figma column), not the fluid content
-         --pad-x — that left too little room for longer labels + counts. */
+      display: flex; flex-direction: column; gap: 48px;
       padding: 48px 16px;
       height: 100vh;
-      overflow-y: auto;
+      overflow: hidden;
     }
     .sidebar-title {
       font-size: 24px; font-weight: 600; line-height: 1.5; letter-spacing: -0.72px;
       flex-shrink: 0;
     }
-    .cat-list { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; width: 100%; }
+    /* Stacked on desktop, inline on mobile (Figma 584:338). */
+    .sidebar-title span { display: block; }
+    .cat-item--all { display: none; }
+    /* Figma 574:*: category list gap is 24px */
+    .cat-list { display: flex; flex-direction: column; gap: 24px; flex: 1; min-height: 0; width: 100%; }
     .cat-item {
       display: flex; align-items: center; gap: 8px; width: 100%; min-width: 0;
       padding: 12px 16px; border-radius: 99px;
@@ -87,13 +93,12 @@
       color: var(--muted);
       transition: background-color .2s, color .2s;
     }
-    /* Label truncates before it can ever push the count out of the pill. */
     .cat-item .cat-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .cat-item .cat-count { flex-shrink: 0; opacity: .5; font-size: 12px; letter-spacing: -0.24px; }
     .cat-item.active { background: #fff; color: #000; }
     .cat-item:hover:not(.active) { background: rgba(0,0,0,.04); }
 
-    .sidebar-bio { display: flex; flex-direction: column; gap: 16px; flex-shrink: 0; margin-top: auto; }
+    .sidebar-bio { display: flex; flex-direction: column; gap: 16px; flex-shrink: 0; }
     .bio-name { font-size: 16px; font-weight: 600; letter-spacing: -0.48px; text-decoration: underline; text-underline-offset: 2px; }
     .bio-role { font-size: 14px; color: var(--muted); letter-spacing: -0.42px; margin-top: 4px; }
     .bio-socials { display: flex; gap: 16px; }
@@ -101,56 +106,140 @@
     .bio-socials a:hover { opacity: 1; }
     .bio-socials svg { width: 20px; height: 20px; display: block; }
 
-    .content { flex: 1; min-width: 0; padding: 48px 64px; display: flex; flex-direction: column; gap: 64px; }
+    /* Figma 436:2536: padding 48px, gap 40px */
+    .content { flex: 1; min-width: 0; max-width: 1160px; padding: 48px; display: flex; flex-direction: column; gap: 40px; }
 
     .cat-section { display: flex; flex-direction: column; gap: 16px; scroll-margin-top: 24px; }
-    .cat-section h2 { font-size: 32px; font-weight: 600; letter-spacing: -0.32px; }
+    /* Figma 439:22137: 24px / Medium / -0.48px / 1.2 */
+    .cat-section h2 { font-size: 24px; font-weight: 500; line-height: 1.2; letter-spacing: -0.48px; }
 
-    /* Every card is the same width whether its row has one card or two — capped
-       at 508px, never stretched to fill the row. */
-    .card-row { display: grid; gap: 16px; align-items: start; }
-    .card-row.cols-1 { grid-template-columns: minmax(0, 508px); }
-    .card-row.cols-2 { grid-template-columns: repeat(2, minmax(0, 508px)); }
+    /* Two equal columns always — a single-card row leaves column 2 empty,
+       which is exactly Figma's card + spacer arrangement. */
+    .card-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
 
-    .case-card { display: flex; flex-direction: column; gap: 12px; }
-    .case-cover {
-      aspect-ratio: 1920 / 1200; border-radius: 4px; overflow: hidden;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      transition: transform .5s cubic-bezier(.19,1,.22,1), box-shadow .5s cubic-bezier(.19,1,.22,1);
+    /* ── CARD (Figma 574:575) ── */
+    .case-card {
+      background: #fff; padding: 4px; border-radius: 20px;
+      display: flex; flex-direction: column; align-items: flex-start;
     }
-    .case-card:hover .case-cover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,.10); }
-    .case-card--soon { cursor: default; }
-    .case-card--soon .case-cover { filter: grayscale(.3); opacity: .75; }
-    .case-card--soon:hover .case-cover { transform: none; box-shadow: none; }
-    .soon-badge {
-      display: inline-block; margin-left: 8px; vertical-align: middle;
-      font-size: 12px; font-weight: 400; letter-spacing: -0.24px; color: var(--muted);
-      border: 1px solid var(--muted); border-radius: 99px; padding: 3px 8px;
-    }
-    .case-cover img { height: 82%; width: auto; max-width: 92%; object-fit: contain; display: block; }
-    .cover-black { background: #000; }
-    .cover-navy { background: #d5e2ef; }
-    .cover-slate { background: #e0e6f2; }
-    .cover-white { background: #fff; border: 1px solid #dde2ec; }
 
-    .case-copy { display: flex; flex-direction: column; gap: 4px; }
-    .case-copy h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.32px; }
-    .case-copy p { font-size: 14px; color: var(--muted); letter-spacing: -0.28px; max-width: 46em; }
+    /* Cover container (Figma 574:576) */
+    .hub-cover {
+      position: relative; width: 100%;
+      aspect-ratio: 1920 / 1200;
+      border-radius: 16px; overflow: hidden;
+    }
+    .hub-cover--ring { border: 1px solid #5071f7; }
+    .hub-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 16px; display: block;
+    }
+
+    /* The screen sits in its own positioned layer so it can animate
+       independently of the background. */
+    .hub-shot { position: absolute; }
+    .hub-shot img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transform-origin: center;
+      transition: transform .95s cubic-bezier(.19,1,.22,1), opacity .55s ease;
+    }
+    /* Screens are visible by default; the pre-animation state is only applied
+       once JS confirms it can run, so a JS failure can never hide the work. */
+    html.js-cards .case-card:not(.is-in) .hub-shot img { transform: scale(1.09); opacity: 0; }
+    /* Scroll-in: screen settles down into place inside the cover. */
+    .case-card.is-in .hub-shot img { transform: scale(1); opacity: 1; }
+    /* Hover: screen lifts slightly. Faster curve so it feels responsive. */
+    .case-card.is-in:hover .hub-shot img {
+      transform: scale(1.045);
+      transition: transform .45s cubic-bezier(.22,1,.36,1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hub-shot img { transform: none !important; opacity: 1; transition: none; }
+    }
+
+    /* Multi-phone shots lay their screens out in a row. */
+    .hub-shot--row { display: flex; }
+    .hub-shot--row img { width: auto; height: 100%; }
+
+    /* Per-card screen placement — px offsets from Figma converted to % of the
+       cover box (cover is 516x322.5 in the comp) so they scale with the card. */
+    .shot-analytics { top: 12.9%; bottom: -29.03%; right: -3.907%; aspect-ratio: 4096/3071; }
+    .shot-analytics img { border: 3px solid rgba(0,74,160,.3); border-radius: 8px; }
+
+    .shot-careplans { top: 12.9%; bottom: -29.03%; left: -3.907%; aspect-ratio: 4096/3071; }
+    .shot-careplans img { border: 3px solid #004aa0; border-radius: 8px; }
+
+    .shot-insurance { bottom: -2.617%; left: 7.14%; right: 7.14%; aspect-ratio: 4096/2648; }
+    .shot-insurance img { border: 3px solid #dbd6fc; border-radius: 4px; }
+
+    .shot-loan { top: 12.4%; bottom: 12.71%; left: 50%; transform: translateX(-50%); aspect-ratio: 3840/2378; }
+    .shot-loan img { border: 3px solid #263389; border-radius: 8px; }
+    .shot-loan-glow {
+      bottom: -3.857%; left: 65.45%; right: 14.78%; height: 67.97%;
+      background: #060f42; filter: blur(32px); opacity: .25;
+    }
+    .shot-loan-mobile { bottom: -6.047%; left: 68.94%; right: 9.7%; aspect-ratio: 390/844; }
+    .shot-loan-mobile img { border: 3px solid #263389; border-radius: 6px; }
+
+    .shot-abtesting { bottom: -11.867%; left: 6.02%; right: 6.02%; aspect-ratio: 4096/2913; }
+    .shot-abtesting img { border: 3px solid #fff3d2; border-radius: 8px; }
+
+    .shot-actors { top: 9.69%; bottom: 9.69%; left: 50%; transform: translateX(-50%); gap: 16px; }
+    .shot-actors img { aspect-ratio: 788/1696; border: 2px solid #dfbaff; border-radius: 12px; }
+
+    .shot-lending { top: 9.69%; bottom: 9.69%; left: 50%; transform: translateX(-50%); gap: 12px; align-items: center; }
+    .shot-lending img { aspect-ratio: 417/876; }
+
+    .shot-aicopilot { top: 9.538%; bottom: 9.538%; left: 50%; transform: translateX(-50%); aspect-ratio: 4096/2913; }
+    .shot-aicopilot img { border: 3px solid rgba(255,99,172,.3); border-radius: 8px; }
+
+    /* Copy block (Figma 574:579) — inside the card, 16px padding */
+    .case-copy { display: flex; flex-direction: column; gap: 4px; justify-content: center; padding: 16px; width: 100%; }
+    .case-copy h3 { font-size: 16px; font-weight: 500; line-height: 1.5; letter-spacing: -0.48px; color: #000; }
+    .case-copy p { font-size: 14px; font-weight: 400; line-height: 1.5; letter-spacing: -0.42px; color: var(--muted); }
 
     .reveal { will-change: transform, opacity; }
 
+    /* ── MOBILE (Figma "Mobile - Hub" 584:336) ──
+       Sidebar dissolves into a top block: inline title + a horizontally
+       scrolling filter bar. Bio drops to the bottom. `display: contents`
+       lets the sidebar's children be ordered against <main>. */
     @media (max-width: 1024px) {
-      .hub { flex-direction: column; }
-      .sidebar { position: static; height: auto; width: 100%; flex-direction: row; flex-wrap: wrap; gap: 24px; padding: 32px var(--pad-x); align-items: center; }
-      .cat-list { flex-direction: row; flex-wrap: wrap; flex: none; }
-      .sidebar-bio { margin-left: auto; }
-      .content { padding: 32px var(--pad-x) 64px; gap: 48px; }
-      .card-row.cols-2 { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px) {
-      .sidebar { flex-direction: column; align-items: flex-start; }
-      .sidebar-bio { margin-left: 0; }
-      .cat-section h2 { font-size: 26px; }
+      .hub { display: flex; flex-direction: column; }
+      .sidebar { display: contents; }
+
+      .sidebar-title { order: 1; padding: 32px 16px 0; }
+      .sidebar-title span { display: inline; }
+
+      /* Chip bar — scrolls sideways, never wraps (Figma 584:341). */
+      .cat-list {
+        order: 2; flex: none; width: 100%;
+        flex-direction: row; flex-wrap: nowrap; gap: 0;
+        overflow-x: auto; overflow-y: hidden;
+        padding: 16px 16px 16px; margin: 0;
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .cat-list::-webkit-scrollbar { display: none; }
+      .cat-item {
+        width: auto; flex-shrink: 0;
+        padding: 8px 12px; font-size: 14px; letter-spacing: -0.28px;
+      }
+      .cat-item--all { display: flex; }
+      .cat-count { display: none; }
+
+      .content { order: 3; max-width: none; padding: 0 16px; gap: 24px; }
+      .cat-section { gap: 8px; }
+      .cat-section h2 { font-size: 20px; letter-spacing: -0.4px; line-height: 1.4; }
+      .card-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+      .case-copy { padding: 12px; }
+
+      .sidebar-bio {
+        order: 4; padding: 16px 16px 32px;
+        flex-direction: row; align-items: center; justify-content: space-between;
+      }
+      /* Section hidden by the chip filter. */
+      .cat-section.is-filtered { display: none; }
     }
   </style>
 </head>
@@ -158,9 +247,10 @@
 
 <div class="wrap hub">
   <aside class="sidebar">
-    <div class="sidebar-title">Case<br>Studies</div>
+    <div class="sidebar-title"><span>Case</span> <span>Studies</span></div>
 
     <nav class="cat-list">
+      <a class="cat-item cat-item--all" href="#" data-all><span class="cat-label">All</span></a>
       <a class="cat-item active" href="#healthcare-systems"><span class="cat-label">Healthcare Systems</span><span class="cat-count">2</span></a>
       <a class="cat-item" href="#enterprise-workflows"><span class="cat-label">Enterprise Workflows</span><span class="cat-count">1</span></a>
       <a class="cat-item" href="#finance-platforms"><span class="cat-label">Finance Platforms</span><span class="cat-count">1</span></a>
@@ -191,19 +281,25 @@
   <main class="content">
     <section class="cat-section" id="healthcare-systems">
       <h2 class="reveal">Healthcare Systems</h2>
-      <div class="card-row cols-2">
+      <div class="card-row">
         <a class="case-card reveal" href="healthcare-analytics.html">
-          <div class="case-cover cover-black"><img src="images/cases/healthcare-analytics-cover.png" alt="Clinical analytics dashboard"></div>
+          <div class="hub-cover">
+            <img class="hub-bg" src="images/cases/hub-bg-analytics.png" alt="">
+            <div class="hub-shot shot-analytics"><img src="images/cases/hub-screen-analytics.png" alt="Clinical analytics dashboard"></div>
+          </div>
           <div class="case-copy">
             <h3>When "We Need Analytics" Was the Only Brief</h3>
-            <p>Turned an open ended analytics request into a structured product that aligned product, engineering, and business teams.</p>
+            <p>Converted an open analytics request into a structured feature</p>
           </div>
         </a>
         <a class="case-card reveal" href="healthcare-careplans.html">
-          <div class="case-cover cover-black"><img src="images/cases/healthcare-careplans-cover.png" alt="Treatment program platform"></div>
+          <div class="hub-cover">
+            <img class="hub-bg" src="images/cases/hub-bg-careplans.png" alt="">
+            <div class="hub-shot shot-careplans"><img src="images/cases/hub-screen-careplans.png" alt="Treatment program builder"></div>
+          </div>
           <div class="case-copy">
             <h3>Helping Hospitals Sell Treatment Programs Efficiently</h3>
-            <p>Built a flexible treatment program platform that automated enrollment, pricing, progress tracking, and treatment updates across patients.</p>
+            <p>A flexible subscription builder that has provisions for every customization</p>
           </div>
         </a>
       </div>
@@ -211,12 +307,15 @@
 
     <section class="cat-section" id="enterprise-workflows">
       <h2 class="reveal">Enterprise Workflows</h2>
-      <div class="card-row cols-1">
+      <div class="card-row">
         <a class="case-card reveal" href="enterprise-insurance-advisors.html">
-          <div class="case-cover cover-navy"><img src="images/cases/enterprise-insurance-cover.png" alt="Expanded side navigation for insurance advisors"></div>
+          <div class="hub-cover">
+            <img class="hub-bg" src="images/cases/hub-bg-insurance.png" alt="">
+            <div class="hub-shot shot-insurance"><img src="images/cases/hub-screen-insurance.png" alt="Insurance advisor client profile"></div>
+          </div>
           <div class="case-copy">
             <h3>Giving Insurance Advisors More Time for High Value Client Work</h3>
-            <p>Redesigned the platform's most critical workflows by improving information hierarchy, introducing AI assisted meeting documentation, and simplifying daily operations.</p>
+            <p>Redesigned workflows, Improved usability, added AI powered dictations</p>
           </div>
         </a>
       </div>
@@ -224,15 +323,17 @@
 
     <section class="cat-section" id="finance-platforms">
       <h2 class="reveal">Finance Platforms</h2>
-      <div class="card-row cols-1">
+      <div class="card-row">
         <a class="case-card reveal" href="finance-loan-application.html">
-          <div class="case-cover cover-slate">
-            <img src="images/cases/finance-loan-offer-cover.png" alt="Loan offer screen">
-            <img src="images/cases/finance-loan-amount-cover.png" alt="Loan amount screen">
+          <div class="hub-cover">
+            <img class="hub-bg" src="images/cases/hub-bg-loan.png" alt="">
+            <div class="hub-shot shot-loan"><img src="images/cases/hub-screen-loan.png" alt="Loan offer screen"></div>
+            <div class="hub-shot shot-loan-glow" aria-hidden="true"></div>
+            <div class="hub-shot shot-loan-mobile"><img src="images/cases/hub-screen-loan-mobile.png" alt="Loan amount on mobile"></div>
           </div>
           <div class="case-copy">
-            <h3>Making It Easier and Faster to Apply for a Loan</h3>
-            <p>Redesigned the application journey to simplify complex steps, improve clarity, and increase the number of applicants who successfully completed the process.</p>
+            <h3>Speeding up loan applications and boosting conversions</h3>
+            <p>A redesigned journey that improves clarity while maintaining compliance</p>
           </div>
         </a>
       </div>
@@ -240,12 +341,15 @@
 
     <section class="cat-section" id="marketplaces">
       <h2 class="reveal">Marketplaces</h2>
-      <div class="card-row cols-1">
+      <div class="card-row">
         <a class="case-card reveal" href="marketplaces-ab-testing.html">
-          <div class="case-cover cover-white"><img src="images/cases/marketplaces-doctor-list-cover.png" alt="Doctor list booking screen"></div>
+          <div class="hub-cover">
+            <img class="hub-bg" src="images/cases/hub-bg-abtesting.png" alt="">
+            <div class="hub-shot shot-abtesting"><img src="images/cases/hub-screen-abtesting.png" alt="Doctor list booking screen"></div>
+          </div>
           <div class="case-copy">
             <h3>Exploring Service Booking Flows for A/B Validation</h3>
-            <p>Researched doctor appointment booking patterns, designed two booking flows, and defined an A/B testing framework to find which improved conversion.</p>
+            <p>Created two user flows and set up A/B tests to boost conversion rates.</p>
           </div>
         </a>
       </div>
@@ -253,27 +357,33 @@
 
     <section class="cat-section" id="mobile-apps">
       <h2 class="reveal">Mobile Apps</h2>
-      <div class="card-row cols-2">
+      <div class="card-row">
         <a class="case-card reveal" href="mobile-actors-app.html">
-          <div class="case-cover cover-white">
-            <img src="images/cases/mobile-actors-home-cover.png" alt="Actors app home screen">
-            <img src="images/cases/mobile-actors-practice-cover.png" alt="Actors app practice screen">
-            <img src="images/cases/mobile-actors-rehearsing-cover.png" alt="Actors app rehearsing screen">
+          <div class="hub-cover">
+            <img class="hub-bg" src="images/cases/hub-bg-actors.png" alt="">
+            <div class="hub-shot hub-shot--row shot-actors">
+              <img src="images/cases/hub-screen-actors-1.png" alt="Actors app home">
+              <img src="images/cases/hub-screen-actors-2.png" alt="Actors app practice">
+              <img src="images/cases/hub-screen-actors-3.png" alt="Actors app rehearsing">
+            </div>
           </div>
           <div class="case-copy">
             <h3>Taking an Actor Training Platform Beyond MVP</h3>
-            <p>Reimagined the mobile experience, expanded the product ecosystem, and established a foundation that supported long term growth.</p>
+            <p>Expanded MVP with new features, refined workflows, modern mobile experience</p>
           </div>
         </a>
         <a class="case-card reveal" href="mobile-lending.html">
-          <div class="case-cover" style="background:#f2eef8">
-            <img src="images/cases/mobile-lending-onboarding-cover.png" alt="Mobile lending onboarding screen">
-            <img src="images/cases/mobile-lending-home-cover.png" alt="Mobile lending home screen">
-            <img src="images/cases/mobile-lending-loandetails-cover.png" alt="Mobile lending loan details screen">
+          <div class="hub-cover">
+            <img class="hub-bg" src="images/cases/hub-bg-lending.png" alt="">
+            <div class="hub-shot hub-shot--row shot-lending">
+              <img src="images/cases/hub-screen-lending-1.png" alt="Lending onboarding">
+              <img src="images/cases/hub-screen-lending-2.png" alt="Lending home">
+              <img src="images/cases/hub-screen-lending-3.png" alt="Loan details">
+            </div>
           </div>
           <div class="case-copy">
             <h3>Bringing Small Business Lending to Mobile</h3>
-            <p>I helped the company's stakeholders decide if building a mobile product would add real value.</p>
+            <p>Helped stakeholders decide if building a mobile product was the next stage</p>
           </div>
         </a>
       </div>
@@ -281,12 +391,15 @@
 
     <section class="cat-section" id="ai-products">
       <h2 class="reveal">AI Products</h2>
-      <div class="card-row cols-1">
+      <div class="card-row">
         <a class="case-card reveal" href="ai-copilot.html">
-          <div class="case-cover cover-slate"><img src="images/cases/ai-products-home-cover.png" alt="AI document copilot home screen"></div>
+          <div class="hub-cover hub-cover--ring">
+            <img class="hub-bg" src="images/cases/hub-bg-aicopilot.png" alt="">
+            <div class="hub-shot shot-aicopilot"><img src="images/cases/hub-screen-aicopilot.png" alt="AI document copilot"></div>
+          </div>
           <div class="case-copy">
             <h3>Building an AI Copilot for Business Documents</h3>
-            <p>I designed the end to end MVP for an AI document platform that helped the startup get into 2 accelerator programs.</p>
+            <p>Created product from concept to MVP, securing two funded accelerator spots.</p>
           </div>
         </a>
       </div>
@@ -313,22 +426,66 @@
     ScrollTrigger.refresh();
   });
 
-  // ── Sidebar category links highlight + scroll-spy ──
-  const catItems = [...document.querySelectorAll('.cat-item')];
+  // ── Screen-in-card animation: add .is-in once the card scrolls into view ──
+  const cardIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); cardIO.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+  document.querySelectorAll('.case-card').forEach(c => cardIO.observe(c));
+
+  // Safety net: reveal anything already within the viewport in case the
+  // observer never fires (throttled/backgrounded tab).
+  window.addEventListener('load', () => setTimeout(() => {
+    document.querySelectorAll('.case-card:not(.is-in)').forEach(c => {
+      if (c.getBoundingClientRect().top < window.innerHeight) c.classList.add('is-in');
+    });
+  }, 400));
+
+  // ── Category nav: scroll-spy on desktop, filter chips on mobile ──
+  const allChip  = document.querySelector('.cat-item--all');
+  const catItems = [...document.querySelectorAll('.cat-item:not(.cat-item--all)')];
   const sections = catItems.map(a => document.querySelector(a.getAttribute('href')));
+  const mq = window.matchMedia('(max-width: 1024px)');
+  let activeIdx = 0;
+
+  const setActive = (el) =>
+    [allChip, ...catItems].forEach(a => a && a.classList.toggle('active', a === el));
+  const clearFilter = () =>
+    sections.forEach(s => s && s.classList.remove('is-filtered'));
+  const filterTo = (idx) =>
+    sections.forEach((s, i) => s && s.classList.toggle('is-filtered', i !== idx));
+
   const spy = new IntersectionObserver((entries) => {
+    if (mq.matches) return;                 // chips are a filter on mobile, not a spy
     entries.forEach(e => {
       if (!e.isIntersecting) return;
-      const idx = sections.indexOf(e.target);
-      catItems.forEach((a, i) => a.classList.toggle('active', i === idx));
+      activeIdx = sections.indexOf(e.target);
+      setActive(catItems[activeIdx]);
     });
   }, { rootMargin: '-20% 0px -70% 0px' });
   sections.forEach(s => s && spy.observe(s));
 
-  catItems.forEach(a => a.addEventListener('click', (e) => {
+  allChip?.addEventListener('click', (e) => {
     e.preventDefault();
-    document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setActive(allChip); clearFilter();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  catItems.forEach((a, i) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    activeIdx = i;
+    setActive(a);
+    if (mq.matches) { filterTo(i); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    else { clearFilter(); sections[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }));
+
+  // Crossing the breakpoint must never leave a section filtered out.
+  mq.addEventListener('change', () => {
+    clearFilter();
+    setActive(mq.matches ? allChip : catItems[activeIdx]);
+  });
+  if (mq.matches) setActive(allChip);
 </script>
 </body>
 </html>

@@ -64,10 +64,12 @@ img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; use
 .rail-head { display: flex; flex-direction: column; gap: clamp(8px, 2vh, 16px); flex: 1; min-height: 0; }
 .rail-head h1 { font-size: clamp(20px, 4.5vh, 32px); font-weight: 600; line-height: 1.3; letter-spacing: -0.64px; }
 .rail-head p.rail-desc { font-size: clamp(13px, 2vh, 16px); color: var(--muted); letter-spacing: -0.32px; line-height: 1.5; }
-.rail-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+/* Figma 581:57341 — tags wrap onto multiple rows; soft border, not the dark ink. */
+.rail-pills { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; margin-top: 12px; }
 .rail-pill {
-  border: 1px solid var(--muted); border-radius: 99px;
-  padding: 8px 12px; font-size: 14px; letter-spacing: -0.28px; color: var(--muted);
+  border: 1px solid #d0d9eb; border-radius: 99px;
+  padding: 8px 12px; font-size: 14px; line-height: 1.5;
+  letter-spacing: -0.28px; color: var(--muted);
   white-space: nowrap;
 }
 
@@ -105,6 +107,9 @@ img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; use
 
 .c-figure { display: flex; flex-direction: column; gap: 8px; align-items: center; }
 .c-figure img { width: 100%; display: block; border: 1px solid var(--line); }
+/* Designed cover graphic that opens each case study — it carries its own
+   background, so no border/radius (Figma exports it with square corners). */
+.c-figure img.c-cover { border: none; border-radius: 0; }
 .c-figure p.cap { font-size: 16px; text-align: center; letter-spacing: -0.32px; line-height: 1.6; }
 .c-figure-row { display: flex; gap: 8px; width: 100%; }
 .c-figure-row img { flex: 1; min-width: 0; border: 1px solid var(--line); display: block; }
@@ -121,11 +126,53 @@ img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; use
 
 .reveal { will-change: transform, opacity; }
 
+/* ── MOBILE (Figma "Mobile - Detial" 584:437) ──
+   The rail dissolves: back + pager pin to a fixed top bar, the heading block
+   flows above the narrative, and the bio drops to the very bottom.
+   `display: contents` on the rail lets its children be ordered against
+   <main> without changing any page's markup. */
 @media (max-width: 1024px) {
-  .case-shell { flex-direction: column; }
-  .case-rail { position: static; height: auto; overflow: visible; width: 100%; padding: 32px 24px; gap: 24px; }
-  .rail-head { flex: none; }
-  .rail-bio { margin-top: 0; }
-  .case-content { padding: 40px 24px 80px; }
+  .case-shell { display: flex; flex-direction: column; }
+  .case-rail { display: contents; }
+
+  /* Fixed top bar: 10px breathing room above and below the 44px back button. */
+  .case-shell::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; height: 64px;
+    background: var(--page); z-index: 40;
+  }
+  .rail-back { position: fixed; top: 10px; left: 16px; z-index: 50; width: 44px; height: 44px; }
+
+  /* Pager becomes two icon-only circles, ordered next then previous.
+     top:14px centres the 36px buttons against the 44px back button. */
+  .rail-pager {
+    position: fixed; top: 14px; right: 16px; z-index: 50;
+    width: auto; gap: 8px; flex-direction: row-reverse;
+  }
+  .pager-btn {
+    width: 36px; height: 36px; padding: 0; gap: 0;
+    align-items: center; justify-content: center;
+    font-size: 0; line-height: 0;   /* hides the label, kills its line box */
+  }
+  .pager-btn svg { width: 20px; height: 20px; flex: none; }
+
+  /* Heading block first, narrative next, bio last. */
+  .rail-head { order: 1; flex: none; gap: 12px; padding: 80px 16px 0; }
+  .case-content { order: 2; padding: 24px 16px; align-items: stretch; }
+  .rail-bio { order: 3; margin-top: 0; padding: 16px 16px 32px;
+              flex-direction: row; align-items: center; justify-content: space-between; }
+
+  /* Figma order on mobile is title -> tags -> description. */
+  .rail-head h1 { font-size: 28px; letter-spacing: -0.56px; line-height: 1.4; }
+  .rail-pills { order: 1; margin-top: 0; }
+  .rail-head p.rail-desc { order: 2; font-size: 14px; letter-spacing: -0.28px; }
+
+  .case-narrow { max-width: none; gap: 24px; }
+  .c-block h2 { font-size: 20px; letter-spacing: -0.6px; line-height: 1.5; }
+  .c-block p, .c-block ul { font-size: 14px; letter-spacing: -0.28px; }
+  .c-figure p.cap { font-size: 14px; letter-spacing: -0.28px; }
+  .c-figure img.c-cover { border-radius: 16px; }
   .c-figure-row { flex-direction: column; }
+
+  /* Tables scroll rather than crush on a narrow screen. */
+  .c-table-th { width: 40%; }
 }
