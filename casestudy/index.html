@@ -83,9 +83,10 @@
     }
     /* Stacked on desktop, inline on mobile (Figma 584:338). */
     .sidebar-title span { display: block; }
-    .cat-item--all { display: none; }
-    /* Figma 574:*: category list gap is 24px */
-    .cat-list { display: flex; flex-direction: column; gap: 24px; flex: 1; min-height: 0; width: 100%; }
+    /* Mobile-only filter chip. Scoped to .cat-list so it outranks the
+       .cat-item display rule that follows it. */
+    .cat-list .cat-item--all { display: none; }
+    .cat-list { display: flex; flex-direction: column; gap: 4px; flex: 1; min-height: 0; width: 100%; }
     .cat-item {
       display: flex; align-items: center; gap: 8px; width: 100%; min-width: 0;
       padding: 12px 16px; border-radius: 99px;
@@ -225,7 +226,7 @@
         width: auto; flex-shrink: 0;
         padding: 8px 12px; font-size: 14px; letter-spacing: -0.28px;
       }
-      .cat-item--all { display: flex; }
+      .cat-list .cat-item--all { display: flex; }
       .cat-count { display: none; }
 
       .content { order: 3; max-width: none; padding: 0 16px; gap: 24px; }
