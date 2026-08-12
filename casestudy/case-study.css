@@ -106,13 +106,16 @@ img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; use
 .c-block p + ul, .c-block ul + p { margin-top: 14px; }
 
 .c-figure { display: flex; flex-direction: column; gap: 8px; align-items: center; }
-.c-figure img { width: 100%; display: block; border: 1px solid var(--line); }
+/* height:auto is REQUIRED alongside the width/height attributes on these
+   images — without it the attribute height is used literally and every
+   image renders stretched. */
+.c-figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line); }
 /* Designed cover graphic that opens each case study — it carries its own
    background, so no border/radius (Figma exports it with square corners). */
 .c-figure img.c-cover { border: none; border-radius: 0; }
 .c-figure p.cap { font-size: 16px; text-align: center; letter-spacing: -0.32px; line-height: 1.6; }
 .c-figure-row { display: flex; gap: 8px; width: 100%; }
-.c-figure-row img { flex: 1; min-width: 0; border: 1px solid var(--line); display: block; }
+.c-figure-row img { flex: 1; min-width: 0; height: auto; border: 1px solid var(--line); display: block; }
 
 .case-content img { cursor: zoom-in; transition: opacity .15s; }
 .case-content img:hover { opacity: .92; }

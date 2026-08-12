@@ -5,3 +5,9 @@
 .agents
 .impeccable
 skills-lock.json
+
+# Original screenshot sources kept in the repo for regenerating variants,
+# but never served — every page references the WebP variants instead.
+casestudy/images/cases/*.png
+casestudy/images/cases/*.jpeg
+casestudy/images/cases/*.jpg

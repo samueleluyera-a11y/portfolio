@@ -14,7 +14,7 @@
         </button>
       </div>
       <div class="about-body">
-        <img class="about-portrait" src="images/cases/about-portrait.png" alt="Samuel Eluyera">
+        <img class="about-portrait" src="images/cases/about-portrait.webp" alt="Samuel Eluyera">
         <div class="about-copy">
           <div class="about-bio">
             <p><strong>Most of my career has been spent inside design agencies</strong>, working across 100+ projects for 56 companies. <strong>Every few months meant learning a new business from scratch</strong>. One month it was commercial lending. The next it was clinical AI, defense software, restaurant technology, sports operations, or enterprise finance.</p>

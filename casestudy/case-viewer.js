@@ -4,7 +4,12 @@
   const imgs = [...document.querySelectorAll('.case-content img')];
   if (!imgs.length) return;
 
-  const items = imgs.map((img) => ({ src: img.currentSrc || img.src, alt: img.alt || '' }));
+  // Prefer the largest variant so fullscreen stays sharp. currentSrc is not
+  // usable here — lazy images below the fold have not resolved one yet.
+  const items = imgs.map((img) => ({
+    src: img.dataset.full || img.currentSrc || img.src,
+    alt: img.alt || '',
+  }));
   let current = 0;
 
   const overlay = document.createElement('div');
