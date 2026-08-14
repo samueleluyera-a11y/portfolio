@@ -1,0 +1,33 @@
+/* Shared site header (Figma 626:1244) — wordmark left, Portfolio + About right.
+   Spans the 1400px content width, 0.5px border, page-coloured.
+   Fixed to the top and centred on the same 1400px frame as .wrap; it auto-hides
+   on scroll-down and slides back in on scroll-up (see header-nav.js). Pages that
+   include it reserve its height via `.wrap:has(.site-header){padding-top}`. */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px;
+  background: #f4f6fa;
+  border: 0.5px solid #dbdfe7;
+  transition: transform .3s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+}
+/* Slid out of view while the user is scrolling down the page. */
+.site-header.is-hidden { transform: translateY(calc(-100% - 1px)); }
+@media (prefers-reduced-motion: reduce) {
+  .site-header { transition: none; }
+}
+.site-logo { display: flex; align-items: center; }
+.site-logo img { height: 14px; width: auto; display: block; }
+
+.site-nav { display: flex; align-items: center; gap: 16px; }
+.site-nav-link {
+  display: inline-flex; align-items: center; gap: 2px;
+  font-size: 14px; font-weight: 400; line-height: 1.5; letter-spacing: -0.28px;
+  color: #374259; background: none; border: none; padding: 0; cursor: pointer;
+  font-family: inherit; text-decoration: none;
+  transition: opacity .2s;
+}
+.site-nav-link:hover { opacity: .65; }
+.site-nav-link svg { width: 12px; height: 12px; display: block; }

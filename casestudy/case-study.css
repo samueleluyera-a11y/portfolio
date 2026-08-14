@@ -17,6 +17,10 @@
   --ink: #000;
   --muted: #374259;
   --line: #dde2ec;
+  --hair: #dbdfe7;   /* 0.5px box strokes */
+  --btn-line: #e8e9ed;
+  --tag-line: #d0d9eb;
+  --header-h: 0px;   /* overridden below on pages that carry the fixed header */
 }
 
 html, body {
@@ -39,66 +43,96 @@ a { color: inherit; text-decoration: none; }
 /* Casual save deterrent — paired with image-guard.js. Not real protection. */
 img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; user-select: none; -webkit-user-select: none; }
 
-.wrap { max-width: 1512px; margin: 0 auto; }
+/* Content is capped at Figma's 1400px; header + shell stack inside it. */
+.wrap { max-width: 1400px; margin: 0 auto; }
+/* Pages with the fixed header reserve its height and expose it to the rail. */
+.wrap:has(.site-header) { --header-h: 54px; padding-top: var(--header-h); }
 
 /* ── TWO-COLUMN CASE SHELL ── */
 .case-shell { display: flex; align-items: flex-start; }
 
+/* Left rail is a 0.5px-bordered card: back at the top, pager pinned to the
+   bottom, title/tags/TL;DR filling the middle. Sticky so it stays in view. */
 .case-rail {
   width: 400px; flex-shrink: 0;
-  position: sticky; top: 0; height: 100vh; overflow: hidden;
-  padding: clamp(20px, 5vh, 48px) 24px;
-  display: flex; flex-direction: column; gap: clamp(12px, 3vh, 32px);
+  position: sticky; top: var(--header-h);
+  height: calc(100dvh - var(--header-h));
+  border: 0.5px solid var(--hair);
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 24px;
+  overflow: auto;
+  transition: top .3s cubic-bezier(.22,1,.36,1), height .3s cubic-bezier(.22,1,.36,1);
 }
+/* Header hidden: the rail reclaims the reserved band and fills the viewport,
+   then eases back down when the header returns. Sticky rail only (desktop). */
+@media (min-width: 1025px) {
+  html.nav-up .case-rail { top: 0; height: 100dvh; }
+}
+@media (prefers-reduced-motion: reduce) { .case-rail { transition: none; } }
 .rail-back {
   width: 44px; height: 44px; flex-shrink: 0;
-  background: #fff; border-radius: 99px;
+  background: #fff; border: 0.5px solid var(--btn-line); border-radius: 99px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
   display: flex; align-items: center; justify-content: center;
   transition: opacity .2s;
 }
 .rail-back:hover { opacity: .7; }
-.rail-back svg { width: 20px; height: 20px; display: block; }
+.rail-back img, .rail-back svg { width: 20px; height: 20px; display: block; }
 
-/* Fills the remaining vertical space so the pager/bio don't sit
-   immediately under the subheadline — matches the source composition. */
-.rail-head { display: flex; flex-direction: column; gap: clamp(8px, 2vh, 16px); flex: 1; min-height: 0; }
-.rail-head h1 { font-size: clamp(20px, 4.5vh, 32px); font-weight: 600; line-height: 1.3; letter-spacing: -0.64px; }
-.rail-head p.rail-desc { font-size: clamp(13px, 2vh, 16px); color: var(--muted); letter-spacing: -0.32px; line-height: 1.5; }
-/* Figma 581:57341 — tags wrap onto multiple rows; soft border, not the dark ink. */
-.rail-pills { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; margin-top: 12px; }
+/* Middle grows so the pager sits at the bottom of the rail. */
+.rail-head { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 24px; }
+.rail-title-block { display: flex; flex-direction: column; gap: 12px; }
+.rail-head h1 { font-size: 32px; font-weight: 500; line-height: 1.4; letter-spacing: -0.64px; color: #000; }
+
+.rail-pills { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
 .rail-pill {
-  border: 1px solid #d0d9eb; border-radius: 99px;
+  border: 0.5px solid var(--tag-line); border-radius: 99px;
   padding: 8px 12px; font-size: 14px; line-height: 1.5;
   letter-spacing: -0.28px; color: var(--muted);
   white-space: nowrap;
 }
 
+/* TL;DR box (Figma 626:1429) */
+.rail-tldr {
+  background: #e4ebf8; border-radius: 8px; padding: 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.rail-tldr .tldr-label {
+  font-size: 14px; font-weight: 500; font-style: italic;
+  line-height: 1.5; letter-spacing: -0.28px; color: #13387e;
+}
+.rail-tldr p {
+  font-size: 14px; font-weight: 400; line-height: 1.5; letter-spacing: -0.28px; color: #000;
+}
+
 /* ── PREV / NEXT PAGER ── */
-/* Buttons hug their own content and sit at opposite ends of the row. */
 .rail-pager { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; flex-shrink: 0; }
 .pager-btn {
-  flex: 0 0 auto; display: flex; align-items: center; gap: 6px;
-  border: 1px solid #000; border-radius: 99px;
-  padding: 10px 16px; font-size: 14px; letter-spacing: -0.28px; color: #000;
-  transition: background-color .2s;
-  white-space: nowrap;
+  flex: 0 0 auto; display: flex; align-items: center; gap: 4px;
+  padding: 8px 12px; border-radius: 99px;
+  font-size: 14px; line-height: 20px; letter-spacing: -0.28px; color: #000;
+  white-space: nowrap; transition: background-color .2s, opacity .2s;
 }
-.pager-btn:hover { background: rgba(0,0,0,.05); }
-.pager-btn svg { width: 16px; height: 16px; display: block; flex-shrink: 0; color: #000; }
-.pager-next svg { transform: scaleX(-1); }
-
-.rail-bio { margin-top: auto; display: flex; flex-direction: column; gap: clamp(8px, 2vh, 16px); flex-shrink: 0; }
-.rail-bio-name { font-size: 16px; font-weight: 600; letter-spacing: -0.48px; text-decoration: underline; text-underline-offset: 2px; }
-.rail-bio-role { font-size: 14px; color: var(--muted); letter-spacing: -0.42px; margin-top: 4px; }
-.rail-socials { display: flex; gap: 16px; }
-.rail-socials a { display: block; width: 20px; height: 20px; opacity: .85; transition: opacity .2s; }
-.rail-socials a:hover { opacity: 1; }
-.rail-socials svg { width: 20px; height: 20px; display: block; }
+.pager-prev { border: 0.5px solid var(--hair); background: transparent; }
+.pager-prev:hover { background: rgba(0,0,0,.04); }
+.pager-next { border: 0.5px solid var(--btn-line); background: #fff; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+.pager-next:hover { background: #fbfbfd; }
+.pager-btn img, .pager-btn svg { width: 20px; height: 20px; display: block; flex-shrink: 0; color: #000; }
+.pager-prev img, .pager-prev svg { transform: scaleX(-1); }   /* forward-02 points left for Previous */
 
 /* ── NARRATIVE CONTENT ── */
-.case-content { flex: 1; min-width: 0; padding: 116px 48px 120px; display: flex; flex-direction: column; align-items: center; }
-.case-narrow { max-width: clamp(640px, 58vw, 920px); width: 100%; display: flex; flex-direction: column; gap: 40px; }
+/* Column is 640px, centred in the content area. Text blocks are inset 40px
+   each side (560px), images/tables run the full 640px — images wider than text. */
+/* Outlined column that shares its left edge with the rail (0.5px seam). */
+.case-content {
+  flex: 1; min-width: 0; padding: 48px 0 120px;
+  display: flex; flex-direction: column; align-items: center;
+  border: 0.5px solid var(--hair); border-left: 0;
+  min-height: calc(100dvh - var(--header-h));
+}
+.case-narrow { max-width: 640px; width: 100%; display: flex; flex-direction: column; gap: 40px; }
 
+.c-block { padding: 0 40px; }
 .c-block h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.72px; margin-bottom: 8px; }
 .c-block p { font-size: 16px; letter-spacing: -0.32px; line-height: 1.6; }
 .c-block p + p { margin-top: 14px; }
@@ -110,8 +144,7 @@ img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; use
    images — without it the attribute height is used literally and every
    image renders stretched. */
 .c-figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line); }
-/* Designed cover graphic that opens each case study — it carries its own
-   background, so no border/radius (Figma exports it with square corners). */
+/* Designed cover graphic that opens each case study — carries its own bg. */
 .c-figure img.c-cover { border: none; border-radius: 0; }
 .c-figure p.cap { font-size: 16px; text-align: center; letter-spacing: -0.32px; line-height: 1.6; }
 .c-figure-row { display: flex; gap: 8px; width: 100%; }
@@ -129,53 +162,32 @@ img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; use
 
 .reveal { will-change: transform, opacity; }
 
-/* ── MOBILE (Figma "Mobile - Detial" 584:437) ──
-   The rail dissolves: back + pager pin to a fixed top bar, the heading block
-   flows above the narrative, and the bio drops to the very bottom.
-   `display: contents` on the rail lets its children be ordered against
-   <main> without changing any page's markup. */
+/* ── MOBILE ──
+   Header stays a static top bar; the rail dissolves into a stacked flow
+   (back → title → tags → TL;DR), then the narrative, then the pager. */
 @media (max-width: 1024px) {
   .case-shell { display: flex; flex-direction: column; }
-  .case-rail { display: contents; }
-
-  /* Fixed top bar: 10px breathing room above and below the 44px back button. */
-  .case-shell::before {
-    content: ''; position: fixed; top: 0; left: 0; right: 0; height: 64px;
-    background: var(--page); z-index: 40;
+  .case-rail {
+    display: flex; position: static; height: auto; overflow: visible;
+    width: 100%; border: none; border-bottom: 0.5px solid var(--hair);
+    padding: 16px; gap: 16px;
   }
-  .rail-back { position: fixed; top: 10px; left: 16px; z-index: 50; width: 44px; height: 44px; }
+  /* Stacked flow on mobile — no side-by-side frame to outline. */
+  .case-content { border: 0; min-height: 0; }
+  .rail-head { flex: none; gap: 16px; }
+  .rail-head h1 { font-size: 28px; letter-spacing: -0.56px; }
 
-  /* Pager becomes two icon-only circles, ordered next then previous.
-     top:14px centres the 36px buttons against the 44px back button. */
-  .rail-pager {
-    position: fixed; top: 14px; right: 16px; z-index: 50;
-    width: auto; gap: 8px; flex-direction: row-reverse;
-  }
-  .pager-btn {
-    width: 36px; height: 36px; padding: 0; gap: 0;
-    align-items: center; justify-content: center;
-    font-size: 0; line-height: 0;   /* hides the label, kills its line box */
-  }
-  .pager-btn svg { width: 20px; height: 20px; flex: none; }
-
-  /* Heading block first, narrative next, bio last. */
-  .rail-head { order: 1; flex: none; gap: 12px; padding: 80px 16px 0; }
-  .case-content { order: 2; padding: 24px 16px; align-items: stretch; }
-  .rail-bio { order: 3; margin-top: 0; padding: 16px 16px 32px;
-              flex-direction: row; align-items: center; justify-content: space-between; }
-
-  /* Figma order on mobile is title -> tags -> description. */
-  .rail-head h1 { font-size: 28px; letter-spacing: -0.56px; line-height: 1.4; }
-  .rail-pills { order: 1; margin-top: 0; }
-  .rail-head p.rail-desc { order: 2; font-size: 14px; letter-spacing: -0.28px; }
-
+  .case-content { padding: 24px 16px; align-items: stretch; }
   .case-narrow { max-width: none; gap: 24px; }
+  .c-block { padding: 0; }
   .c-block h2 { font-size: 20px; letter-spacing: -0.6px; line-height: 1.5; }
   .c-block p, .c-block ul { font-size: 14px; letter-spacing: -0.28px; }
   .c-figure p.cap { font-size: 14px; letter-spacing: -0.28px; }
-  .c-figure img.c-cover { border-radius: 16px; }
   .c-figure-row { flex-direction: column; }
 
-  /* Tables scroll rather than crush on a narrow screen. */
+  /* Icon-only pager on mobile. */
+  .pager-btn { padding: 8px; gap: 0; font-size: 0; line-height: 0; }
+  .pager-btn img, .pager-btn svg { width: 20px; height: 20px; }
+
   .c-table-th { width: 40%; }
 }

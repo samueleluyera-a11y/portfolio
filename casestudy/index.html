@@ -21,6 +21,7 @@
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#f4f6fa">
 
+  <link rel="stylesheet" href="header.css">
   <link rel="stylesheet" href="about-modal.css">
   <script>
     // Gate the card pre-animation state on JS actually running, so the screens
@@ -51,6 +52,7 @@
       --page: #f4f6fa;
       --ink: #000;
       --muted: #374259;
+      --header-h: 54px;
     }
 
     html, body {
@@ -62,53 +64,58 @@
     }
 
     /* Figma: content max 1400px; sidebar 240px + content 1160px (48px padding -> 1064px inner) */
-    .wrap { max-width: 1400px; margin: 0 auto; }
+    .wrap { max-width: 1400px; margin: 0 auto; padding-top: var(--header-h); }
 
     a { color: inherit; text-decoration: none; }
 
     /* ── HUB LAYOUT ── */
     .hub { display: flex; align-items: flex-start; justify-content: center; }
 
+    /* Sidebar is a 0.5px-bordered box; nav fills the middle, socials at bottom. */
     .sidebar {
       width: 240px; flex-shrink: 0;
-      position: sticky; top: 0;
-      display: flex; flex-direction: column; gap: 48px;
-      padding: 48px 16px;
-      height: 100vh;
-      overflow: hidden;
+      position: sticky; top: var(--header-h);
+      display: flex; flex-direction: column; gap: 24px;
+      padding: 16px;
+      height: calc(100dvh - var(--header-h));
+      border: 0.5px solid #dbdfe7;
+      overflow: auto;
+      transition: top .3s cubic-bezier(.22,1,.36,1), height .3s cubic-bezier(.22,1,.36,1);
     }
-    .sidebar-title {
-      font-size: 24px; font-weight: 600; line-height: 1.5; letter-spacing: -0.72px;
-      flex-shrink: 0;
-    }
-    /* Stacked on desktop, inline on mobile (Figma 584:338). */
-    .sidebar-title span { display: block; }
+    /* Header hidden: the rail reclaims the reserved band so it fills the
+       viewport, then eases back down when the header returns. */
+    html.nav-up .sidebar { top: 0; height: 100dvh; }
+    @media (prefers-reduced-motion: reduce) { .sidebar { transition: none; } }
     /* Mobile-only filter chip. Scoped to .cat-list so it outranks the
        .cat-item display rule that follows it. */
     .cat-list .cat-item--all { display: none; }
-    .cat-list { display: flex; flex-direction: column; gap: 4px; flex: 1; min-height: 0; width: 100%; }
+    .cat-list { display: flex; flex-direction: column; gap: 8px; flex: 1; min-height: 0; width: 100%; }
     .cat-item {
       display: flex; align-items: center; gap: 8px; width: 100%; min-width: 0;
       padding: 12px 16px; border-radius: 99px;
       font-size: 16px; letter-spacing: -0.32px;
-      color: var(--muted);
-      transition: background-color .2s, color .2s;
+      color: var(--muted); border: 0.5px solid transparent;
+      transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s;
     }
     .cat-item .cat-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .cat-item .cat-count { flex-shrink: 0; opacity: .5; font-size: 12px; letter-spacing: -0.24px; }
-    .cat-item.active { background: #fff; color: #000; }
-    .cat-item:hover:not(.active) { background: rgba(0,0,0,.04); }
+    .cat-item.active { background: #fff; color: #000; border-color: #e8e9ed; box-shadow: 0 1px 1px rgba(5,22,57,.08); }
+    .cat-item:hover:not(.active) { background: rgba(0,0,0,.03); }
 
-    .sidebar-bio { display: flex; flex-direction: column; gap: 16px; flex-shrink: 0; }
-    .bio-name { font-size: 16px; font-weight: 600; letter-spacing: -0.48px; text-decoration: underline; text-underline-offset: 2px; }
-    .bio-role { font-size: 14px; color: var(--muted); letter-spacing: -0.42px; margin-top: 4px; }
-    .bio-socials { display: flex; gap: 16px; }
-    .bio-socials a { display: block; width: 20px; height: 20px; opacity: .85; transition: opacity .2s; }
-    .bio-socials a:hover { opacity: 1; }
-    .bio-socials svg { width: 20px; height: 20px; display: block; }
+    /* Bottom of the sidebar: three social icons (Figma 626:1291). */
+    .sidebar-bio { display: flex; gap: 10px; flex-shrink: 0; }
+    .sidebar-bio a { display: block; width: 20px; height: 20px; opacity: .85; transition: opacity .2s; }
+    .sidebar-bio a:hover { opacity: 1; }
+    .sidebar-bio img, .sidebar-bio svg { width: 20px; height: 20px; display: block; }
 
-    /* Figma 436:2536: padding 48px, gap 40px */
-    .content { flex: 1; min-width: 0; max-width: 1160px; padding: 48px; display: flex; flex-direction: column; gap: 40px; }
+    /* Figma 626:1306: content padding 24/40, gap 40. Outlined column sharing
+       its left edge with the sidebar (0.5px seam). */
+    .content {
+      flex: 1; min-width: 0; max-width: 1160px; padding: 24px 40px 64px;
+      display: flex; flex-direction: column; gap: 40px;
+      border: 0.5px solid #dbdfe7; border-left: 0;
+      min-height: calc(100dvh - var(--header-h));
+    }
 
     .cat-section { display: flex; flex-direction: column; gap: 16px; scroll-margin-top: 24px; }
     /* Figma 439:22137: 24px / Medium / -0.48px / 1.2 */
@@ -118,9 +125,10 @@
        which is exactly Figma's card + spacer arrangement. */
     .card-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
 
-    /* ── CARD (Figma 574:575) ── */
+    /* ── CARD (Figma 574:575) — title only, 0.5px border ── */
     .case-card {
       background: #fff; padding: 4px; border-radius: 20px;
+      border: 0.5px solid #dbdfe7;
       display: flex; flex-direction: column; align-items: flex-start;
     }
 
@@ -195,10 +203,9 @@
     .shot-aicopilot { top: 9.538%; bottom: 9.538%; left: 50%; transform: translateX(-50%); aspect-ratio: 4096/2913; }
     .shot-aicopilot img { border: 3px solid rgba(255,99,172,.3); border-radius: 8px; }
 
-    /* Copy block (Figma 574:579) — inside the card, 16px padding */
-    .case-copy { display: flex; flex-direction: column; gap: 4px; justify-content: center; padding: 16px; width: 100%; }
-    .case-copy h3 { font-size: 16px; font-weight: 500; line-height: 1.5; letter-spacing: -0.48px; color: #000; }
-    .case-copy p { font-size: 14px; font-weight: 400; line-height: 1.5; letter-spacing: -0.42px; color: var(--muted); }
+    /* Copy block (Figma 626:1313) — title only, 12px padding */
+    .case-copy { display: flex; flex-direction: column; gap: 4px; justify-content: center; padding: 12px; width: 100%; }
+    .case-copy h3 { font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: -0.32px; color: #000; }
 
     .reveal { will-change: transform, opacity; }
 
@@ -209,9 +216,6 @@
     @media (max-width: 1024px) {
       .hub { display: flex; flex-direction: column; }
       .sidebar { display: contents; }
-
-      .sidebar-title { order: 1; padding: 32px 16px 0; }
-      .sidebar-title span { display: inline; }
 
       /* Chip bar — scrolls sideways, never wraps (Figma 584:341). */
       .cat-list {
@@ -229,7 +233,7 @@
       .cat-list .cat-item--all { display: flex; }
       .cat-count { display: none; }
 
-      .content { order: 3; max-width: none; padding: 0 16px; gap: 24px; }
+      .content { order: 3; max-width: none; padding: 0 16px; gap: 24px; border: 0; min-height: 0; }
       .cat-section { gap: 8px; }
       .cat-section h2 { font-size: 20px; letter-spacing: -0.4px; line-height: 1.4; }
       .card-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
@@ -246,10 +250,19 @@
 </head>
 <body>
 
-<div class="wrap hub">
-  <aside class="sidebar">
-    <div class="sidebar-title"><span>Case</span> <span>Studies</span></div>
+<div class="wrap">
+  <header class="site-header">
+    <a class="site-logo" href="index.html" aria-label="Samuel Eluyera — Case Studies">
+      <img src="images/cases/logo-wordmark.svg" alt="Samuel Eluyera">
+    </a>
+    <nav class="site-nav">
+      <a class="site-nav-link" href="https://www.samueleluyera.com/" target="_blank" rel="noopener">Portfolio<svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.59446 9.20345L2.79663 8.40561L7.28894 3.91331H3.95296V2.79656L9.20352 2.79656V8.04712H8.08677V4.71114L3.59446 9.20345Z" fill="currentColor"/></svg></a>
+      <button class="site-nav-link" type="button" data-open-about>About</button>
+    </nav>
+  </header>
 
+  <div class="hub">
+  <aside class="sidebar">
     <nav class="cat-list">
       <a class="cat-item cat-item--all" href="#" data-all><span class="cat-label">All</span></a>
       <a class="cat-item active" href="#healthcare-systems"><span class="cat-label">Healthcare Systems</span><span class="cat-count">2</span></a>
@@ -261,21 +274,9 @@
     </nav>
 
     <div class="sidebar-bio">
-      <div data-open-about>
-        <div class="bio-name">Samuel Eluyera</div>
-        <div class="bio-role">Product Designer</div>
-      </div>
-      <div class="bio-socials">
-        <a href="../index.html" aria-label="Website" target="_blank" rel="noopener">
-          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333Z" stroke="#3E3E3E" stroke-width="1.5"/><path d="M6.66667 10C6.66667 15 10 18.3333 10 18.3333C10 18.3333 13.3333 15 13.3333 10C13.3333 5 10 1.66667 10 1.66667C10 1.66667 6.66667 5 6.66667 10Z" stroke="#3E3E3E" stroke-width="1.5" stroke-linejoin="round"/><path d="M17.5 12.5H2.5" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.5 7.5H2.5" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener">
-          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.83333 8.33333V14.1667" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.16667 10.8333V14.1667M9.16667 10.8333C9.16667 9.45258 10.2859 8.33333 11.6667 8.33333C13.0474 8.33333 14.1667 9.45258 14.1667 10.8333V14.1667M9.16667 10.8333V8.33333" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.9375 5.625H5.83333M6.04167 5.625C6.04167 5.74006 5.94839 5.83333 5.83333 5.83333C5.71827 5.83333 5.625 5.74006 5.625 5.625C5.625 5.50994 5.71827 5.41667 5.83333 5.41667C5.94839 5.41667 6.04167 5.50994 6.04167 5.625Z" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 10C2.5 6.46447 2.5 4.6967 3.59835 3.59835C4.6967 2.5 6.46447 2.5 10 2.5C13.5355 2.5 15.3033 2.5 16.4017 3.59835C17.5 4.6967 17.5 6.46447 17.5 10C17.5 13.5355 17.5 15.3033 16.4017 16.4017C15.3033 17.5 13.5355 17.5 10 17.5C6.46447 17.5 4.6967 17.5 3.59835 16.4017C2.5 15.3033 2.5 13.5355 2.5 10Z" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="mailto:Samueleluyera@gmail.com" aria-label="Send an email">
-          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.91509 12.5L14.1651 6.25" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.67195 6.39906L12.7725 3.51567C15.3073 2.31759 16.5747 1.71855 17.3832 2.31951C18.1916 2.92046 17.9606 4.28999 17.4987 7.02905L16.7029 11.7473C16.4009 13.5383 16.2498 14.4337 15.5824 14.8242C14.9149 15.2147 14.0478 14.9148 12.3137 14.315L7.00897 12.4802C3.76597 11.3584 2.14447 10.7976 2.08349 9.69708C2.0225 8.59658 3.57231 7.8641 6.67195 6.39906Z" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.91509 12.9167V14.7728C7.91509 16.7508 7.91509 17.7398 8.50691 17.8976C9.09875 18.0553 9.722 17.2324 10.9685 15.5866L11.6651 14.5833" stroke="#3E3E3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
+      <a href="https://www.samueleluyera.com/" aria-label="Website" target="_blank" rel="noopener"><img src="images/cases/icon-globe.svg" alt="" width="20" height="20"></a>
+      <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="images/cases/icon-linkedin.svg" alt="" width="20" height="20"></a>
+      <a href="mailto:Samueleluyera@gmail.com" aria-label="Send an email"><img src="images/cases/icon-sent.svg" alt="" width="20" height="20"></a>
     </div>
   </aside>
 
@@ -290,7 +291,6 @@
           </div>
           <div class="case-copy">
             <h3>When "We Need Analytics" Was the Only Brief</h3>
-            <p>Converted an open analytics request into a structured feature</p>
           </div>
         </a>
         <a class="case-card reveal" href="healthcare-careplans.html">
@@ -300,7 +300,6 @@
           </div>
           <div class="case-copy">
             <h3>Helping Hospitals Sell Treatment Programs Efficiently</h3>
-            <p>A flexible subscription builder that has provisions for every customization</p>
           </div>
         </a>
       </div>
@@ -316,7 +315,6 @@
           </div>
           <div class="case-copy">
             <h3>Giving Insurance Advisors More Time for High Value Client Work</h3>
-            <p>Redesigned workflows, Improved usability, added AI powered dictations</p>
           </div>
         </a>
       </div>
@@ -334,7 +332,6 @@
           </div>
           <div class="case-copy">
             <h3>Speeding up loan applications and boosting conversions</h3>
-            <p>A redesigned journey that improves clarity while maintaining compliance</p>
           </div>
         </a>
       </div>
@@ -350,7 +347,6 @@
           </div>
           <div class="case-copy">
             <h3>Exploring Service Booking Flows for A/B Validation</h3>
-            <p>Created two user flows and set up A/B tests to boost conversion rates.</p>
           </div>
         </a>
       </div>
@@ -370,7 +366,6 @@
           </div>
           <div class="case-copy">
             <h3>Taking an Actor Training Platform Beyond MVP</h3>
-            <p>Expanded MVP with new features, refined workflows, modern mobile experience</p>
           </div>
         </a>
         <a class="case-card reveal" href="mobile-lending.html">
@@ -384,7 +379,6 @@
           </div>
           <div class="case-copy">
             <h3>Bringing Small Business Lending to Mobile</h3>
-            <p>Helped stakeholders decide if building a mobile product was the next stage</p>
           </div>
         </a>
       </div>
@@ -400,17 +394,18 @@
           </div>
           <div class="case-copy">
             <h3>Building an AI Copilot for Business Documents</h3>
-            <p>Created product from concept to MVP, securing two funded accelerator spots.</p>
           </div>
         </a>
       </div>
     </section>
   </main>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="about-modal.js"></script>
+<script src="header-nav.js"></script>
 <script src="page-transition.js"></script>
 <script src="image-guard.js"></script>
 <script>

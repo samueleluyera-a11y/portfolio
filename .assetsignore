@@ -11,3 +11,6 @@ skills-lock.json
 casestudy/images/cases/*.png
 casestudy/images/cases/*.jpeg
 casestudy/images/cases/*.jpg
+
+# Internal handoff note — never deployed
+casestudy/_REDESIGN-HANDOFF.md

@@ -1,4 +1,4 @@
-// Injects the shared "About Me" modal and wires it to any element with [data-open-about].
+// Injects the shared "About" modal and wires it to any element with [data-open-about].
 (function () {
   const overlay = document.createElement('div');
   overlay.className = 'about-overlay';
@@ -8,29 +8,34 @@
   overlay.innerHTML = `
     <div class="about-modal">
       <div class="about-head">
-        <h2>About Me</h2>
+        <h2>About</h2>
         <button class="about-close" type="button" aria-label="Close">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L12 12M12 12L6 18M12 12L18 18M12 12L6 6" stroke="#000" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <img src="images/cases/icon-x.svg" alt="" width="20" height="20">
         </button>
       </div>
       <div class="about-body">
-        <img class="about-portrait" src="images/cases/about-portrait.webp" alt="Samuel Eluyera">
+        <div class="about-portrait-col">
+          <img class="about-portrait" src="images/cases/about-portrait.webp" alt="Samuel Eluyera">
+        </div>
         <div class="about-copy">
-          <div class="about-bio">
-            <p><strong>Most of my career has been spent inside design agencies</strong>, working across 100+ projects for 56 companies. <strong>Every few months meant learning a new business from scratch</strong>. One month it was commercial lending. The next it was clinical AI, defense software, restaurant technology, sports operations, or enterprise finance.</p>
-            <p>After enough projects, you start seeing the patterns that make products succeed or fail. People overwhelmed by information. Software that gets in the way of the work it's supposed to support. <strong>Designing across so many industries has given me the product intuition to find those patterns quickly and build workflows that feel obvious to the people using them.</strong></p>
-            <p>Over the last 10 years, I've helped take <strong>15+ products from idea to launch</strong> as the sole product designer, contributing to products that now <strong>serve over 2 million users</strong>, and <strong>generate millions in revenue.</strong></p>
-            <p>Outside client work, I'm usually building something of my own with friends. Most ideas fail. A few launch. I'm hoping one becomes the company I spend the next decade building.</p>
+          <div class="about-section">
+            <h3>How I Got Here</h3>
+            <p>I've spent most of my career in design agencies, working across 100+ projects for 56 companies. Moving between industries taught me to learn unfamiliar businesses quickly and spot patterns in complex products.</p>
+            <p>I've been designing for 10 years and moved fully into product design in 2019. Since then, I've taken 15+ products from idea to launch as the sole product designer, contributing to products used by 2M+ people and generating millions in revenue.</p>
           </div>
-          <div class="about-cols">
-            <div>
-              <h3>The Work I Take</h3>
-              <p>Founders with a vision and no brief. Companies who value success above process. Products where understanding the business matters as much as designing the interface. Messy workflows. Tight deadlines. Problems that resist obvious answers.</p>
-            </div>
-            <div>
-              <h3>What's Next</h3>
-              <p>Given the choice, I'll take a messy workflow over a landing page every time. The next chapter is spending longer with one team, solving one problem, and seeing the product through beyond launch.</p>
-            </div>
+          <div class="about-section">
+            <h3>The Work I Take</h3>
+            <p>I like messy workflows, tight deadlines, and products where understanding the business matters as much as designing the interface.</p>
+            <p>Give me a problem without a neat brief. That's usually where I do my best work.</p>
+          </div>
+          <div class="about-section">
+            <h3>Outside Client Work</h3>
+            <p>I'm usually building something with friends. Most ideas fail. A few make it into the world. I'm still hoping one becomes the company I spend the next decade building.</p>
+          </div>
+          <div class="about-section">
+            <h3>What's Next</h3>
+            <p>I'd take a complex workflow over a landing page any day.</p>
+            <p>The next chapter is spending longer with one team, solving one problem, and staying close to the product well beyond launch.</p>
           </div>
         </div>
       </div>
