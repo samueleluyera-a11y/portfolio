@@ -21,7 +21,7 @@
     banner.innerHTML = `
       <div class="cookie-banner__eyes" aria-hidden="true">
         <div class="cookie-banner__eyes-rig">
-          <img class="cookie-banner__eyes-base" src="images/cases/watching-eyes-base.png" alt="" width="1254" height="1254">
+          <img class="cookie-banner__eyes-base" src="images/cases/watching-eyes-base.webp" alt="" width="1254" height="1254">
           <span class="cookie-banner__pupil cookie-banner__pupil--left"></span>
           <span class="cookie-banner__pupil cookie-banner__pupil--right"></span>
         </div>
