@@ -1,0 +1,30 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="20" height="20" fill="#1E1E1E"/>
+<g id="Auto123 Design system">
+<path d="M-7375 -6516C-7375 -6517.1 -7374.1 -6518 -7373 -6518H1319C1320.1 -6518 1321 -6517.1 1321 -6516V4956C1321 4957.1 1320.1 4958 1319 4958H-7373C-7374.1 4958 -7375 4957.1 -7375 4956V-6516Z" fill="#444444"/>
+<path d="M-7373 -6518V-6517H1319V-6518V-6519H-7373V-6518ZM1321 -6516H1320V4956H1321H1322V-6516H1321ZM1319 4958V4957H-7373V4958V4959H1319V4958ZM-7375 4956H-7374V-6516H-7375H-7376V4956H-7375ZM-7373 4958V4957C-7373.55 4957 -7374 4956.55 -7374 4956H-7375H-7376C-7376 4957.66 -7374.66 4959 -7373 4959V4958ZM1321 4956H1320C1320 4956.55 1319.55 4957 1319 4957V4958V4959C1320.66 4959 1322 4957.66 1322 4956H1321ZM1319 -6518V-6517C1319.55 -6517 1320 -6516.55 1320 -6516H1321H1322C1322 -6517.66 1320.66 -6519 1319 -6519V-6518ZM-7373 -6518V-6519C-7374.66 -6519 -7376 -6517.66 -7376 -6516H-7375H-7374C-7374 -6516.55 -7373.55 -6517 -7373 -6517V-6518Z" fill="white" fill-opacity="0.1"/>
+<g id="Messages">
+<rect x="-35.5" y="-415.5" width="563" height="514" rx="4.5" stroke="#8A38F5" stroke-dasharray="10 5"/>
+<g id="Property 1=5">
+<g id="Frame 427320105">
+<path d="M-20 -11C-20 -16.5228 -15.5228 -21 -10 -21H210C215.523 -21 220 -16.5228 220 -11V67C220 72.5229 215.523 77 210 77H-20V-11Z" fill="#18709A"/>
+<g id="Frame 427320108">
+<rect x="-16" y="-17" width="232" height="54" rx="8" fill="#1E8BBD"/>
+<g id="Frame 12">
+<rect x="-8" y="-8" width="36" height="36" rx="18" fill="#28A3DD"/>
+<g id="Group 11">
+<g id="page">
+<path id="Vector" d="M3.3335 17.7327V2.26602C3.3335 1.93464 3.60213 1.66602 3.9335 1.66602H13.5016C13.6608 1.66602 13.8134 1.72923 13.9259 1.84175L16.4911 4.40695C16.6036 4.51947 16.6668 4.67208 16.6668 4.83121V17.7327C16.6668 18.0641 16.3982 18.3327 16.0668 18.3327H3.9335C3.60213 18.3327 3.3335 18.0641 3.3335 17.7327Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M6.6665 8.33398L13.3332 8.33399" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M6.6665 15L13.3332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M6.6665 11.666L9.99984 11.666" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_5" d="M13.3335 1.66602V4.39935C13.3335 4.73072 13.6021 4.99935 13.9335 4.99935H16.6668" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

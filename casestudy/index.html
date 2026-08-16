@@ -23,6 +23,7 @@
 
   <link rel="stylesheet" href="header.css">
   <link rel="stylesheet" href="about-modal.css">
+  <link rel="stylesheet" href="cookie-banner.css">
   <script>
     // Gate the card pre-animation state on JS actually running, so the screens
     // can never be left invisible if scripting fails.
@@ -145,6 +146,35 @@
       border-radius: 16px; display: block;
     }
 
+    /* Auto123 uses the same living hero as its case study: a coded, outlined
+       frame with the real component specimens travelling left → right. */
+    .hub-cover--auto123 {
+      container-type: inline-size;
+      border: 0.5px solid #dbdfe7;
+      background-color: #fff;
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='83'%20viewBox='0%200%2024%2083'%3E%3Cline%20x1='22.5685'%20y1='0.12941'%20x2='0.482979'%20y2='82.5538'%20stroke='%23DBDFE7'/%3E%3C/svg%3E");
+      background-size: 4.68px 16.185px;
+      display: flex;
+      align-items: center;
+    }
+    .hub-auto123-track {
+      display: flex; width: max-content; will-change: transform;
+      animation: hubAuto123Marquee 48s linear infinite;
+    }
+    .hub-auto123-set { display: flex; gap: 2.5cqw; padding-right: 2.5cqw; flex: 0 0 auto; }
+    .hub-auto123-set img {
+      width: 65.625cqw; height: auto; flex: 0 0 auto; display: block;
+      border-radius: 1.25%;
+    }
+    @keyframes hubAuto123Marquee {
+      from { transform: translate3d(-50%, 0, 0); }
+      to { transform: translate3d(0, 0, 0); }
+    }
+    .hub-cover--auto123:hover .hub-auto123-track { animation-play-state: paused; }
+    @media (prefers-reduced-motion: reduce) {
+      .hub-auto123-track { animation: none; }
+    }
+
     /* The screen sits in its own positioned layer so it can animate
        independently of the background. */
     .hub-shot { position: absolute; }
@@ -265,7 +295,8 @@
   <aside class="sidebar">
     <nav class="cat-list">
       <a class="cat-item cat-item--all" href="#" data-all><span class="cat-label">All</span></a>
-      <a class="cat-item active" href="#healthcare-systems"><span class="cat-label">Healthcare Systems</span><span class="cat-count">2</span></a>
+      <a class="cat-item active" href="#design-systems"><span class="cat-label">Design Systems</span><span class="cat-count">1</span></a>
+      <a class="cat-item" href="#healthcare-systems"><span class="cat-label">Healthcare Systems</span><span class="cat-count">2</span></a>
       <a class="cat-item" href="#enterprise-workflows"><span class="cat-label">Enterprise Workflows</span><span class="cat-count">1</span></a>
       <a class="cat-item" href="#finance-platforms"><span class="cat-label">Finance Platforms</span><span class="cat-count">1</span></a>
       <a class="cat-item" href="#marketplaces"><span class="cat-label">Marketplaces</span><span class="cat-count">1</span></a>
@@ -281,6 +312,37 @@
   </aside>
 
   <main class="content">
+    <section class="cat-section" id="design-systems">
+      <h2 class="reveal">Design Systems</h2>
+      <div class="card-row">
+        <a class="case-card reveal" href="design-system-auto123.html">
+          <div class="hub-cover hub-cover--auto123" aria-label="Auto123 design system component specimens">
+            <div class="hub-auto123-track" aria-hidden="true">
+              <div class="hub-auto123-set">
+                <img src="images/cases/auto123-atom-1-450.webp" width="450" height="360" alt="" decoding="async" fetchpriority="high">
+                <img src="images/cases/auto123-atom-2-450.webp" width="450" height="360" alt="" decoding="async">
+                <img src="images/cases/auto123-atom-3-450.webp" width="450" height="360" alt="" decoding="async">
+                <img src="images/cases/auto123-atom-4-450.webp" width="450" height="360" alt="" decoding="async">
+                <img src="images/cases/auto123-atom-5-450.webp" width="450" height="360" alt="" decoding="async">
+                <img src="images/cases/auto123-atom-6-450.webp" width="450" height="360" alt="" decoding="async">
+              </div>
+              <div class="hub-auto123-set">
+                <img src="images/cases/auto123-atom-1-450.webp" width="450" height="360" alt="" decoding="async">
+                <img src="images/cases/auto123-atom-2-450.webp" width="450" height="360" alt="" decoding="async">
+                <img src="images/cases/auto123-atom-3-450.webp" width="450" height="360" alt="" decoding="async">
+                <img src="images/cases/auto123-atom-4-450.webp" width="450" height="360" alt="" decoding="async">
+                <img src="images/cases/auto123-atom-5-450.webp" width="450" height="360" alt="" decoding="async">
+                <img src="images/cases/auto123-atom-6-450.webp" width="450" height="360" alt="" decoding="async">
+              </div>
+            </div>
+          </div>
+          <div class="case-copy">
+            <h3>Building the Design System for a Car Marketplace</h3>
+          </div>
+        </a>
+      </div>
+    </section>
+
     <section class="cat-section" id="healthcare-systems">
       <h2 class="reveal">Healthcare Systems</h2>
       <div class="card-row">
@@ -404,6 +466,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="cookie-banner.js"></script>
 <script src="about-modal.js"></script>
 <script src="header-nav.js"></script>
 <script src="page-transition.js"></script>

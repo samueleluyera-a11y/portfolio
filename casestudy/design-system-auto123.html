@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Microsoft Clarity (analytics) -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xvil3emkub");
+  </script>
+  <meta name="robots" content="noindex, follow">
+  <title>Building the Design System for a Car Marketplace — Samuel Eluyera</title>
+  <meta name="description" content="Building the design system behind Auto123, a car marketplace for European buyers and sellers — shared foundations across responsive web and iOS.">
+  <link rel="icon" href="images/meta/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="case-study.css?v=20260816-1">
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="about-modal.css">
+  <link rel="stylesheet" href="case-viewer.css">
+  <link rel="stylesheet" href="auto123.css?v=20260816-22">
+</head>
+<body class="ds-page">
+
+<div class="wrap">
+  <header class="site-header">
+    <a class="site-logo" href="index.html" aria-label="Samuel Eluyera — Case Studies">
+      <img src="images/cases/logo-wordmark.svg" alt="Samuel Eluyera">
+    </a>
+    <nav class="site-nav">
+      <a class="site-nav-link" href="https://www.samueleluyera.com/" target="_blank" rel="noopener">Portfolio<svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.59446 9.20345L2.79663 8.40561L7.28894 3.91331H3.95296V2.79656L9.20352 2.79656V8.04712H8.08677V4.71114L3.59446 9.20345Z" fill="currentColor"/></svg></a>
+      <button class="site-nav-link" type="button" data-open-about>About</button>
+    </nav>
+  </header>
+
+  <div class="case-shell">
+  <aside class="case-rail">
+    <a class="rail-back" href="index.html" aria-label="Back to Case Studies">
+      <img src="images/cases/icon-arrow-left.svg" alt="" width="20" height="20">
+    </a>
+
+    <div class="rail-head reveal">
+      <div class="rail-title-block">
+        <h1>Building the Design System for a Car Marketplace</h1>
+        <div class="rail-pills">
+          <span class="rail-pill">Design system</span>
+          <span class="rail-pill">Sole Designer</span>
+          <span class="rail-pill">End to end project</span>
+        </div>
+      </div>
+      <div class="rail-tldr needs-copy">
+        <p class="tldr-label">TL;DR</p>
+        <p>I built the Auto123 design system from scratch alongside the product, creating components as real needs emerged. The same foundations scaled into a distinct iOS layer, helping me design roughly 2× faster while keeping the product cohesive across platforms and giving engineering a system that could stay connected to AI-assisted development.</p>
+      </div>
+    </div>
+
+    <div class="rail-pager">
+      <a class="pager-btn pager-prev" href="ai-copilot.html">
+        <img src="images/cases/icon-forward-next.svg" alt="" width="20" height="20">
+        Previous
+      </a>
+      <a class="pager-btn pager-next" href="healthcare-analytics.html">
+        Next
+        <img src="images/cases/icon-forward-next.svg" alt="" width="20" height="20">
+      </a>
+    </div>
+  </aside>
+
+  <main class="case-content">
+    <div class="case-narrow">
+
+      <!-- Introduction -->
+      <div class="c-block reveal">
+        <h2>Introduction</h2>
+        <p>Auto123 is a car marketplace for European buyers and sellers, starting with Lithuania. The founders saw an opportunity in a market where existing platforms were missing important features and offered poor user experiences. I was brought in to turn their initial product concept into the full web and iOS experience.</p>
+      </div>
+
+      <!-- Hero: a coded frame holding the component cards, tracking slowly
+           left→right on a seamless loop. The cards are the only raster. -->
+      <div class="ds-hero ds-dots reveal" aria-label="Auto123 component cards">
+        <div class="ds-hero-track" data-marquee>
+          <div class="ds-hero-set">
+            <img src="images/cases/auto123-atom-1-900.webp" srcset="images/cases/auto123-atom-1-450.webp 450w, images/cases/auto123-atom-1-900.webp 900w" sizes="420px" width="900" height="720" alt="Colour swatch specimen" decoding="async" fetchpriority="high">
+            <img src="images/cases/auto123-atom-2-900.webp" srcset="images/cases/auto123-atom-2-450.webp 450w, images/cases/auto123-atom-2-900.webp 900w" sizes="420px" width="900" height="720" alt="Button specimen" decoding="async">
+            <img src="images/cases/auto123-atom-3-900.webp" srcset="images/cases/auto123-atom-3-450.webp 450w, images/cases/auto123-atom-3-900.webp 900w" sizes="420px" width="900" height="720" alt="Text box specimen" decoding="async">
+            <img src="images/cases/auto123-atom-4-900.webp" srcset="images/cases/auto123-atom-4-450.webp 450w, images/cases/auto123-atom-4-900.webp 900w" sizes="420px" width="900" height="720" alt="Text area specimen" decoding="async">
+            <img src="images/cases/auto123-atom-5-900.webp" srcset="images/cases/auto123-atom-5-450.webp 450w, images/cases/auto123-atom-5-900.webp 900w" sizes="420px" width="900" height="720" alt="Range slider specimen" decoding="async">
+            <img src="images/cases/auto123-atom-6-900.webp" srcset="images/cases/auto123-atom-6-450.webp 450w, images/cases/auto123-atom-6-900.webp 900w" sizes="420px" width="900" height="720" alt="Slider specimen" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <!-- Starting with a Vibe-coded prototype — header carries the carousel
+           nav (prev/next), matching Figma's Frame 1400003770. -->
+      <div class="ds-section-head reveal ds-carousel-root">
+        <!-- 560px copy block, centred in the section; nav pinned to its
+             bottom-right corner (Figma: text 560 @180, arrows @576,bottom). -->
+        <div class="ds-head-row--block">
+          <div class="ds-head-copy">
+            <h2>Starting with a Vibe-coded prototype</h2>
+            <p>The founders had already mapped out their ideas in a vibecoded prototype. It was never launched or used by customers. I used it as the starting point, then worked through the product from the ground up, refining the UX, defining the interface, and designing the responsive web and iOS experiences.</p>
+            <div class="ds-arrows">
+              <button class="ds-arrow" type="button" data-dir="prev" aria-label="Previous prototype screen"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l-6 6 6 6"/></svg></button>
+              <button class="ds-arrow" type="button" data-dir="next" aria-label="Next prototype screen"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="ds-carousel">
+          <div class="ds-track ds-proto-track">
+            <figure class="ds-card ds-proto-card">
+              <img src="images/cases/auto123-proto-1-912.webp" srcset="images/cases/auto123-proto-1-456.webp 456w, images/cases/auto123-proto-1-912.webp 912w" sizes="456px" width="912" height="588" data-full="images/cases/auto123-proto-1-912.webp" alt="Prototype — Sell Your Car landing" decoding="async" loading="lazy">
+            </figure>
+            <figure class="ds-card ds-proto-card">
+              <img src="images/cases/auto123-proto-2-912.webp" srcset="images/cases/auto123-proto-2-456.webp 456w, images/cases/auto123-proto-2-912.webp 912w" sizes="456px" width="912" height="588" data-full="images/cases/auto123-proto-2-912.webp" alt="Prototype — vehicle details form" decoding="async" loading="lazy">
+            </figure>
+            <figure class="ds-card ds-proto-card">
+              <img src="images/cases/auto123-proto-3-912.webp" srcset="images/cases/auto123-proto-3-456.webp 456w, images/cases/auto123-proto-3-912.webp 912w" sizes="456px" width="912" height="588" data-full="images/cases/auto123-proto-3-912.webp" alt="Prototype — listing review and submit" decoding="async" loading="lazy">
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why a design system was needed — 2 columns × 3 white cards
+           (Figma 647:5100: 0.5px #dbdfe7, 8px radius, 16px padding, 14px). -->
+      <div class="c-block reveal">
+        <h2>Why a design system was needed</h2>
+        <div class="ds-cardgrid">
+          <div class="ds-cardgrid-col">
+            <div class="ds-note">Web and iOS needed shared foundations despite having different visual styles.</div>
+            <div class="ds-note">Every product component needed to come from one source of truth.</div>
+            <div class="ds-note">Semantic tokens made choosing colors and styles more intuitive.</div>
+          </div>
+          <div class="ds-cardgrid-col">
+            <div class="ds-note">The large number of screens made reusable components essential.</div>
+            <div class="ds-note">The system had to evolve alongside the product as new patterns emerged.</div>
+            <div class="ds-note">Support the planned AI assisted development workflow.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The design System -->
+      <div class="c-block reveal">
+        <h2>The design System</h2>
+        <p>I built the system entirely from scratch, starting directly from the product’s real interface needs rather than adapting templates or existing design systems. Every component was created and standardized as the need arose through actual product work.</p>
+      </div>
+
+      <!-- One bordered box, 4 cells split by dividers (Figma 649:5130):
+           28px Regular numbers, 14px labels, left-aligned, all black. -->
+      <div class="ds-statgrid reveal">
+        <div class="ds-statcell"><b>1,402</b><span>Component sets</span></div>
+        <div class="ds-statcell"><b>143</b><span>Variables</span></div>
+        <div class="ds-statcell"><b>33</b><span>Text Styles</span></div>
+        <div class="ds-statcell"><b>12</b><span>Effect Styles</span></div>
+      </div>
+
+      <!-- ── STYLE GUIDE (interactive) ── -->
+      <div class="c-block reveal ds-style-title">
+        <h2>Style Guide</h2>
+      </div>
+
+      <div class="c-figure reveal">
+        <div class="ds-widget" id="styleguide">
+          <div class="ds-widget-nav" role="tablist" aria-label="Style guide sections">
+            <button class="ds-nav-item" type="button" role="tab" data-tab="Colours" aria-selected="true">Colours</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="Typography" aria-selected="false">Typography</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="Icons" aria-selected="false">Icons</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="Corners" aria-selected="false">Corners</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="Shadows" aria-selected="false">Shadows</button>
+          </div>
+          <div class="ds-widget-panel"></div>
+        </div>
+      </div>
+
+      <div class="c-block ds-rationale reveal needs-copy">
+        <section class="ds-rationale-item"><h3>Colour</h3><p>I kept the palette small, but made each colour scale intentionally uneven. This gave me more useful stops for semantic tokens without filling the system with shades I would never use. The primary colours came from the client's existing logo. I added a secondary colour to give the interface more visual aesthetic range</p></section>
+        <section class="ds-rationale-item"><h3>Typography</h3><p>I wanted a bold typeface with a variable font so future web animation would be easier to handle. Overused Grotesk gave me the contrast and character I wanted. It is also free for commercial use, which made it a practical and sustainable choice for the project.</p></section>
+        <section class="ds-rationale-item"><h3>Icons</h3><p>I chose an open source icon library with active support. Keeping the icons in a ready-made library meant development could use the same set without having to export assets individualy</p></section>
+        <section class="ds-rationale-item"><h3>Shadows</h3><p>I kept shadows to a minimum. In an information-dense product, clear outlines and backgrounds should do most of the visual separation. Shadows are reserved for states where elevation is actually useful like menus and hover interactions.</p></section>
+      </div>
+
+      <!-- ── ATOMS (chips + carousel of live playgrounds) ── -->
+      <div class="ds-section-head reveal ds-carousel-root" id="atoms" data-initial-card="2">
+        <div class="ds-head-row ds-atoms-head">
+          <div class="ds-atoms-inventory">
+            <h2>Atoms</h2>
+            <!-- Inventory of the atoms in the system, exactly as listed in Figma.
+                 These are labels, not navigation. -->
+            <div class="ds-chips ds-chips--static">
+              <span class="ds-chip-btn">Buttons</span>
+              <span class="ds-chip-btn">Text Input</span>
+              <span class="ds-chip-btn">Text Area</span>
+              <span class="ds-chip-btn">Chips</span>
+              <span class="ds-chip-btn">Badges</span>
+              <span class="ds-chip-btn">Tags</span>
+              <span class="ds-chip-btn">Icon button</span>
+              <span class="ds-chip-btn">Check box</span>
+              <span class="ds-chip-btn">Radio Box</span>
+              <span class="ds-chip-btn">Pagination</span>
+              <span class="ds-chip-btn">Sliders</span>
+              <span class="ds-chip-btn">Range selector</span>
+              <span class="ds-chip-btn">Date Picker</span>
+            </div>
+          </div>
+          <div class="ds-arrows">
+            <button class="ds-arrow" type="button" data-dir="prev" aria-label="Previous atom"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l-6 6 6 6"/></svg></button>
+            <button class="ds-arrow" type="button" data-dir="next" aria-label="Next atom"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="ds-carousel">
+          <div class="ds-track">
+            <article class="ds-card" data-play="buttons">
+              <header class="ds-card-head"><span class="ds-card-title">Buttons</span><span class="ds-play"><img src="images/cases/auto123-ios/play-with-me-button.svg" alt="Play with me"></span></header>
+              <div class="ds-card-body"><div class="ds-preview ds-dots"></div><div class="ds-controls"></div></div>
+            </article>
+            <article class="ds-card" data-play="textbox">
+              <header class="ds-card-head"><span class="ds-card-title">Text Box</span><span class="ds-play"><img src="images/cases/auto123-ios/play-with-me-button.svg" alt="Play with me"></span></header>
+              <div class="ds-card-body"><div class="ds-preview ds-dots"></div><div class="ds-controls"></div></div>
+            </article>
+            <article class="ds-card" data-play="textarea">
+              <header class="ds-card-head"><span class="ds-card-title">Text Area</span><span class="ds-play"><img src="images/cases/auto123-ios/play-with-me-button.svg" alt="Play with me"></span></header>
+              <div class="ds-card-body"><div class="ds-preview ds-dots"></div><div class="ds-controls"></div></div>
+            </article>
+            <article class="ds-card" data-play="range">
+              <header class="ds-card-head"><span class="ds-card-title">Range Slider</span></header>
+              <div class="ds-card-body"><div class="ds-preview ds-dots"></div><div class="ds-controls"></div></div>
+            </article>
+            <article class="ds-card" data-play="slider">
+              <header class="ds-card-head"><span class="ds-card-title">Slider</span></header>
+              <div class="ds-card-body"><div class="ds-preview ds-dots"></div><div class="ds-controls"></div></div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-block reveal ds-atoms-caption">
+        <p>The examples above show how the atoms are structured and named. Variants, states, and tokens follow a consistent naming pattern, so it is easy to understand what you're working with without digging through the component. That made collaboration and handoff much easier as the system grew.</p>
+      </div>
+
+      <!-- Workflow -->
+      <div class="c-block reveal">
+        <h2>Keeping Design System and Product in Sync</h2>
+        <p>Once the foundations were in place, I started designing the actual product and built the system alongside it. When a new component was needed, I added it to the library, published it, and used the library version in the product. Keeping the product tied to the main components meant I could update a component once and propagate the change across every use case. I also used Push to main component when improving individual variants, which kept the system and product in sync as the work evolved.</p>
+      </div>
+
+      <!-- ── COMPONENTS (chips + sub-nav browser) ── -->
+      <div class="ds-section-head reveal">
+        <div class="ds-head-row">
+          <div style="display:flex;flex-direction:column;gap:16px;flex:1;min-width:0">
+            <h2 style="font-size:24px;font-weight:600;letter-spacing:-0.72px">Components</h2>
+            <!-- Component inventory exactly as listed in Figma (11 labels, not navigation). -->
+            <div class="ds-chips ds-chips--static">
+              <span class="ds-chip-btn">Navigation</span>
+              <span class="ds-chip-btn">Footer</span>
+              <span class="ds-chip-btn">Product</span>
+              <span class="ds-chip-btn">Filters</span>
+              <span class="ds-chip-btn">Forms</span>
+              <span class="ds-chip-btn">Price</span>
+              <span class="ds-chip-btn">Dealers</span>
+              <span class="ds-chip-btn">Events</span>
+              <span class="ds-chip-btn">Images</span>
+              <span class="ds-chip-btn">Messages</span>
+              <span class="ds-chip-btn">Banners</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-widget" id="components-widget">
+          <div class="ds-widget-nav" role="tablist" aria-label="Components">
+            <button class="ds-nav-item" type="button" role="tab" data-tab="navigation" aria-selected="true">Navigation</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="products" aria-selected="false">Product</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="filters" aria-selected="false">Filters</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="forms" aria-selected="false">Forms</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="price" aria-selected="false">Price</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="messages" aria-selected="false">Messages</button>
+          </div>
+          <div class="ds-widget-panel"></div>
+        </div>
+      </div>
+
+      <!-- Page examples -->
+      <div class="c-block reveal">
+        <h2>Page examples</h2>
+        <p>Here are a few pages showing how the system came together in the actual product. The web experience stayed light mode only, with no theme switching. Based on the founders' data, most customers were expected to use the mobile app, while the web product would be used more heavily by dealers, so theme switching wasn't a priority for the web experience.</p>
+      </div>
+
+      <!-- Coded cards: the screens are the only raster here; the card, the dotted
+           backdrop and every corner radius are CSS. -->
+      <div class="c-figure reveal ds-pagex">
+        <div class="ds-pagex-row ds-lines">
+          <div class="ds-pagex-desktop"><img src="images/cases/auto123-page-home-desktop.jpg" alt="Auto123 home page, desktop" decoding="async" loading="lazy"></div>
+          <div class="ds-pagex-mobile"><img src="images/cases/auto123-page-home-mobile.jpg" alt="Auto123 home page, mobile" decoding="async" loading="lazy"></div>
+        </div>
+        <div class="ds-pagex-row ds-lines">
+          <div class="ds-pagex-desktop"><img src="images/cases/auto123-page-search-desktop.jpg" alt="Search results, desktop" decoding="async" loading="lazy"></div>
+          <div class="ds-pagex-mobile"><img src="images/cases/auto123-page-search-mobile.jpg" alt="Search results, mobile" decoding="async" loading="lazy"></div>
+        </div>
+        <div class="ds-pagex-row ds-lines">
+          <div class="ds-pagex-desktop"><img src="images/cases/auto123-page-listing-desktop.jpg" alt="Vehicle listing detail, desktop" decoding="async" loading="lazy"></div>
+          <div class="ds-pagex-mobile"><img src="images/cases/auto123-page-listing-mobile.jpg" alt="Vehicle listing detail, mobile" decoding="async" loading="lazy"></div>
+        </div>
+      </div>
+
+      <!-- The iOS Layer -->
+      <div class="c-block reveal">
+        <h2>The iOS Layer</h2>
+        <p>Once the web experience was in place, I moved to the iOS app. It needed a more native visual language with modern iOS aesthetics while still feeling recognisably Auto123. This was where the flexibility of the system really paid off. The foundations were robust enough to support a completely different visual layer without rebuilding the system from scratch. I created new iOS tokens from the existing primitives, then added a dedicated set of components for the iOS experience.</p>
+      </div>
+
+      <!-- ── TOKENS (interactive, light/dark) ── -->
+      <div class="c-block reveal">
+        <h2>Tokens</h2>
+        <p>The iOS token layer was built entirely from the primitives already established in the system.</p>
+      </div>
+
+      <div class="c-figure reveal">
+        <div class="ds-widget" id="tokens-widget">
+          <div class="ds-widget-nav" role="tablist" aria-label="Token groups">
+            <button class="ds-nav-item" type="button" role="tab" data-tab="text" aria-selected="true">Text</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="bg" aria-selected="false">Background</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="border" aria-selected="false">Border</button>
+            <button class="ds-nav-item" type="button" role="tab" data-tab="layers" aria-selected="false">Layers</button>
+          </div>
+          <div class="ds-widget-panel"></div>
+        </div>
+      </div>
+
+      <!-- ── iOS COMPONENTS (carousel) ── -->
+      <div class="ds-section-head reveal ds-carousel-root" id="ios-components">
+        <div class="ds-head-row">
+          <h2>iOS Components</h2>
+          <div class="ds-arrows">
+            <button class="ds-arrow" type="button" data-dir="prev" aria-label="Previous iOS component"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l-6 6 6 6"/></svg></button>
+            <button class="ds-arrow" type="button" data-dir="next" aria-label="Next iOS component"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="ds-carousel">
+          <div class="ds-track">
+            <article class="ds-card ds-ios-card" id="ios-buttons-card">
+              <div class="ds-ios-card-head"><h3>Buttons</h3><span class="ds-play"><img src="images/cases/auto123-ios/play-with-me-button.svg" alt="Play with me"></span></div>
+              <div class="ds-ios-button-body"><div class="ds-ios-button-stage ds-ios-dots"><button class="ios-demo-button" type="button"><span class="ios-button-icon"><img class="is-left" src="images/cases/auto123-ios/button-left.svg" alt=""></span><b>Button</b><span class="ios-button-icon"><img class="is-right" src="images/cases/auto123-ios/button-right.svg" alt=""></span></button></div><div class="ds-ios-button-controls"></div></div>
+            </article>
+            <article class="ds-card ds-ios-card ds-ios-asset-card" data-ios-light="images/cases/auto123-ios/nav-light.png" data-ios-dark="images/cases/auto123-ios/nav-dark.png">
+              <div class="ds-ios-card-head"><h3>Navigation</h3></div><div class="ds-ios-asset-stage ds-ios-dots"><div class="ds-ios-asset-frame"><img src="images/cases/auto123-ios/nav-light.png" alt="Auto123 iOS navigation"></div></div>
+            </article>
+            <article class="ds-card ds-ios-card ds-ios-asset-card" data-ios-light="images/cases/auto123-ios/product-light.png" data-ios-dark="images/cases/auto123-ios/product-dark.png">
+              <div class="ds-ios-card-head"><h3>Product</h3></div><div class="ds-ios-asset-stage ds-ios-dots"><div class="ds-ios-asset-frame"><img src="images/cases/auto123-ios/product-light.png" alt="Auto123 iOS product card"></div></div>
+            </article>
+            <article class="ds-card ds-ios-card ds-ios-asset-card ds-ios-filter-card" data-ios-light="images/cases/auto123-ios/filter-price-light.png|images/cases/auto123-ios/filter-fuel-light.png|images/cases/auto123-ios/filter-body-light.png|images/cases/auto123-ios/filter-drive-light.png" data-ios-dark="images/cases/auto123-ios/filter-price-dark.png|images/cases/auto123-ios/filter-fuel-dark.png|images/cases/auto123-ios/filter-body-dark.png|images/cases/auto123-ios/filter-drive-dark.png">
+              <div class="ds-ios-card-head"><h3>Filters</h3></div><div class="ds-ios-asset-stage ds-ios-dots"><div class="ds-ios-asset-frame"><img src="images/cases/auto123-ios/filter-price-light.png" alt="Auto123 iOS filter panel"></div></div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-block reveal">
+        <p>Liquid Glass, skeuomorphic buttons, and rounder corners gave the components an iOS feel.</p>
+      </div>
+
+      <!-- App Examples — paired rows, matching Figma -->
+      <div class="c-block reveal">
+        <h2>App Examples</h2>
+        <p>Some of the screens and user flows built with the iOS design system.</p>
+      </div>
+
+      <div class="c-figure reveal">
+        <div class="ds-app-examples">
+          <div class="ds-app-row ds-lines">
+            <video src="images/cases/auto123-tab-navigations.mp4" muted loop playsinline preload="metadata" aria-label="Auto123 iOS — tab navigation"></video>
+            <video src="images/cases/auto123-ai-search.mp4" muted loop playsinline preload="metadata" aria-label="Auto123 iOS — AI search"></video>
+          </div>
+          <div class="ds-app-row ds-lines">
+            <video src="images/cases/auto123-buying-a-car.mp4" muted loop playsinline preload="metadata" aria-label="Auto123 iOS — buying a car"></video>
+            <video src="images/cases/auto123-selling-a-car.mp4" muted loop playsinline preload="metadata" aria-label="Auto123 iOS — selling a car"></video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Handoff -->
+      <div class="c-block reveal">
+        <h2>Handoff</h2>
+        <p>The full library was handed over to the client and is now being used alongside the product in development. The engineering team connected the system to their AI workflow through Figma MCP, so the coded version can stay aligned with the design system and updates are a prompt away.</p>
+      </div>
+
+      <!-- Takeaway -->
+      <div class="c-block reveal">
+        <h2>Takeaway</h2>
+        <p>The system made product design roughly 2× faster while keeping the work cohesive as the product grew. That saved time also helped the team move into development sooner. The scope didn't cover motion or micro-interactions, so those were left to platform defaults. For future systems, I'd extend the same thinking into motion tokens that define things like page transitions, touch responses, and hover behaviour. Motion is another place where a product can build a recognisable character.</p>
+      </div>
+
+    </div>
+  </main>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="about-modal.js"></script>
+<script src="case-viewer.js"></script>
+<script src="header-nav.js"></script>
+<script src="page-transition.js"></script>
+<script src="image-guard.js"></script>
+<script src="auto123.js?v=20260816-10"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  document.fonts.ready.then(() => {
+    document.querySelectorAll('.reveal').forEach(el => {
+      gsap.set(el, { y: 24, opacity: 0 });
+      gsap.to(el, {
+        y: 0, opacity: 1, duration: .9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+      });
+    });
+    ScrollTrigger.refresh();
+  });
+</script>
+</body>
+</html>

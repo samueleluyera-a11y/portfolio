@@ -1,0 +1,1103 @@
+/* Auto123 design-system case study — page-specific styles.
+   Every value here is the real value read out of Figma
+   (file vflbItxcCP2ePz74q7yZPq, section 634:1874), not eyeballed.
+
+   Layout note: this page's content column is wider than the standard case
+   template — Figma has 400px rail + 1000px content, with a 920px inner
+   column and text blocks inset to 560px centred. */
+
+/* ── Auto123 product tokens (Foundations 661:8690) ── */
+:root {
+  /* Primary */
+  --a-p-50:#e6f2ef; --a-p-100:#daf2ec; --a-p-200:#b5e6da; --a-p-300:#90d9c7;
+  --a-p-400:#46c0a2; --a-p-500:#46c0a2; --a-p-600:#3aaa8f; --a-p-700:#31917a;
+  --a-p-800:#297864; --a-p-900:#18453a;
+  /* Secondary */
+  --a-s-50:#dcecf4; --a-s-100:#b7e0f4; --a-s-200:#70c2e8; --a-s-300:#4cb3e3;
+  --a-s-400:#28a3dd; --a-s-500:#1e8bbd; --a-s-600:#18709a; --a-s-700:#135676;
+  --a-s-800:#0d3c52; --a-s-900:#082634;
+  /* Neutrals */
+  --a-n-0:#ffffff; --a-n-200:#f0f0f7; --a-n-400:#afb2c7; --a-n-600:#53536a; --a-n-900:#000000;
+  /* Accents */
+  --a-red:#fb3758; --a-orange:#f46c28; --a-green:#1eba67;
+  --a-purple:#852eff; --a-pink:#e852ac; --a-cyan:#0067fe;
+  /* Radii */
+  /* Radius/1–5 exactly as authored in Figma. --a-pill is page chrome only
+     (chips, nav pills, arrows) and is deliberately NOT part of the token scale. */
+  --a-r1:4px; --a-r2:6px; --a-r3:8px; --a-r4:12px; --a-r5:16px;
+  --a-pill:99px;
+  /* Elevation */
+  --a-e0:0 0 0 0 rgba(27,28,29,0);
+  --a-e1:0 2px 4px 0 rgba(27,28,29,.039);
+  --a-e2:0 16px 32px -12px rgba(88,92,95,.102);
+  --a-e3:0 16px 40px -8px rgba(88,92,95,.161);
+
+  /* Semantic tokens (read from the Text Box / Range component sets) */
+  --a-text:#0c1a20;            /* text/text */
+  --a-text-dimmed:#53536a;     /* text/text-dimmed */
+  --a-text-placeholder:#a1a4b8;/* text/placeholder-text */
+  --a-text-white:#ffffff;      /* text/white */
+  --a-bg-elevated:#f5f7fa;     /* bg/elevated */
+  --a-bg-white:#ffffff;        /* bg/white */
+  --a-border:#f0f0f7;          /* border/border */
+  --a-border-high:#e1e1ed;     /* border/border-high-contrast */
+  --a-error-500:#fb3748;       /* colors/error/500 — note: not the same as accent Red/500 */
+  --a-s-1000:#082634;          /* colors/secondary/1000 */
+  --a-sp2:8px; --a-sp3:12px;   /* spacing/2, spacing/3 */
+
+  /* Auto123 product type scale */
+  --a-font:'Overused Grotesk','Saans',-apple-system,sans-serif;
+
+  /* Case-study narrative and caption style */
+  --a-body-size:14px;
+  --a-body-line:1.5;
+  --a-body-tracking:-0.28px;
+
+  /* Case-page chrome (matches the rest of the site) */
+  --a-hair:#dbdfe7; --a-btn-line:#e8e9ed; --a-muted:#374259;
+  --a-chip-shadow:0 1px 1px rgba(5,22,57,.08);
+}
+
+/* The product's own typeface — used inside every specimen so the components
+   render in Auto123's font, while the case-study chrome stays in Saans. */
+@font-face {
+  font-family: 'Overused Grotesk';
+  src: url('fonts/OverusedGrotesk-VF.woff2') format('woff2-variations');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── WIDE CONTENT COLUMN (Figma 642:4885) ── */
+.ds-page .case-narrow { max-width: 920px; }
+/* Text blocks sit at 560 centred inside the 920 column. */
+.ds-page .c-block { padding: 0; width: 560px; max-width: 100%; margin: 0 auto; }
+.ds-page .c-figure { width: 100%; }
+.ds-page .c-block p,
+.ds-page .c-block ul,
+.ds-page .c-figure p.cap,
+.ds-page .ds-head-copy p {
+  font-size: var(--a-body-size);
+  line-height: var(--a-body-line);
+  letter-spacing: var(--a-body-tracking);
+  font-weight: 400;
+}
+.ds-page .c-block p + p { margin-top: 16px; }
+.ds-page .ds-rationale { display:flex; flex-direction:column; gap:16px; }
+.ds-page .ds-rationale-item { width:100%; max-width:640px; }
+.ds-page .ds-rationale-item h3 { margin:0 0 4px; font-family:'Saans',sans-serif; font-size:14px; font-weight:600; line-height:1.5; letter-spacing:-.28px; }
+.ds-page .ds-rationale-item p { margin:0; font-family:'Saans',sans-serif; font-size:14px; font-weight:400; line-height:1.5; letter-spacing:-.28px; }
+/* The Style Guide heading belongs to its specimen frame; Figma uses a 16px gap
+   here while the surrounding narrative sections retain the 40px rhythm. */
+.ds-style-title + .c-figure { margin-top: -24px; }
+
+/* Dotted specimen backdrop used across every widget (Figma pattern). */
+/* Auto123's frame texture (Figma pattern "Line 311"): a single steep diagonal
+   line tile, 24×83, stroke #DBDFE7, tiled at 26% scale with 0 spacing.
+   24×0.26 = 6.24px, 83×0.26 = 21.58px — matches the measured ~6px horizontal
+   period. The tile SVG is the real asset (images/cases/auto123-tex-line.svg),
+   inlined here as a data URI. (Class name kept for reuse; it is lines, not dots.) */
+.ds-dots {
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='83'%20viewBox='0%200%2024%2083'%3E%3Cline%20x1='22.5685'%20y1='0.12941'%20x2='0.482979'%20y2='82.5538'%20stroke='%23DBDFE7'/%3E%3C/svg%3E");
+  background-size: 6.24px 21.58px;
+  background-repeat: repeat;
+  background-position: center;
+}
+.ds-lines {
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='83'%20viewBox='0%200%2024%2083'%3E%3Cline%20x1='22.5685'%20y1='0.12941'%20x2='0.482979'%20y2='82.5538'%20stroke='%23DBDFE7'/%3E%3C/svg%3E");
+  background-size: 6.24px 21.58px;
+  background-repeat: repeat;
+  background-position: center;
+}
+.ds-ios-dots {
+  background-color: #fff;
+  background-image: url("images/cases/auto123-dot-pattern.svg");
+  background-size: 10.68px 10.68px;
+  background-repeat: repeat;
+  background-position: center;
+}
+
+/* Foundations tabs use Figma's Ellipse 800 dot tile, not Line 311.
+   The 2px source dot stays at 100% scale. A 5.34px pitch reproduces the
+   267% spacing, with alternate rows offset horizontally by half a pitch. */
+#styleguide .ds-widget-panel .ds-dots {
+  background-color: #fff;
+  background-image: url("images/cases/auto123-dot-pattern.svg");
+  background-size: 10.68px 10.68px;
+  background-repeat: repeat;
+  background-position: center;
+}
+
+/* ═══════════════ SHARED WIDGET SHELL (Foundations / Tokens / Components) ═══════════════ */
+.ds-widget {
+  width: 100%; display: flex; gap: 4px; padding: 4px;
+  background: #f4f6fa; border: 0.5px solid var(--a-hair); border-radius: var(--a-r4);
+  overflow: hidden;
+}
+.ds-widget-nav { width: 160px; flex-shrink: 0; padding: 8px; display: flex; flex-direction: column; }
+.ds-nav-item {
+  height: 40px; display: flex; align-items: center; padding: 8px; width: 100%;
+  border: 0.5px solid transparent; border-radius: var(--a-pill);
+  font: inherit; font-size: 14px; line-height: 1.5; letter-spacing: -0.28px;
+  color: var(--a-muted); background: none; cursor: pointer; text-align: left;
+  transition: background-color .18s, color .18s, border-color .18s, box-shadow .18s;
+}
+.ds-nav-item:hover { color: #000; }
+.ds-nav-item:focus { outline: none; }
+.ds-nav-item:focus-visible { outline: 1px solid #8a38f5; outline-offset: 1px; }
+.ds-nav-item[aria-selected="true"] {
+  background: #fff; color: #000; border-color: var(--a-btn-line);
+  border-radius: var(--a-r3); box-shadow: var(--a-chip-shadow);
+}
+.ds-widget-panel {
+  flex: 1; min-width: 0; position: relative;
+  background: #fff; border-radius: var(--a-r3); overflow: hidden;
+}
+
+/* Floating sub-tab pill bar (Figma 653:6186) */
+.ds-subtabs {
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%); z-index: 2;
+  display: flex; padding: 2px; background: #f4f6fa; border-radius: var(--a-r3);
+}
+.ds-subtab {
+  height: 32px; padding: 8px 12px; display: flex; align-items: center;
+  border: 0.5px solid transparent; border-radius: var(--a-r2);
+  font: inherit; font-size: 12px; line-height: 1.5; letter-spacing: -0.24px;
+  color: var(--a-muted); background: none; cursor: pointer; white-space: nowrap;
+  transition: background-color .18s, color .18s, border-color .18s, box-shadow .18s;
+}
+.ds-subtab:hover { color: #000; }
+.ds-subtab[aria-selected="true"] {
+  background: #fff; color: #000; border-color: var(--a-btn-line); box-shadow: var(--a-chip-shadow);
+}
+
+.ds-pane { display: none; }
+.ds-pane.is-active { display: block; }
+
+/* ── Style Guide: colours ── */
+.ds-colour-pane {
+  height: 500px; padding: 88px 24px 24px; display: flex; flex-direction: column;
+  gap: 16px; align-items: center; overflow-y: auto;
+}
+.ds-swatch-groups { display: flex; flex-direction: column; gap: 24px; }
+.ds-swatch-group { display: flex; flex-direction: column; gap: 8px; }
+.ds-group-label { font-size: 12px; font-weight: 500; line-height: 1.5; letter-spacing: -0.24px; color: #000; }
+.ds-swatch-row { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.ds-swatch {
+  width: 80px; height: 80px; flex-shrink: 0; background: #fff;
+  border: 0.5px solid var(--a-hair); border-radius: var(--a-r3);
+  padding: 2px; display: flex; flex-direction: column; gap: 2px; overflow: hidden;
+}
+.ds-chip { flex: 1; min-height: 0; border-radius: var(--a-r2); }
+/* alpha chips sit on the same checkerboard Figma uses to show transparency */
+.ds-chip--alpha {
+  background-image:
+    linear-gradient(45deg,#e3e3e3 25%,transparent 25%,transparent 75%,#e3e3e3 75%),
+    linear-gradient(45deg,#e3e3e3 25%,transparent 25%,transparent 75%,#e3e3e3 75%);
+  background-size: 12px 12px; background-position: 0 0, 6px 6px; background-color: #fff;
+  position: relative;
+}
+.ds-chip--alpha::after { content:''; position:absolute; inset:0; border-radius: var(--a-r2); background: var(--fill); }
+.ds-swatch-label {
+  padding: 6px; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; line-height: 1.5; letter-spacing: -0.2px; color: var(--a-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ── Style Guide: typography ── */
+.ds-type-pane { height: 500px; padding: 40px 24px; display: flex; flex-direction: column; gap: 24px; overflow: hidden; }
+.ds-font-card {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;
+  padding: 16px; background: #fff; border: 0.5px solid var(--a-hair); border-radius: var(--a-r3);
+}
+.ds-font-card .fc-l { display: flex; flex-direction: column; gap: 8px; }
+.ds-font-card .fc-label { font-size: 14px; color: #2d3339; }
+.ds-font-card .fc-name { font-size: 24px; font-weight: 600; letter-spacing: -0.48px; color: #000; }
+.ds-font-card .fc-weights { display: flex; gap: 16px; font-size: 12px; color: #2d3339; }
+.ds-font-card .fc-weights span:nth-child(2) { font-weight: 500; }
+.ds-font-card .fc-weights span:nth-child(3) { font-weight: 600; }
+.ds-font-card .fc-r { width: 225px; display: flex; flex-direction: column; gap: 8px; color: #2d3339; }
+.ds-font-card .fc-spec { font-size: 12px; line-height: 1.5; letter-spacing: -0.12px; }
+.ds-font-card .fc-num { font-size: 16px; line-height: 1.5; letter-spacing: -0.16px; }
+.ds-type-head, .ds-type-row { display: flex; gap: 16px; align-items: center; width: 100%; }
+.ds-type-head { font-size: 12px; color: #000; opacity: .5; }
+.ds-type-head span:first-child, .ds-type-row .tr-sample { width: 300px; flex-shrink: 0; }
+.ds-type-head span:not(:first-child), .ds-type-row span:not(.tr-sample) { flex: 1; min-width: 0; font-size: 12px; }
+.ds-type-row .tr-sample { font-weight: 600; color: #000; }
+.ds-type-rule { height: 0; border-top: 0.5px solid var(--a-hair); width: 100%; }
+
+/* ── Style Guide: icons / corners / shadows ── */
+.ds-simple-pane { height: 500px; padding: 24px; overflow: auto; }
+.ds-icons-img { width: 100%; height: auto; display: block; border-radius: var(--a-r2); }
+.ds-icon-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px; margin-bottom: 16px;
+  background: #fff; border: 0.5px solid var(--a-hair); border-radius: var(--a-r3);
+}
+.ds-icon-lib { font-family: var(--a-font); font-size: 24px; font-weight: 600; letter-spacing: -0.48px; color: #000; }
+.ds-icon-styles { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--a-muted); }
+.ds-icon-dot { opacity: .5; }
+.ds-spec-row { display: flex; gap: 16px; flex-wrap: wrap; padding-top: 64px; justify-content: center; }
+.ds-spec-card {
+  width: 130px; height: 120px; background: #f4f6fa; border-radius: var(--a-r3);
+  padding: 8px; display: flex; flex-direction: column; justify-content: space-between;
+  position: relative; overflow: hidden;
+}
+.ds-corner-demo { position: absolute; inset: 18px 8px 26px 18px; border-top: 1.5px solid #0b1220; border-left: 1.5px solid #0b1220; }
+.ds-shadow-demo { width: 56px; height: 56px; background: #fff; border-radius: var(--a-r1); margin: auto; }
+.ds-spec-label { font-size: 10px; letter-spacing: -0.2px; color: var(--a-muted); position: relative; }
+
+/* Corners — exact 120 × 139 Figma specimen cards. */
+.ds-corner-pane { height: 500px; padding: 40px 24px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.ds-corner-row { display: flex; gap: 8px; align-items: center; }
+.ds-corner-card { width: 120px; height: 139px; padding: 2.5px; gap: 2px; flex: 0 0 120px; display: flex; flex-direction: column; overflow: hidden; border: .5px solid var(--a-hair); border-radius: var(--a-r3); background: #fff; }
+.ds-corner-preview { flex: 1 0 0; min-height: 0; position: relative; display: flex; align-items: center; justify-content: center; padding: 40px 0 0 40px; overflow: hidden; border-radius: var(--a-r3); background: #f4f6fa; }
+.ds-corner-demo { position: static; width: 80px; height: 80px; flex: 0 0 80px; border-top: 1px solid #000; border-left: 1px solid #000; }
+.ds-corner-label { flex: 0 0 auto; padding: 6px 8px; background: #fff; color: var(--a-muted); font-size: 10px; line-height: 1.5; letter-spacing: -.2px; white-space: nowrap; }
+
+/* Shadows — four centred 160px Figma specimen cards. */
+.ds-shadow-pane { height: 500px; padding: 40px 24px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.ds-shadow-row { display: flex; gap: 8px; align-items: center; }
+.ds-shadow-card { width: 160px; height: 160px; padding: 2.5px; gap: 2px; flex: 0 0 160px; display: flex; flex-direction: column; overflow: hidden; border: .5px solid var(--a-hair); border-radius: var(--a-r3); background: #fff; }
+.ds-shadow-preview { flex: 1 0 0; min-height: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: var(--a-r3); background: #f4f6fa; }
+.ds-shadow-demo { width: 70.476px; height: 70.476px; margin: 0; flex: 0 0 70.476px; border-radius: 3px; background: #fff; }
+.ds-shadow-label { flex: 0 0 auto; padding: 6px 8px; background: #fff; color: var(--a-muted); font-size: 10px; line-height: 1.5; letter-spacing: -.2px; white-space: nowrap; }
+
+/* ═══════════════ CHIP FILTER ROW (Atoms / Components) ═══════════════ */
+.ds-chips { display: flex; flex-wrap: wrap; gap: 8px; width: 560px; max-width: 100%; margin: 0 auto; }
+.ds-chip-btn {
+  height: 32px; padding: 8px 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 0.5px solid var(--a-hair); border-radius: var(--a-pill);
+  background: transparent; font: inherit; font-size: 14px; line-height: 1.5; letter-spacing: -0.28px;
+  color: #000; text-align: center; cursor: pointer; white-space: nowrap;
+  transition: background-color .18s, color .18s, border-color .18s, box-shadow .18s;
+}
+.ds-chip-btn:hover { color: #000; }
+.ds-chip-btn[aria-selected="true"] { background: #fff; color: #000; border-color: var(--a-btn-line); box-shadow: var(--a-chip-shadow); }
+
+/* ── Atoms section (Figma 660:8265) ── */
+#atoms .ds-atoms-head { position: relative; height: 110px; }
+#atoms .ds-atoms-inventory { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 8px; }
+#atoms .ds-atoms-inventory h2 { font-size: 20px; font-weight: 500; line-height: 1.5; letter-spacing: -.4px; }
+#atoms .ds-chips { width: 100%; margin: 0; gap: 8px; align-content: center; }
+#atoms .ds-chips--static .ds-chip-btn:hover { color: #000; }
+#atoms .ds-arrows { position: absolute; right: -96px; bottom: 0; }
+#atoms .ds-arrow { border-color: #e8e9ed; }
+
+#atoms .ds-carousel { width: 920px; max-width: 100%; height: 400px; overflow: visible; }
+#atoms .ds-track { height: 400px; gap: 12px; padding-left: 160px; align-items: flex-start; }
+#atoms .ds-card { width: 600px; height: 400px; flex: 0 0 600px; padding: 4px; gap: 4px; background: #f4f6fa; }
+#atoms .ds-card[data-play="textarea"] { height: 394px; }
+#atoms .ds-card-head { height: 31px; flex: 0 0 31px; padding: 8px; border: 0; }
+#atoms .ds-card-title { font-size: 16px; font-weight: 500; line-height: 20px; letter-spacing: -.32px; }
+#atoms .ds-play { color:#3aaa8f; }
+#atoms .ds-card-body { width: 100%; border: .5px solid var(--a-hair); border-radius: var(--a-r3); overflow: hidden; background: #fff; }
+#atoms .ds-preview { width: 346px; flex: 0 0 346px; padding: 8px; border-right: .5px solid var(--a-hair); }
+#atoms .ds-preview.ds-dots {
+  background-color: #fff;
+  background-image: url("images/cases/auto123-dot-pattern.svg");
+  background-size: 10.68px 10.68px;
+  background-repeat: repeat;
+  background-position: center;
+}
+#atoms .ds-controls { width: 245px; flex: 0 0 245px; padding: 16px; gap: 16px; overflow: hidden; border-left: .5px solid var(--a-hair); background: #fff; }
+#atoms .ds-card[data-play="range"] .ds-controls,
+#atoms .ds-card[data-play="slider"] .ds-controls { display: none; }
+#atoms .ds-card[data-play="range"] .ds-preview,
+#atoms .ds-card[data-play="slider"] .ds-preview {
+  width: 100%;
+  flex: 1 1 auto;
+  border-right: 0;
+}
+#atoms .ds-ctrl-label, #atoms .ds-ctrl-row .n, #atoms .ds-ctrl-row .v, #atoms .ds-seg button { font-size: 12px; line-height: 1.5; letter-spacing: -.24px; }
+#atoms .ds-seg button { height: 24px; padding: 3px 8px; }
+#atoms + .ds-atoms-caption { margin-top: -24px; }
+.ds-atoms-caption p { font-size: var(--a-body-size); line-height: var(--a-body-line); letter-spacing: var(--a-body-tracking); }
+
+/* ── HERO: coded frame, cards track left→right on a seamless loop ──
+   Figma cover 646:5069 is 640×400; the frame, its stroke and every corner
+   radius are CSS. Only the specimen cards are images. */
+.ds-hero {
+  width: 640px; max-width: 100%; aspect-ratio: 640 / 400;
+  margin: 0 auto; position: relative; overflow: hidden;
+  border: 0.5px solid var(--a-hair); border-radius: var(--a-r5);
+  display: flex; align-items: center;
+}
+.ds-hero-track { display: flex; width: max-content; will-change: transform; animation: dsHero 48s linear infinite; }
+.ds-hero-set { display: flex; gap: 16px; padding-right: 16px; flex: 0 0 auto; }
+.ds-hero-set img {
+  display: block; width: 420px; height: auto; flex: 0 0 auto;
+  border-radius: var(--a-r4);
+}
+/* Track holds two identical sets; shifting by exactly one set loops seamlessly.
+   Negative→zero direction makes the cards travel to the right. */
+@keyframes dsHero { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
+.ds-hero:hover .ds-hero-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .ds-hero-track { animation: none; } }
+
+/* Static inventory pills — labels, not controls, so no hover/active affordance. */
+.ds-chips--static .ds-chip-btn { cursor: default; }
+.ds-chips--static .ds-chip-btn:hover { color: #000; }
+
+/* ── Page examples: coded card + dotted backdrop; only the screen is an image,
+      and its corner radius is CSS, not baked into the asset. ── */
+.ds-pagex { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.ds-pagex-row {
+  height: 541px; display: flex; align-items: flex-start; justify-content: center; gap: 8px;
+  padding: 12.5px; border: 0.5px solid var(--a-hair); border-radius: var(--a-r4);
+  overflow: hidden;
+}
+.ds-pagex-desktop { flex: 1 1 0; min-width: 0; height: 100%; }
+.ds-pagex-mobile  { flex: 0 0 auto; height: 100%; aspect-ratio: 189.066 / 496.426; }
+.ds-pagex-row img {
+  width: 100%; height: 100%; display: block; object-fit: cover;
+  border-radius: var(--a-r4); border: 0;
+  background: #fff; box-shadow: 0 2px 2px rgba(5,22,57,.08);
+}
+.ds-pagex-mobile img { object-fit: contain; }
+
+.ds-section-head { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.ds-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; width: 560px; max-width: 100%; margin: 0 auto; }
+/* Block variant: the copy sits in a 560px max-width block centred in the
+   section (Figma text @180, width 560), and the prev/next nav is pinned to the
+   block's bottom-right corner (Figma arrows @576, bottom-aligned). */
+.ds-head-row--block { width: 920px; max-width: 100%; margin: 0 auto; }
+.ds-head-copy { position: relative; width: 560px; max-width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+.ds-head-copy h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.72px; }
+.ds-head-copy p { font-size: var(--a-body-size); letter-spacing: var(--a-body-tracking); line-height: var(--a-body-line); }
+.ds-head-copy .ds-arrows { position: absolute; left: calc(100% + 16px); bottom: 0; }
+
+/* Prototype carousel cards: the supplied screens shown whole, with only the
+   8px radius + #dbdfe7 border added (Figma image 27–29). */
+/* Border + radius on the figure (clipping the img) — a single clean edge,
+   no antialiased double-arc from rounding the <img> itself. */
+.ds-proto-card {
+  width: 456px; flex: 0 0 456px; margin: 0; background: #fff;
+  border: 1px solid var(--a-hair); border-radius: var(--a-r3); overflow: hidden;
+}
+.ds-proto-card img { display: block; width: 100%; height: auto; border: 0; border-radius: 0; }
+/* Figma gap between prototype cards is 8px (cards at x0/464/928), not 16.
+   Needs .ds-track.ds-proto-track to outrank the later .ds-track { gap:16px }. */
+.ds-track.ds-proto-track { gap: 8px; }
+
+/* The Figma content column is 1000px with a 920px inner rail: retain 40px
+   breathing room either side of every wide Auto123 section. The parent owns the
+   clip, so the carousel never creates a second visible viewport edge. */
+.ds-page .case-content {
+  container-type: inline-size;
+  overflow: clip;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.ds-carousel:has(.ds-proto-track) {
+  width: 100%;
+  margin-left: 0;
+  overflow: visible;
+}
+.ds-arrows { display: flex; gap: 8px; flex-shrink: 0; }
+.ds-arrow {
+  width: 36px; height: 36px; border-radius: var(--a-pill); border: 0.5px solid var(--a-hair);
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  opacity: 1; cursor: pointer; color: #000; box-shadow: none;
+  transition: background-color .18s, opacity .18s;
+}
+.ds-arrow:not([disabled]):not([aria-disabled="true"]):hover { background: #f4f6fa; }
+.ds-arrow[disabled], .ds-arrow[aria-disabled="true"] {
+  background: transparent;
+  opacity: .3;
+  box-shadow: none;
+  cursor: default;
+}
+.ds-arrow svg { width: 18px; height: 18px; display: block; }
+
+/* ═══════════════ CAROUSEL (Atoms, iOS components) ═══════════════ */
+.ds-carousel { width: 100%; overflow: hidden; }
+.ds-track {
+  display: flex; gap: 16px; will-change: transform;
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
+}
+@media (prefers-reduced-motion: reduce) { .ds-track { transition: none; } }
+.ds-card {
+  width: 600px; flex-shrink: 0; background: #fff;
+  border: 0.5px solid var(--a-hair); border-radius: var(--a-r4); overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.ds-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 8px; border-bottom: 0.5px solid var(--a-hair);
+}
+.ds-card-title { font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: #000; }
+.ds-play { width:78px; height:15px; flex:0 0 78px; display:block; }
+.ds-play img { width:78px; height:15px; display:block; }
+@keyframes dsPlayShine {
+  0%, 52% { background-position:100% 0; }
+  82%, 100% { background-position:0 0; }
+}
+@keyframes dsPlayIconShine {
+  0%, 77%, 87%, 100% { filter:none; }
+  82% { filter:brightness(1.75) saturate(.45); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-play { animation:none; }
+}
+.ds-card-body { flex: 1; display: flex; min-height: 0; }
+.ds-preview { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.ds-controls {
+  width: 248px; flex-shrink: 0; border-left: 0.5px solid var(--a-hair);
+  padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto;
+}
+.ds-ctrl-label { font-size: 11px; color: #000; margin-bottom: 4px; }
+.ds-seg { display: flex; flex-wrap: wrap; gap: 4px; }
+.ds-seg button {
+  padding: 4px 8px; border-radius: var(--a-r1); border: 0.5px solid transparent;
+  background: none; font: inherit; font-size: 11px; color: var(--a-n-400); cursor: pointer;
+  transition: background-color .15s, color .15s, border-color .15s;
+}
+.ds-seg button:hover { color: var(--a-muted); }
+.ds-seg button[aria-selected="true"] { background: #fff; color: #000; font-weight: 500; border-color: var(--a-btn-line); box-shadow: var(--a-chip-shadow); }
+.ds-ctrl-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ds-ctrl-row .n { font-size: 11px; color: #000; }
+.ds-ctrl-row .v { font-size: 11px; color: var(--a-muted); padding: 3px 8px; border: 0.5px solid var(--a-hair); border-radius: var(--a-r1); background: #fff; }
+
+/* iOS toggle switch used in the playground control panels */
+.ds-switch { width: 34px; height: 20px; border-radius: 99px; background: #e9e9ef; border: 0.5px solid var(--a-hair); position: relative; cursor: pointer; flex-shrink: 0; transition: background-color .2s; }
+.ds-switch::after { content:''; position:absolute; top:1px; left:1px; width:16px; height:16px; border-radius:50%; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2); transition: transform .2s; }
+.ds-switch[aria-checked="true"] { background: var(--a-p-500); }
+.ds-switch[aria-checked="true"]::after { transform: translateX(14px); }
+
+/* ═══════════════ LIVE AUTO123 COMPONENTS ═══════════════
+   Every value below is read from the Figma component sets
+   (Button 661:8786 — 45 variants, Text Box 664:9317 — 6 states,
+   Range 666:9906 — 3 positions). Nothing here is invented. */
+.a-comp { font-family: var(--a-font); }
+
+/* ── Button: 3 sizes × 3 types × 5 states ── */
+.a-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; font-family: var(--a-font); font-weight: 600;
+  border: 1.5px solid transparent; background: none; cursor: pointer;
+  white-space: nowrap; box-sizing: border-box;
+  transition: background-color .18s, color .18s, border-color .18s;
+}
+.a-btn svg { display: block; flex-shrink: 0; }
+/* sizes — height / padding / radius / font-size / icon are all Figma values */
+.a-btn--lg { height: 48px; padding: 0 16px; border-radius: 12px; font-size: 18px; }
+.a-btn--md { height: 40px; padding: 0 12px; border-radius: 8px;  font-size: 16px; }
+.a-btn--sm { height: 32px; padding: 0 8px;  border-radius: 8px;  font-size: 14px; }
+.a-btn--lg svg, .a-btn--md svg, .a-btn--sm svg { width: 24px; height: 24px; }
+.a-btn--md svg { width: 20px; height: 20px; }
+.a-btn--sm svg { width: 20px; height: 20px; }
+/* tertiary is text-only: no height/padding, 4px gap, 32px radius */
+.a-btn--tertiary { height: auto; padding: 0; gap: 4px; border-radius: 32px; border-color: transparent; background: none; }
+
+/* Primary */
+.a-btn--primary.is-default  { background: var(--a-p-500); color: #fff; }
+.a-btn--primary.is-hover    { background: var(--a-p-600); color: #fff; }
+.a-btn--primary.is-pressed  { background: var(--a-p-700); color: #fff; }
+.a-btn--primary.is-focused  { background: var(--a-p-500); color: #fff; border-color: var(--a-p-700); }
+.a-btn--primary.is-disabled { background: var(--a-p-100); color: var(--a-p-300); cursor: not-allowed; }
+.a-btn--md.a-btn--primary.is-hover   { background: var(--a-p-700); }
+.a-btn--md.a-btn--primary.is-pressed { background: var(--a-p-800); }
+.a-btn--md.a-btn--primary.is-focused { border-color: var(--a-p-800); }
+.a-btn--md.a-btn--primary.is-disabled{ background: var(--a-p-100); color: #6bcdb5; }
+.a-btn--sm.a-btn--primary.is-hover   { background: var(--a-p-700); }
+.a-btn--sm.a-btn--primary.is-pressed { background: var(--a-p-800); }
+.a-btn--sm.a-btn--primary.is-focused { border-color: var(--a-p-800); }
+.a-btn--sm.a-btn--primary.is-disabled{ background: var(--a-p-200); color: #6bcdb5; }
+
+/* Secondary — transparent fill, 1.5px stroke */
+.a-btn--secondary.is-default  { background: transparent; color: var(--a-p-600); border-color: var(--a-p-500); }
+.a-btn--secondary.is-hover    { background: transparent; color: var(--a-p-700); border-color: var(--a-p-700); }
+.a-btn--secondary.is-pressed  { background: transparent; color: var(--a-p-800); border-color: var(--a-p-800); }
+.a-btn--secondary.is-focused  { background: var(--a-p-100); color: var(--a-p-600); border-color: var(--a-p-500); }
+.a-btn--secondary.is-disabled { background: transparent; color: var(--a-p-300); border-color: var(--a-p-200); cursor: not-allowed; }
+.a-btn--md.a-btn--secondary.is-disabled, .a-btn--sm.a-btn--secondary.is-disabled { color: #6bcdb5; }
+
+/* Tertiary — label only */
+.a-btn--tertiary.is-default  { color: var(--a-p-600); }
+.a-btn--tertiary.is-hover    { color: var(--a-p-700); }
+.a-btn--tertiary.is-pressed  { color: var(--a-p-800); }
+.a-btn--tertiary.is-focused  { color: var(--a-p-600); }
+.a-btn--tertiary.is-disabled { color: var(--a-p-300); cursor: not-allowed; }
+.a-btn--md.a-btn--tertiary.is-focused, .a-btn--sm.a-btn--tertiary.is-focused { color: var(--a-p-700); }
+.a-btn--md.a-btn--tertiary.is-disabled, .a-btn--sm.a-btn--tertiary.is-disabled { color: #6bcdb5; }
+
+/* ── Text Box / Text Area: 6 states ── */
+.a-field { width: 293px; max-width: 100%; display: flex; flex-direction: column; gap: 4px; font-family: var(--a-font); }
+.a-field-label { font-size: 16px; line-height: 24px; letter-spacing: -0.16px; color: var(--a-text); }
+.a-input-wrap {
+  display: flex; align-items: flex-start; gap: var(--a-sp2); padding: var(--a-sp3);
+  background: var(--a-bg-elevated); border: 0.5px solid var(--a-border);
+  border-radius: 12px; box-sizing: border-box; width: 100%;
+  transition: background-color .18s, border-color .18s;
+}
+.a-input-wrap input, .a-input-wrap textarea {
+  flex: 1; min-width: 0; border: none; outline: none; background: none;
+  font-family: var(--a-font); font-size: 16px; line-height: 24px; letter-spacing: -0.16px;
+  color: var(--a-text); resize: none; padding: 0;
+}
+.a-input-wrap input::placeholder, .a-input-wrap textarea::placeholder { color: var(--a-text-placeholder); }
+.a-input-wrap svg { width: 24px; height: 24px; flex-shrink: 0; color: var(--a-text); }
+.a-help { font-size: 12px; line-height: 18px; letter-spacing: -0.12px; color: var(--a-text-dimmed); }
+.a-count { font-size: 12px; line-height: 18px; letter-spacing: -0.12px; color: var(--a-text-dimmed); align-self: flex-end; }
+
+.a-field.is-hover    .a-input-wrap { border: 1px solid var(--a-border-high); }
+.a-field.is-hover    input, .a-field.is-hover textarea { color: var(--a-text-dimmed); }
+.a-field.is-hover    .a-help { color: var(--a-text); }
+.a-field.is-active   .a-input-wrap { background: var(--a-bg-white); border: 1.5px solid var(--a-p-500); }
+.a-field.is-active   .a-help { color: var(--a-text); }
+.a-field.is-filled   .a-help { color: var(--a-text); }
+.a-field.is-error    .a-input-wrap { background: var(--a-bg-white); border: 1.5px solid var(--a-error-500); }
+.a-field.is-error    .a-help { color: var(--a-error-500); }
+.a-field.is-disabled .a-field-label,
+.a-field.is-disabled .a-help,
+.a-field.is-disabled input, .a-field.is-disabled textarea { color: var(--a-text-placeholder); }
+.a-field.is-disabled .a-input-wrap svg { color: var(--a-text-placeholder); }
+.a-textarea-wrap textarea { min-height: 96px; }
+
+/* ── Range (dual handle) and Slider (single) ── */
+.a-range-comp { width: 336px; max-width: 100%; font-family: var(--a-font); position: relative; padding-top: 44px; }
+.a-track { position: relative; height: 8px; border-radius: 8px; background: var(--a-border); }
+.a-track-fill { position: absolute; top: 0; height: 8px; border-radius: 10px; background: var(--a-s-1000); }
+.a-thumb {
+  position: absolute; top: 50%; width: 20px; height: 20px; margin-left: -10px;
+  transform: translateY(-50%); border-radius: 50%; background: var(--a-s-1000);
+  border: 2px solid #fff; box-shadow: 0 1px 3px rgba(8,38,52,.35); cursor: grab; touch-action: none;
+}
+.a-thumb:active { cursor: grabbing; }
+.a-bubble {
+  position: absolute; bottom: calc(100% + 14px); transform: translateX(-50%);
+  height: 24px; padding: 0 8px; display: flex; align-items: center; justify-content: center;
+  background: var(--a-s-1000); border: 1px solid #fff; border-radius: 99px;
+  font-size: 14px; line-height: 18px; font-weight: 500; color: var(--a-text-white); white-space: nowrap;
+}
+.a-bubble::after {
+  content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+  width: 12px; height: 6px; background: var(--a-s-1000);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.a-scale { display: flex; justify-content: space-between; margin-top: 10px;
+  font-size: 12px; line-height: 18px; color: var(--a-text-placeholder); }
+.a-range-pair { display: flex; align-items: center; gap: 4px; margin-top: 10px; }
+.a-range-pair .a-field { width: auto; flex: 1; min-width: 0; }
+.a-range-minus { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--a-text); }
+.a-range-minus::before { content: ''; width: 12px; height: 1.5px; background: currentColor; }
+
+/* ═══════════════ COMPONENTS BROWSER ═══════════════ */
+#components-widget { height: 600px; }
+#components-widget .ds-widget-panel { width: 747px; flex: 0 0 747px; }
+.ds-component-canvas {
+  width: 100%; height: 100%; min-width: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 48px 24px 24px;
+  background-color: #fff;
+  background-image: url("images/cases/auto123-dot-pattern.svg");
+  background-size: 10.68px 10.68px;
+  background-repeat: repeat;
+  background-position: center;
+  overflow: hidden;
+}
+.ds-component-frame {
+  width: var(--component-width); height: var(--component-height);
+  flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+  padding: 12px; box-sizing: content-box;
+  border: 0;
+  border-radius: var(--component-radius, 16px);
+  background: #f4f6fa;
+  position: relative;
+  transition: width .45s cubic-bezier(.22,1,.36,1),
+              height .45s cubic-bezier(.22,1,.36,1),
+              border-radius .3s ease, background-color .3s ease;
+}
+.ds-component-outline { position:absolute; inset:0; z-index:2; width:100%; height:100%; overflow:visible; pointer-events:none; }
+.ds-component-outline rect {
+  x: .5px; y: .5px; width: calc(100% - 1px); height: calc(100% - 1px);
+  rx: var(--component-radius, 16px); fill: none; stroke: #8a38f5;
+  stroke-width: .75px; stroke-dasharray: 1.15 1; vector-effect: non-scaling-stroke;
+}
+.ds-component-frame[data-tone="white"] { background: #fff; }
+.ds-component-stage {
+  width: 100%; height: 100%; min-width: 0; min-height: 0; overflow: hidden;
+  font-family: var(--a-font); color: var(--a-text); pointer-events: none;
+  opacity: 1; transform: scale(1);
+  transition: opacity .12s ease, transform .18s cubic-bezier(.22,1,.36,1);
+}
+.ds-component-stage.is-switching { opacity: 0; transform: scale(.985); }
+.ds-component-stage > * { width: 100%; height: 100%; }
+
+/* Exact Figma icon layers used by the coded navigation and message states. */
+.cmp-icon { width: 24px; height: 24px; position: relative; display: inline-block; flex: 0 0 24px; }
+.cmp-icon-layer { position: absolute; display: block; max-width: none; }
+.cmp-icon--menu .cmp-icon-layer { left: 3px; width: 18px; height: 1.5px; }
+.cmp-icon--menu .cmp-icon-layer--1 { top: 5px; }
+.cmp-icon--menu .cmp-icon-layer--2 { top: 11.25px; }
+.cmp-icon--menu .cmp-icon-layer--3 { top: 17.5px; }
+.cmp-icon--car .cmp-icon-layer--1 { left: 8px; top: 10px; width: 8px; height: 1.5px; }
+.cmp-icon--car .cmp-icon-layer--2 { left: 7px; top: 14px; width: 1.5px; height: 1.5px; }
+.cmp-icon--car .cmp-icon-layer--3 { right: 7px; top: 14px; width: 1.5px; height: 1.5px; }
+.cmp-icon--car .cmp-icon-layer--4 { left: 3px; top: 4px; width: 19.5px; height: 18.5px; }
+.cmp-icon--sell .cmp-icon-layer--1 { left: 3px; top: 8px; width: 19px; height: 14px; }
+.cmp-icon--sell .cmp-icon-layer--2 { left: 9px; top: 12px; width: 6px; height: 7px; }
+.cmp-icon--sell .cmp-icon-layer--3 { left: 10px; top: 3px; width: 4px; height: 2px; }
+.cmp-icon--trade .cmp-icon-layer--1 { left: 9px; top: 2px; width: 13px; height: 13px; }
+.cmp-icon--trade .cmp-icon-layer--2 { left: 2px; top: 9px; width: 13px; height: 13px; }
+.cmp-icon--trade .cmp-icon-layer--3 { right: 2px; bottom: 2px; width: 5px; height: 5px; }
+.cmp-icon--trade .cmp-icon-layer--4 { left: 2px; top: 2px; width: 5px; height: 5px; }
+.cmp-icon--bank .cmp-icon-layer--1 { left: 3px; top: 4px; width: 18px; height: 6px; }
+.cmp-icon--bank .cmp-icon-layer--2 { left: 5px; bottom: 4px; width: 14px; height: 1.5px; }
+.cmp-icon--bank .cmp-icon-layer--3 { left: 10px; top: 9px; width: 4px; height: 1.5px; }
+.cmp-icon--bank .cmp-icon-layer--4 { left: 6px; top: 12px; width: 12px; height: 6px; }
+.cmp-icon--bell .cmp-icon-layer--1 { left: 3px; top: 2px; width: 19.5px; height: 17.5px; }
+.cmp-icon--bell .cmp-icon-layer--2 { left: 10px; top: 21px; width: 4px; height: 1px; }
+.cmp-icon--bookmark .cmp-icon-layer { left: 5px; top: 3px; width: 14px; height: 18px; }
+.cmp-icon--message .cmp-icon-layer--1 { left: 7px; top: 12px; width: 10px; height: 1.5px; }
+.cmp-icon--message .cmp-icon-layer--2 { left: 7px; top: 8px; width: 6px; height: 1.5px; }
+.cmp-icon--message .cmp-icon-layer--3 { left: 3px; top: 3px; width: 19px; height: 19px; }
+
+.cmp-product-icon { width:18px; height:18px; position:relative; display:inline-block; flex:0 0 18px; overflow:hidden; }
+.cmp-product-icon-layer { position:absolute; display:block; max-width:none; }
+.cmp-product-icon--promoted, .cmp-product-icon--sale { width:20px; height:20px; flex-basis:20px; }
+.cmp-product-icon--promoted .cmp-product-icon-layer--1 { inset:8.33% 12.5% 25%; width:75%; height:66.67%; }
+.cmp-product-icon--promoted .cmp-product-icon-layer--2 { left:29.17%; right:50%; top:58.33%; bottom:12.5%; width:20.83%; height:29.17%; }
+.cmp-product-icon--sale .cmp-product-icon-layer--1 { left:62.5%; right:20.83%; top:62.5%; bottom:20.83%; width:16.67%; height:16.67%; }
+.cmp-product-icon--sale .cmp-product-icon-layer--2 { left:20.83%; right:62.5%; top:20.83%; bottom:62.5%; width:16.67%; height:16.67%; }
+.cmp-product-icon--sale .cmp-product-icon-layer--3 { inset:20.83%; width:58.34%; height:58.34%; }
+.cmp-product-icon--mileage { transform:rotate(90deg); }
+.cmp-product-icon--mileage .cmp-product-icon-layer--1 { top:12.5%; right:10.42%; bottom:31.25%; left:60.42%; width:29.16%; height:56.25%; }
+.cmp-product-icon--mileage .cmp-product-icon-layer--2 { top:31.25%; right:25%; bottom:16.67%; left:45.83%; width:29.17%; height:52.08%; }
+.cmp-product-icon--mileage .cmp-product-icon-layer--3 { top:16.67%; right:54.17%; bottom:18.75%; left:16.67%; width:29.16%; height:64.58%; }
+.cmp-product-icon--calendar .cmp-product-icon-layer--1 { inset:8.33% 12.5% 12.5%; width:75%; height:79.17%; }
+.cmp-product-icon--calendar .cmp-product-icon-layer--2 { top:16.67%; right:70.83%; bottom:58.33%; left:12.5%; width:16.67%; height:25%; }
+.cmp-product-icon--calendar .cmp-product-icon-layer--3 { top:8.33%; left:29.17%; width:1px; height:16.67%; }
+.cmp-product-icon--calendar .cmp-product-icon-layer--4 { top:16.67%; right:12.5%; bottom:58.33%; left:77.08%; width:10.42%; height:25%; }
+.cmp-product-icon--transmission .cmp-product-icon-layer { inset:11.11%; width:77.78%; height:77.78%; }
+.cmp-product-icon--location .cmp-product-icon-layer--1 { inset:8.33% 16.67%; width:66.66%; height:83.34%; }
+.cmp-product-icon--location .cmp-product-icon-layer--2 { top:37.5%; left:45.83%; width:8.34%; height:8.33%; }
+.cmp-product-icon--fuel .cmp-product-icon-layer--1 { inset:12.5%; width:75%; height:75%; }
+.cmp-product-icon--fuel .cmp-product-icon-layer--2 { inset:37.5% 37.5% 29.64%; width:25%; height:32.86%; }
+.cmp-product-icon--electric .cmp-product-icon-layer--1 { top:20.83%; right:8.33%; bottom:62.5%; left:75%; width:16.67%; height:16.67%; }
+.cmp-product-icon--electric .cmp-product-icon-layer--2 { top:20.83%; right:33.33%; bottom:62.5%; left:58.33%; width:8.34%; height:16.67%; }
+.cmp-product-icon--electric .cmp-product-icon-layer--3 { top:29.17%; right:35.42%; left:58.33%; width:6.25%; height:1px; }
+.cmp-product-icon--electric .cmp-product-icon-layer--4 { top:37.5%; right:20.83%; bottom:12.5%; left:25%; width:54.17%; height:50%; }
+.cmp-product-icon--electric .cmp-product-icon-layer--5 { top:20.83%; right:62.5%; bottom:62.5%; left:12.5%; width:25%; height:16.67%; }
+.cmp-product-icon--electric .cmp-product-icon-layer--6 { top:12.5%; right:83.33%; bottom:79.17%; left:16.67%; width:1px; height:8.33%; box-shadow:3px 0 0 currentColor; }
+
+/* Navigation — Figma set 668:11840. */
+.cmp-nav { display: flex; align-items: center; box-sizing: border-box; }
+.cmp-logo { width: 119.232px; height: 24px; display:flex; align-items:center; font-size:31px; line-height:24px; letter-spacing:-1.4px; white-space:nowrap; }
+.cmp-logo b, .cmp-logo strong { font-weight:700; }
+.cmp-logo b { color:#0d3c52; }
+.cmp-logo strong { color:#46c0a2; }
+.cmp-nav--desktop { padding: 12px 24px; gap: 16px; background: #fff; }
+.cmp-nav-tabs { height: 40px; padding: 2px; border-radius: 8px; background: #f5f7fa; display: flex; }
+.cmp-nav-tab { height: 36px; padding: 6px 12px; border-radius: 6px; display: flex; align-items: center; gap: 6px; font-size: 16px; line-height: 24px; white-space: nowrap; }
+.cmp-nav-tab.is-active { background: #082634; color: #fff; }
+.cmp-nav-tab b { font-weight: 600; }
+.cmp-nav-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.cmp-action { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; position: relative; border: .5px solid #f0f0f7; border-radius: 8px; background: #f5f7fa; }
+.cmp-action--badge i { position: absolute; top: -3px; right: -3px; width: 16px; height: 16px; border-radius: 50%; background: #fb3748; color: #fff; border: 1px solid #f5f7fa; font-style: normal; font-size: 10px; line-height: 14px; text-align: center; }
+.cmp-profile { height: 40px; padding: 4px 8px 4px 4px; display: flex; align-items: center; gap: 2px; background: #f0f3f7; border-radius: 99px; }
+.cmp-profile img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.cmp-profile b { width: 16px; font-size: 15px; font-weight: 400; text-align: center; }
+.cmp-nav--mobile-tabs { padding: 4px; border-top: 1px solid #f0f0f7; background: #f5f7fa; }
+.cmp-mobile-tab { flex: 1; height: 60px; padding: 8px 12px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 14px; line-height: 20px; }
+.cmp-mobile-tab.is-active { background: #082634; color: #fff; font-weight: 600; }
+.cmp-nav--mobile-top { padding: 8px 8px 8px 16px; justify-content: space-between; border-bottom: 1px solid #f0f0f7; background: #f5f7fa; }
+
+/* Product cards — Figma set 679:14490. */
+.cmp-product { background: #f5f7fa; border: .5px solid #f0f0f7; border-radius: 16px; overflow: hidden; box-sizing: border-box; }
+.cmp-product-media { position: relative; }
+.cmp-product-media > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cmp-product-tags { position: absolute; z-index: 1; left: 8px; top: 8px; display: flex; gap: 4px; }
+.cmp-product-tags span, .cmp-save { color: #fff; padding: 4px 8px 4px 4px; border-radius: 99px; font-size: 14px; line-height: 20px; white-space: nowrap; display:flex; align-items:center; gap:4px; }
+.cmp-product-tags .is-promoted { background: #29428f; }
+.cmp-product-tags .is-sale, .cmp-save { background: #fb3748; }
+.cmp-product-copy { box-sizing: border-box; }
+.cmp-product h3 { margin: 0; color: #0c1a20; font-size: 18px; line-height: 26px; font-weight: 600; letter-spacing: -.18px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.cmp-price { height:23px; margin:0; padding:0; display:flex; align-items:center; gap:8px; overflow:hidden; }
+.cmp-price s { color:#fb3748; opacity:.6; font-size:14px; line-height:18px; }
+.cmp-price b { color:#0c1a20; font-size:18px; line-height:23px; }
+.cmp-product-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: #53536a; font-size: 16px; line-height: 24px; }
+.cmp-product-meta > span { display:flex; align-items:center; gap:4px; white-space:nowrap; }
+.cmp-product--vertical { padding: 4px; }
+.cmp-product--vertical .cmp-product-media { height: 256.5px; border:1px solid #f0f0f7; border-radius: 14px; overflow: hidden; }
+.cmp-product--vertical .cmp-product-copy { padding: 12px; display:flex; flex-direction:column; gap:8px; }
+.cmp-product--horizontal { padding: 4px; display: flex; }
+.cmp-product--horizontal .cmp-product-media { width: 276px; flex: 0 0 276px; border-radius: 14px; overflow: hidden; }
+.cmp-product--horizontal .cmp-product-copy { padding: 22px 24px; min-width: 0; }
+.cmp-product--horizontal .cmp-product-tags { position: static; margin-bottom: 12px; }
+.cmp-product--horizontal .cmp-product-meta { font-size: 14px; gap: 8px 14px; }
+.cmp-product--compact { padding: 4px; border-radius: 16px; }
+.cmp-compact-media { height: 198px; position: relative; border-radius: 12px; background: #fff; overflow: hidden; }
+.cmp-compact-media img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.cmp-save { position: absolute; z-index: 1; left: 8px; top: 8px; font-size: 12px; padding: 4px 7px; }
+.cmp-compact-copy { padding: 14px 12px; position: relative; }
+.cmp-compact-copy h3 { font-size: 16px; line-height: 22px; }
+.cmp-compact-copy > span { position: absolute; right: 12px; top: 12px; padding: 3px 6px; background: #fff; border: .5px solid #dbdfe7; border-radius: 4px; font-size: 12px; }
+.cmp-compact-copy p { margin: 8px 0 0; color: #53536a; font-size: 14px; }
+
+/* Filter variants — Figma set 681:15385. */
+.cmp-filter { background: #fff; border: .5px solid #f0f0f7; border-radius: 16px; padding: 12px; box-sizing: border-box; display: grid; gap: 4px; }
+.cmp-filter-cell { min-width:0; min-height:0; box-sizing:border-box; border:.5px solid #e1e1ed; border-radius:4px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:#53536a; font-size:12px; text-align:center; }
+.cmp-filter-cell.is-selected { border: 1.5px solid #46c0a2; color: #0c1a20; }
+.cmp-filter-cell b { font-size: 19px; font-weight: 400; }
+.cmp-filter-icon { width:20px; height:20px; object-fit:contain; display:block; }
+.cmp-filter--transmission { grid-template-columns: 1fr 1fr; }
+.cmp-filter--transmission .cmp-filter-cell { font-size: 14px; }
+.cmp-filter--colours { grid-template-columns: repeat(4,1fr); }
+.cmp-filter--colours .cmp-filter-cell { gap: 4px; }
+.cmp-filter--colours i { width: 34px; height: 34px; border-radius: 50%; border: .5px solid #dbdfe7; }
+.cmp-filter--bodies { grid-template-columns: repeat(3,1fr); }
+.cmp-car-shape { width: 42px; height: 12px; border-radius: 8px 11px 4px 4px; background: #53536a; position: relative; }
+.cmp-car-shape::before { content:''; position:absolute; left:8px; top:-6px; width:24px; height:9px; background:#53536a; border-radius:10px 12px 0 0; }
+.cmp-car-shape::after { content:''; position:absolute; left:6px; bottom:-4px; width:6px; height:6px; border-radius:50%; background:#fff; border:2px solid #53536a; box-shadow:26px 0 0 -2px #fff,26px 0 0 0 #53536a; }
+.cmp-filter--fuels { grid-template-columns:repeat(6,1fr); grid-template-rows:repeat(2,minmax(0,1fr)); padding:12px; gap:8px; box-shadow:0 16px 40px -8px rgba(88,92,95,.16); }
+.cmp-filter--fuels .cmp-filter-cell { grid-column: span 2; }
+.cmp-filter--fuels .cmp-filter-cell:nth-child(4), .cmp-filter--fuels .cmp-filter-cell:nth-child(5) { grid-column: span 3; }
+.cmp-filter--fuels .cmp-filter-cell { padding:12px; gap:8px; font-size:16px; line-height:24px; }
+.cmp-filter--fuels .cmp-product-icon { width:20px; height:20px; flex-basis:20px; }
+.cmp-filter--checks { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.cmp-filter--checks > div { height: 40px; padding: 8px 12px; border: .5px solid #e1e1ed; border-radius: 4px; display:flex; align-items:center; gap:10px; font-size:14px; }
+.cmp-filter--checks > div:nth-child(odd) { border-color:#46c0a2; }
+.cmp-filter--checks i { width:16px; height:16px; display:flex; align-items:center; justify-content:center; border:1px solid #afb2c7; font-style:normal; font-size:11px; }
+.cmp-filter--checks > div:nth-child(odd) i { color:#fff; border-color:#46c0a2; background:#46c0a2; }
+
+/* Form variants — Figma set 681:15942. */
+.cmp-form { background: #fff; border-radius: 19.2px; padding: 19.2px; box-sizing: border-box; display:flex; flex-direction:column; gap:19.2px; overflow:hidden; }
+.cmp-form-head { display:flex; flex-direction:column; gap:12.8px; width:100%; }
+.cmp-form h3 { margin: 0; font-size: 19.2px; line-height: 28.8px; font-weight: 600; text-align: center; }
+.cmp-ai-search { height: 48px; border: 1.6px solid #18719a; border-radius: 799px; display:flex; align-items:center; gap:6.4px; padding:6.4px 6.4px 6.4px 12.8px; box-sizing:border-box; }
+.cmp-ai-search > img { width:19.2px; height:19.2px; }
+.cmp-ai-search b { color:#18719a; font-size:12.8px; line-height:19.2px; font-weight:400; }
+.cmp-ai-search em { flex:1; min-width:0; color:#a1a4b8; font-style:normal; font-size:12.8px; line-height:19.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cmp-ai-search i { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.cmp-ai-search i img { width:32px; height:32px; display:block; }
+.cmp-form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12.8px; }
+.cmp-form-field { min-width:0; display:grid; grid-template-columns:1fr auto; align-items:end; row-gap:4px; position:relative; }
+.cmp-form-field > span { grid-column:1 / -1; font-size:12.8px; line-height:19.2px; }
+.cmp-form-field > b { min-width:0; height:38.4px; padding:9.6px 6.4px 9.6px 9.6px; display:flex; align-items:center; gap:6.4px; box-sizing:border-box; border:.4px solid #f0f0f7; border-radius:9.6px; background:#f5f7fa; color:#a1a4b8; font-size:12.8px; line-height:19.2px; font-weight:400; overflow:hidden; white-space:nowrap; }
+.cmp-form-field > b em { min-width:0; overflow:hidden; text-overflow:ellipsis; font-style:normal; }
+.cmp-form-icon, .cmp-form-field .cmp-icon, .cmp-form-field .cmp-product-icon, .cmp-form-currency { width:19.2px; height:19.2px; flex:0 0 19.2px; object-fit:contain; }
+.cmp-form-currency { display:flex; align-items:center; justify-content:center; color:#53536a; font-size:18px; }
+.cmp-form-chevron { position:absolute; right:8px; bottom:9.6px; width:19.2px; height:19.2px; transform:rotate(-90deg); }
+.cmp-condition { height:38.4px; display:flex; gap:3.2px; }
+.cmp-condition b { flex:1; border-radius:799px; background:#f5f7fa; display:flex; align-items:center; justify-content:center; color:#53536a; font-size:12.8px; font-weight:400; }
+.cmp-form button { width:100%; height:44.8px; margin:0; padding:12.8px; border:0; border-radius:9.6px; background:#46c0a2; color:#fff; font:600 14.4px/20.8px var(--a-font); display:flex; align-items:center; justify-content:center; position:relative; }
+.cmp-form button > img { position:absolute; right:12.8px; width:19.2px; height:19.2px; }
+.cmp-form-tabs { height:32px; padding:3.2px; display:flex; box-sizing:border-box; border-radius:9.6px; background:#f5f7fa; }
+.cmp-form-tabs span { flex:1; display:flex; align-items:center; justify-content:center; border-radius:6.4px; font-size:12.8px; line-height:19.2px; white-space:nowrap; }
+.cmp-form-tabs span.is-active { color:#fff; background:#082634; font-weight:600; }
+.cmp-form-field--wide { display:flex; flex-direction:column; align-items:stretch; }
+.cmp-form-field--wide > b { width:100%; box-sizing:border-box; }
+.cmp-form-info { margin:0; opacity:.7; color:#53536a; text-align:center; font-size:12.8px; line-height:19.2px; white-space:nowrap; }
+.cmp-form-footer { display:flex; flex-direction:column; gap:6.4px; width:100%; }
+.cmp-listing-fields { display:flex; flex-direction:column; gap:12.8px; }
+.cmp-form--listing .cmp-form-field--wide { width:345.6px; }
+.cmp-form--plate .cmp-form-field--wide { width:336px; }
+.cmp-form--make .cmp-form-info { font-size:11.2px; }
+.cmp-form--listing .cmp-form-grid { gap:12.8px; }
+
+/* Price metre variants — Figma set 681:16523. */
+.cmp-meter { background:#fff; border-radius:12px; overflow:hidden; box-sizing:border-box; }
+.cmp-meter-head { height:32px; padding:4px 12px 4px 4px; display:flex; align-items:center; justify-content:space-between; box-sizing:border-box; }
+.cmp-meter-head b { padding:0 12px; border-radius:99px; background:#fff; font-size:14px; line-height:24px; font-weight:500; }
+.cmp-meter-head span { font-size:14px; line-height:20px; }
+.cmp-meter--great { border:1px solid #1fc16b; }
+.cmp-meter--great .cmp-meter-head { background:#1eba67; }
+.cmp-meter--great .cmp-meter-head b { color:#1eba67; }
+.cmp-meter--good { border:1px solid #ffab03; }
+.cmp-meter--good .cmp-meter-head { background:#ffd589; }
+.cmp-meter--good .cmp-meter-head b { color:#f3a000; }
+.cmp-meter--high { border:1px solid #fb3748; }
+.cmp-meter--high .cmp-meter-head { background:#fb3748; }
+.cmp-meter--high .cmp-meter-head b { color:#fb3748; }
+.cmp-price-bars { height:39px; padding:0; display:flex; align-items:flex-end; gap:2px; box-sizing:border-box; }
+.cmp-price-bars i { flex:1; min-height:8px; background:#dff2e9; }
+.cmp-price-bars i:nth-child(n+8):nth-child(-n+14) { background:rgba(255,213,130,.2); }
+.cmp-price-bars i:nth-child(n+15):nth-child(-n+21) { background:rgba(239,84,0,.15); }
+.cmp-price-bars i:nth-child(n+22) { background:rgba(209,46,60,.15); }
+.cmp-meter--great .cmp-price-bars i.is-active { background:#1eba67; }
+.cmp-meter--good .cmp-price-bars i.is-active, .cmp-meter--detail .cmp-price-bars i.is-active { background:#ffae00; }
+.cmp-meter--high .cmp-price-bars i.is-active { background:#fb3748; }
+.cmp-price-axis { height:18px; display:flex; justify-content:space-between; align-items:end; font-size:12px; line-height:18px; }
+.cmp-meter-chart { padding:12px; display:flex; flex-direction:column; gap:2px; background:#fff; }
+.cmp-meter--detail { padding:12px; display:flex; flex-direction:column; gap:24px; border-radius:8px; }
+.cmp-meter--detail .cmp-price-bars { height:98.709px; }
+.cmp-meter-summary { height:76px; display:flex; gap:16px; align-items:center; justify-content:flex-end; }
+.cmp-meter-summary > div { display:flex; flex-direction:column; align-items:flex-start; gap:5px; }
+.cmp-meter-summary span { font-size:12px; }
+.cmp-meter-summary b { font-size:24px; line-height:36px; }
+.cmp-meter-summary p { margin:0; display:flex; gap:6px; align-items:center; }
+.cmp-meter-summary s { color:#fb3748; font-size:12px; }
+.cmp-meter-summary em { padding:3px 5px; border-radius:3px; background:#dff2e9; color:#24624d; font-size:10px; font-style:normal; }
+.cmp-meter-summary > div:last-child { align-items:flex-end; padding-top:0; }
+.cmp-meter-summary strong { padding:4px 9px; border-radius:99px; background:#ffae00; color:#fff; font-size:12px; font-weight:400; }
+
+/* Message variants — Figma set 686:16816. */
+.cmp-message { display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; }
+.cmp-message.is-other { align-items:flex-end; }
+.cmp-message-bubble { max-width:100%; box-sizing:border-box; padding:8px; border-radius:10px 10px 10px 0; background:#18709a; color:#fff; font-size:16px; line-height:24px; overflow:hidden; }
+.cmp-message.is-other .cmp-message-bubble { border-radius:10px 10px 0 10px; background:#f5f7fa; color:#0c1a20; }
+.cmp-message > small { margin:0; color:#53536a; font-size:14px; line-height:20px; }
+.cmp-message-photo { padding:4px; overflow:hidden; }
+.cmp-message-photo img { width:232px; height:230px; border-radius:8px; object-fit:cover; display:block; }
+.cmp-message-photo span { display:block; padding:4px; line-height:24px; }
+.cmp-message-gallery { padding:4px; overflow:hidden; }
+.cmp-message-gallery > div { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+.cmp-message-gallery img { width:100%; height:114px; object-fit:cover; display:block; border-radius:8px; }
+.cmp-message-gallery > div > span { position:relative; }
+.cmp-message-gallery > div > span b { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; background:rgba(8,38,52,.36); border-radius:8px; font-size:20px; font-weight:400; }
+.cmp-message-gallery p { margin:0; padding:4px; line-height:24px; }
+.cmp-message-file { width:100%; padding:4px; }
+.cmp-message-file > div { height:70px; padding:8px; box-sizing:border-box; border-radius:8px; display:flex; align-items:center; gap:12px; background:#1e8bbd; }
+.cmp-message.is-other .cmp-message-file > div { background:#fff; }
+.cmp-message-file img { width:24px; height:24px; }
+.cmp-message-file > div > img:first-child { padding:8px; box-sizing:content-box; border-radius:50%; background:rgba(255,255,255,.15); }
+.cmp-message-file > div > span { flex:1; min-width:0; display:flex; flex-direction:column; }
+.cmp-message-file b { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; }
+.cmp-message-file small { font-size:11px; opacity:.75; }
+.cmp-message-file p { margin:4px 0 0; padding:4px; font-size:16px; line-height:24px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-component-frame, .ds-component-stage { transition: none; }
+}
+
+/* ═══════════════ TOKENS (semantic, light/dark) ═══════════════ */
+#tokens-widget { height: 500px; }
+#tokens-widget .ds-widget-panel { width: 747px; flex: 0 0 747px; }
+.ds-theme-toggle {
+  position: absolute; top: 7.5px; left: 50%; transform: translateX(-50%); z-index: 2;
+  width: 70px; height: 36px; display: flex; align-items: flex-start; gap: 2px; padding: 2px; overflow: hidden; background: #f4f6fa; border-radius: 8px;
+}
+.ds-theme-btn {
+  width: 32px; height: 32px; flex: 0 0 32px; display: flex; align-items: center; justify-content: center; padding: 4px;
+  border: .5px solid transparent; border-radius: 6px; background: transparent; box-shadow: none; cursor: pointer;
+}
+.ds-theme-btn[aria-selected="true"] { background:#fff; border-color:#e8e9ed; box-shadow:0 1px 1px rgba(5,22,57,.08); }
+.ds-theme-btn img { width:20px; height:20px; display:block; flex:0 0 20px; opacity:1; }
+.ds-token-pane { height: 100%; padding: 48px 24px 24px; overflow: hidden; display: flex; flex-direction: column; gap: 24px; align-items: center; justify-content: center; transition: background-color .25s; background-color:#fff; background-image:url("images/cases/auto123-dot-pattern.svg"); background-size:10.68px 10.68px; background-repeat:repeat; background-position:center; }
+.ds-token-row { display: flex; gap: 10px; justify-content: center; }
+.ds-token {
+  width: 100px; height: 100px; flex: 0 0 100px; background: #fff; border: 0.5px solid var(--a-hair);
+  border-radius: var(--a-r3); padding: 2px; overflow: hidden; display: flex; flex-direction: column; gap: 2px;
+}
+.ds-token .sw { flex: 1; min-height: 0; border-radius: var(--a-r2); }
+.ds-token .nm { padding: 6px; font-size: 10px; line-height: 1.5; letter-spacing: -0.2px; color: var(--a-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ds-token-pane.is-dark { background-color:#111c23; background-image:linear-gradient(rgba(17,28,35,.2),rgba(17,28,35,.2)),url("images/cases/auto123-dot-pattern.svg"); background-size:auto,10.68px 10.68px; background-repeat:no-repeat,repeat; background-position:center; background-blend-mode:normal,soft-light; }
+.ds-token-pane.is-dark .ds-token { background:#041017; border-color:transparent; }
+.ds-token-pane.is-dark .ds-token .nm { color:#a7b5cc; }
+#tokens-widget.is-dark { background:#041017; border-color:#041017; }
+#tokens-widget.is-dark .ds-widget-nav { background:#041017; }
+#tokens-widget.is-dark .ds-nav-item { color:#a7b5cc; }
+#tokens-widget.is-dark .ds-nav-item[aria-selected="true"] { color:#fff; background:#111c23; border-color:transparent; }
+#tokens-widget .ds-widget-panel.is-dark .ds-theme-toggle { background:#041017; }
+#tokens-widget .ds-widget-panel.is-dark .ds-theme-btn[aria-selected="true"] { background:#111c23; border-color:transparent; box-shadow:none; }
+#tokens-widget .ds-widget-panel.is-dark .ds-theme-btn img { filter:brightness(0) saturate(100%) invert(77%) sepia(17%) saturate(524%) hue-rotate(180deg) brightness(88%) contrast(88%); }
+#tokens-widget .ds-widget-panel.is-dark .ds-theme-btn[aria-selected="true"] img { filter:brightness(0) invert(1); }
+.ds-bg-stack { position:relative; width:296px; height:293px; }
+.ds-bg-layer { position:absolute; display:flex; align-items:flex-start; padding:16px; border-radius:8px; font-size:10px; line-height:15px; letter-spacing:-.2px; }
+.ds-bg-layer:nth-child(1) { inset:0; }
+.ds-bg-layer:nth-child(2) { left:16px; top:35px; width:264px; height:242px; }
+.ds-bg-layer:nth-child(3) { left:32px; top:70px; width:232px; height:191px; }
+.ds-bg-layer:nth-child(4) { left:48px; top:105px; width:200px; height:140px; }
+.ds-border-stack { position:relative; width:264px; height:242px; }
+.ds-border-layer { position:absolute; padding:16px; border:1px solid; border-radius:8px; font-size:10px; line-height:15px; letter-spacing:-.2px; color:#374259; background:#fff; }
+.ds-border-layer:nth-child(1) { inset:0; }
+.ds-border-layer:nth-child(2) { left:16px; top:35px; width:232px; height:191px; }
+.ds-border-layer:nth-child(3) { left:32px; top:70px; width:200px; height:140px; }
+.ds-token-pane.is-dark .ds-border-layer { color:#a7b5cc; background:#111c23; }
+.ds-layer-grid { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:8px; width:660px; }
+.ds-layer-pill { height:40px; padding:10px 16px; border-radius:99px; display:flex; align-items:center; justify-content:center; font-size:14px; line-height:20px; letter-spacing:-.14px; font-weight:500; }
+
+/* ═══════════════ iOS COMPONENTS ═══════════════ */
+#ios-components .ds-head-row { align-items: center; }
+#ios-components .ds-head-row h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.72px; line-height: 1.25; }
+#ios-components .ds-carousel { overflow: visible; }
+#ios-components .ds-track { gap: 12px; padding-left: 160px; align-items: flex-start; }
+#ios-components .ds-card { height: 500px; }
+#ios-components + .c-block { margin-top: -24px; }
+.ds-ios-card { padding: 4px; gap: 4px; background: #f4f6fa; }
+.ds-ios-card-head { height: 40px; flex: 0 0 40px; padding: 8px; display: flex; align-items: center; gap: 8px; }
+.ds-ios-card-head h3 { flex: 1; font-size: 16px; line-height: 20px; font-weight: 500; letter-spacing: -0.32px; }
+.ds-ios-card-head .ds-play { display:inline-flex; }
+.ds-ios-button-body { flex: 1; min-height: 0; display: flex; border: .5px solid var(--a-hair); border-radius: 8px; overflow: hidden; }
+.ds-ios-button-stage { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center; }
+.ds-ios-button-controls { width: 245px; flex: 0 0 245px; padding: 16px; border-left: .5px solid var(--a-hair); background: #fff; display: flex; flex-direction: column; gap: 16px; }
+.ios-demo-button { --ios-button-fill: #3aaa8f; position: relative; isolation: isolate; width: 142px; height: 56px; padding: 8px 16px; gap: 8px; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; border: .8px solid rgba(255,255,255,.2); border-radius: 99px; background-color: var(--ios-button-fill); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 142 56' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Crect width='142' height='56' fill='url(%23g)' opacity='.2'/%3E%3Cdefs%3E%3CradialGradient id='g' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(1.753e-14 5.2645 -10.749 2.6512e-14 71 3.3553)'%3E%3Cstop stop-color='white' offset='0'/%3E%3Cstop stop-color='white' stop-opacity='0' offset='1'/%3E%3C/radialGradient%3E%3C/defs%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: 100% 100%; background-blend-mode: color-dodge; box-shadow: 0 8px 24px -8px rgba(0,0,0,.15), inset 0 -1px 4px rgba(0,0,0,.15), inset 0 2px 3px rgba(255,255,255,.35); color: #fff; font-family: 'Overused Grotesk', sans-serif; font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: -.16px; cursor: pointer; }
+.ios-demo-button::before { content: ''; position: absolute; z-index: 0; inset: -.8px; border-radius: inherit; padding: .8px; pointer-events: none; background: linear-gradient(135deg, rgba(255,255,255,.2), rgba(255,255,255,0)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.ios-demo-button > * { position: relative; z-index: 1; }
+.ios-demo-button b { font: inherit; }
+.ios-button-icon { width: 24px; height: 24px; flex: 0 0 24px; display: grid; place-items: center; }
+.ios-button-icon img { width: 14px; height: 13.5px; display: block; }
+.ios-button-icon img.is-right { transform: scaleX(-1); }
+.ios-demo-button.is-medium { width: 126px; height: 48px; padding: 8px 12px; gap: 8px; }
+.ios-demo-button.is-medium .ios-button-icon { width: 20px; height: 20px; flex-basis: 20px; }
+.ios-demo-button.is-small { width: 104px; height: 32px; padding: 8px; gap: 4px; font-size: 14px; line-height: 20px; letter-spacing: -.14px; }
+.ios-demo-button.is-small .ios-button-icon { width: 20px; height: 20px; flex-basis: 20px; }
+.ios-demo-button.is-secondary { background-color: rgba(255,255,255,.15); background-image: none; border-color: transparent; color: #000; box-shadow: 0 4px 32px -8px rgba(0,17,42,.07), 0 0 48px -8px rgba(0,17,42,.05); }
+.ios-demo-button.is-secondary .ios-button-icon img { filter: brightness(0); }
+.ios-demo-button.is-tertiary { width: 102px; height: 28px; padding: 2px 0; gap: 4px; border-color: transparent; background: transparent; color: #3aaa8f; box-shadow: none; }
+.ios-demo-button.is-tertiary::before { display: none; }
+.ios-demo-button.is-tertiary .ios-button-icon img { filter: brightness(0) saturate(100%) invert(58%) sepia(29%) saturate(923%) hue-rotate(113deg) brightness(88%) contrast(88%); }
+.ios-demo-button.is-pressed { --ios-button-fill: #31917a; }
+.ios-demo-button.is-pressed:not(.is-tertiary) { background-image: none; }
+.ios-demo-button.is-disabled { box-shadow: inset 0 -1px 4px rgba(0,0,0,.15), inset 0 2px 3px rgba(255,255,255,.35); }
+.ds-ios-control { display: flex; flex-direction: column; gap: 4px; }
+.ds-ios-control > span { font-size: 12px; line-height: 1.5; letter-spacing: -0.24px; }
+.ds-ios-options { display: flex; flex-wrap: wrap; gap: 4px; }
+.ds-ios-options button { height: 24px; padding: 0 8px; border: .5px solid #e8e9ed; border-radius: 6px; background: #f4f6fa; color: rgba(55,66,89,.6); font: inherit; font-size: 12px; letter-spacing: -0.24px; cursor: pointer; }
+.ds-ios-options button[aria-selected="true"] { background: #fff; color: #000; font-weight: 500; box-shadow: 0 1px 1px rgba(5,22,57,.08); }
+.ds-ios-toggle-row { display: flex; align-items: center; gap: 4px; font-size: 12px; line-height: 1.5; }
+.ds-ios-toggle-row > span:first-child { flex: 1; }
+.ds-ios-value { height: 24px; padding: 0 8px; display: flex; align-items: center; border: .5px solid #e8e9ed; border-radius: 99px; }
+.ds-ios-asset-stage { flex: 1; min-height: 0; border: .5px solid var(--a-hair); border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.ds-ios-asset-frame { padding: 12px; display:flex; align-items:center; justify-content:center; flex:0 0 auto; border:.5px dashed #8a38f5; }
+.ds-ios-asset-stage img { display: block; width: auto; height: auto; object-fit: contain; transition: opacity .35s ease; }
+.ds-ios-card img, .ds-theme-btn img { cursor: default; pointer-events: none; }
+.ds-ios-asset-card:nth-child(2) .ds-ios-asset-frame { width:385px; height:auto; aspect-ratio:1236 / 348; padding:0; border:0; border-radius:0; background:transparent; }
+.ds-ios-asset-card:nth-child(2) .ds-ios-asset-stage img { width:100%; height:auto; object-fit:contain; }
+.ds-ios-asset-card:nth-child(3) .ds-ios-asset-frame { border-radius:24px; background:#f4f6fa; }
+.ds-ios-asset-card:nth-child(3) .ds-ios-asset-stage img { width:160px; }
+.ds-ios-filter-card .ds-ios-asset-frame { border-radius:40px; background:#f4f6fa; }
+.ds-ios-filter-card .ds-ios-asset-stage { padding:24px 8px; }
+.ds-ios-filter-card .ds-ios-asset-stage img { width:391px; max-height:379px; }
+#ios-components.is-dark .ds-ios-card { background:#041017; border-color:#041017; color:#fff; }
+#ios-components.is-dark .ds-ios-button-body,
+#ios-components.is-dark .ds-ios-asset-stage { border-color:transparent; }
+#ios-components.is-dark .ds-ios-button-stage,
+#ios-components.is-dark .ds-ios-asset-stage { background-color:#111c23; background-image:linear-gradient(rgba(17,28,35,.2),rgba(17,28,35,.2)),url("images/cases/auto123-dot-pattern.svg"); background-size:auto,10.68px 10.68px; background-repeat:no-repeat,repeat; background-position:center; background-blend-mode:normal,soft-light; }
+#ios-components.is-dark .ds-ios-button-controls { background:#111c23; border-color:#15232b; color:#fff; }
+#ios-components.is-dark .ds-ios-options button { background:#041017; border-color:#15232b; color:rgba(167,181,204,.6); }
+#ios-components.is-dark .ds-ios-options button[aria-selected="true"] { background:#4c5666; border-color:#4c5666; color:#fff; }
+#ios-components.is-dark .ds-ios-value { border-color:#15232b; color:#a7b5cc; }
+#ios-components.is-dark .ds-ios-asset-card:nth-child(3) .ds-ios-asset-frame,
+#ios-components.is-dark .ds-ios-filter-card .ds-ios-asset-frame { background:#041017; }
+
+/* ═══════════════ APP EXAMPLES — exact paired Figma rows ═══════════════ */
+.ds-app-examples { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.ds-app-row { height: 579.375px; padding: 12.5px; gap: 8px; display: flex; align-items: flex-start; justify-content: center; border: .5px solid var(--a-hair); border-radius: 12px; overflow: hidden; }
+.ds-app-row video { flex: 1 1 0; min-width: 0; height: 100%; object-fit: cover; border-radius: 8px; background: #fff; box-shadow: 0 2px 2px rgba(5,22,57,.08); }
+
+/* ═══════════════ STAT GRID (The design System, Figma 649:5130) ═══════════════
+   One bordered box, four equal cells split by 0.5px dividers. */
+.ds-statgrid {
+  display: flex; width: 560px; max-width: 100%; margin: 8px auto 0;
+  border: 0.5px solid var(--a-hair); border-radius: var(--a-r3); overflow: hidden; background: #fff;
+}
+.ds-statcell { flex: 1; min-width: 0; padding: 16px; display: flex; flex-direction: column; }
+.ds-statcell + .ds-statcell { border-left: 0.5px solid var(--a-hair); }
+.ds-statcell b { font-size: 28px; font-weight: 400; letter-spacing: -0.56px; line-height: 1.5; color: #000; }
+.ds-statcell span { font-size: 14px; font-weight: 400; letter-spacing: -0.28px; line-height: 1.5; color: #000; }
+
+/* ═══════════════ CARD GRID ("Why a design system", Figma 647:5100) ═══════════════
+   Two columns of white bordered note-cards (NOT a bullet list). */
+.ds-cardgrid { display: flex; gap: 8px; margin-top: 14px; width: 100%; }
+.ds-cardgrid-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.ds-note {
+  background: #fff; border: 0.5px solid var(--a-hair); border-radius: var(--a-r3);
+  padding: 16px; font-size: 14px; line-height: 1.5; letter-spacing: -0.28px; color: #000;
+}
+
+/* .needs-copy is kept as a plain hook on the blocks still carrying Figma's
+   lorem, so the real copy is easy to find and drop in. No visual treatment. */
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────
+   Desktop deliberately stays at the Figma dimensions above. Tablet retains
+   the two-column specimens so their relationship remains legible; phone is
+   the only layout that reflows a specimen into one column. */
+@media (max-width: 1024px) {
+  .ds-page .case-content { padding-left: 24px; padding-right: 24px; }
+  .ds-page .c-block, .ds-chips, .ds-head-row, .ds-statgrid { width: 100%; }
+
+  /* Keep the navigation rail beside its canvas on iPad. */
+  .ds-widget { flex-direction: row; }
+  .ds-widget-nav { width: 136px; flex: 0 0 136px; flex-direction: column; overflow: hidden; }
+  .ds-nav-item { width: 100%; height: 36px; flex: 0 0 36px; font-size: 14px; }
+  .ds-widget-panel { width: auto; flex: 1 1 0; height: auto; }
+  #components-widget { height: 560px; }
+  #components-widget .ds-widget-panel,
+  #tokens-widget .ds-widget-panel { width: auto; flex: 1 1 0; height: auto; }
+  .ds-component-canvas { min-height: 0; height: 100%; padding: 24px; }
+  .ds-component-frame { max-width: calc(100% - 32px); max-height: calc(100% - 32px); transform: scale(.7); transform-origin: center; }
+
+  /* Rails begin flush with the content edge at this breakpoint. */
+  #atoms .ds-atoms-head { height: 116px; }
+  #atoms .ds-arrows { right: 0; }
+  #atoms .ds-carousel, #ios-components .ds-carousel { overflow: hidden; }
+  #atoms .ds-track, #ios-components .ds-track { padding-left: 0; }
+  #atoms .ds-card, #ios-components .ds-card { width: min(600px, calc(100vw - 48px)); }
+  .ds-proto-card { width: min(456px, calc(100vw - 48px)); flex-basis: min(456px, calc(100vw - 48px)); }
+  .ds-head-row--block { width: 100%; }
+  .ds-head-copy .ds-arrows { position: static; align-self: flex-end; margin-top: 4px; }
+
+  .ds-pagex-row { height: auto; aspect-ratio: 920 / 541; }
+  .ds-app-row { height: auto; aspect-ratio: 920 / 579.375; }
+  .ds-type-head span:first-child, .ds-type-row .tr-sample { width: 150px; }
+  .ds-font-card { flex-direction: column; }
+  .ds-font-card .fc-r { width: 100%; }
+}
+
+@media (max-width: 720px) {
+  .ds-page .case-content { padding-left: 16px; padding-right: 16px; }
+
+  /* Widgets become a single, contained canvas with a horizontally scrollable
+     tab strip. This prevents the old stacked 440px canvases from clipping. */
+  .ds-widget { flex-direction: column; height: auto; gap: 4px; }
+  .ds-widget-nav {
+    width: 100%; flex: 0 0 44px; min-height: 44px; padding: 4px;
+    flex-direction: row; gap: 4px; overflow-x: auto; overflow-y: hidden;
+    overscroll-behavior-x: contain; scrollbar-width: none;
+  }
+  .ds-widget-nav::-webkit-scrollbar { display: none; }
+  .ds-nav-item { width: auto; height: 36px; flex: 0 0 auto; padding: 0 12px; }
+  .ds-widget-panel { width: 100%; flex: 0 0 auto; height: 440px; }
+  #components-widget { height: auto; }
+  #components-widget .ds-widget-panel,
+  #tokens-widget .ds-widget-panel { width: 100%; flex: 0 0 auto; height: 440px; }
+  .ds-colour-pane, .ds-type-pane, .ds-simple-pane, .ds-token-pane { height: 440px; padding: 20px 16px; overflow: auto; }
+  .ds-component-canvas { min-height: 440px; height: 440px; padding: 20px 12px; }
+  .ds-component-frame { max-width: calc(100% - 24px); max-height: calc(100% - 24px); transform: scale(.48); }
+
+  .ds-statcell { padding: 12px 8px; }
+  .ds-statcell b { font-size: 22px; }
+  .ds-statcell span { font-size: 12px; }
+  .ds-cardgrid { flex-direction: column; }
+
+  #atoms .ds-atoms-head { height: auto; min-height: 128px; gap: 12px; }
+  #atoms .ds-atoms-inventory { gap: 8px; }
+  #atoms .ds-arrows { position: static; align-self: flex-end; margin-top: 0; }
+  #atoms .ds-carousel { height: 540px; }
+  #atoms .ds-track { height: 540px; }
+  #atoms .ds-card, #atoms .ds-card[data-play="textarea"] { width: 100%; height: 540px; flex-basis: 100%; }
+  #atoms .ds-card[data-play="range"], #atoms .ds-card[data-play="slider"] { height: 400px; }
+  #atoms .ds-card-body { flex-direction: column; }
+  #atoms .ds-preview { width: 100%; flex: 0 0 208px; border-right: 0; border-bottom: .5px solid var(--a-hair); }
+  #atoms .ds-card[data-play="range"] .ds-preview,
+  #atoms .ds-card[data-play="slider"] .ds-preview { flex: 1 1 auto; border-bottom: 0; }
+  #atoms .ds-controls { width: 100%; flex: 1 1 auto; padding: 12px; gap: 8px; border-left: 0; border-top: 0; overflow-y: auto; }
+
+  #ios-components .ds-head-row { gap: 12px; }
+  #ios-components .ds-card { width: 100%; height: 500px; flex-basis: 100%; }
+  .ds-ios-button-body { flex-direction: column; }
+  .ds-ios-button-stage { flex: 0 0 210px; border-bottom: .5px solid var(--a-hair); }
+  .ds-ios-button-controls { width: 100%; flex: 1 1 auto; padding: 12px; gap: 8px; border-left: 0; }
+  .ds-ios-asset-card:nth-child(2) .ds-ios-asset-frame { width: min(385px, calc(100% - 24px)); }
+  .ds-ios-filter-card .ds-ios-asset-stage { padding: 16px 8px; }
+  .ds-ios-filter-card .ds-ios-asset-stage img { width: min(391px, 100%); }
+
+  .ds-pagex-row { width: 100%; height: auto; aspect-ratio: auto; flex-direction: column; padding: 8px; }
+  .ds-pagex-desktop { width: 100%; height: auto; flex: 0 0 auto; aspect-ratio: 16 / 9; }
+  .ds-pagex-mobile { width: min(172px, 58%); height: auto; flex: 0 0 auto; align-self: center; }
+  .ds-pagex-row img { height: 100%; }
+  .ds-app-row { height: auto; aspect-ratio: auto; padding: 8px; flex-direction: row; align-items: flex-start; }
+  .ds-app-row video { width: calc((100% - 8px) / 2); height: auto; flex: 0 0 calc((100% - 8px) / 2); aspect-ratio: 390 / 844; }
+}
+
+@media (max-width: 390px) {
+  .ds-component-frame { transform: scale(.43); }
+  .ds-statcell b { font-size: 19px; }
+  .ds-statcell span { font-size: 11px; }
+}
