@@ -554,44 +554,80 @@
   function buildComponents(root) {
     var nav = $('.ds-widget-nav', root), panel = $('.ds-widget-panel', root);
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var exportPath = 'images/cases/auto123-components/exports/';
+    function exportedVariant(file, width, height, intrinsicWidth, intrinsicHeight) {
+      return {
+        src: exportPath + file,
+        width: width,
+        height: height,
+        intrinsicWidth: intrinsicWidth,
+        intrinsicHeight: intrinsicHeight
+      };
+    }
     var components = {
       navigation: {
         label: 'Navigation', tone: 'soft', radius: 8,
         variants: [
-          [656, 64], [390, 68], [390, 56]
+          exportedVariant('navigation-1.png', 656, 64, 2624, 256),
+          exportedVariant('navigation-2.png', 390, 68, 1560, 272),
+          exportedVariant('navigation-3.png', 390, 56, 1560, 224)
         ]
       },
       products: {
         label: 'Product', tone: 'white', radius: 32,
         variants: [
-          [350, 406.5], [656, 217], [280, 292]
+          exportedVariant('product-1.png', 350, 406.5, 1400, 1626),
+          exportedVariant('product-2.png', 656, 217, 2624, 868),
+          exportedVariant('product-3.png', 280, 292, 1120, 1168)
         ]
       },
       filters: {
         label: 'Filters', tone: 'soft', radius: 16,
         variants: [
-          [401, 100], [400, 340], [400, 372], [400, 152], [401, 184]
+          exportedVariant('filters-1.png', 400, 372, 1600, 1488),
+          exportedVariant('filters-2.png', 400, 340, 1600, 1360),
+          exportedVariant('filters-3.png', 401, 184, 1604, 736),
+          exportedVariant('filters-4.png', 401, 100, 1604, 400),
+          exportedVariant('filters-5.png', 400, 152, 1600, 608)
         ]
       },
       forms: {
         label: 'Forms', tone: 'soft', radius: 16,
         variants: [
-          [400, 424.2], [400, 460.8], [400, 441.8], [400, 460.8]
+          exportedVariant('forms-1.png', 400, 424.25, 1600, 1697),
+          exportedVariant('forms-2.png', 400, 291.5, 1600, 1166),
+          exportedVariant('forms-3.png', 400, 442, 1600, 1768),
+          exportedVariant('forms-4.png', 400, 290, 1600, 1160)
         ]
       },
       price: {
         label: 'Price', tone: 'soft', radius: 16,
         variants: [
-          [334, 242.709], [335, 115], [335, 115], [335, 115]
+          exportedVariant('price-1.png', 334, 242.75, 1336, 971),
+          exportedVariant('price-2.png', 335, 115, 1340, 460),
+          exportedVariant('price-3.png', 335, 115, 1340, 460),
+          exportedVariant('price-4.png', 335, 115, 1340, 460)
         ]
       },
       messages: {
         label: 'Messages', tone: 'white', radius: 16,
         variants: [
-          [169, 60], [169, 60], [240, 271], [240, 296], [240, 118], [240, 118]
+          exportedVariant('messages-1.png', 169, 60, 676, 240),
+          exportedVariant('messages-2.png', 169, 60, 676, 240),
+          exportedVariant('messages-3.png', 240, 294, 960, 1176),
+          exportedVariant('messages-4.png', 240, 296, 960, 1184),
+          exportedVariant('messages-5.png', 240, 118, 960, 472),
+          exportedVariant('messages-6.png', 240, 118, 960, 472)
         ]
       }
     };
+
+    Object.keys(components).forEach(function (key) {
+      components[key].variants.forEach(function (variant) {
+        var preload = new Image();
+        preload.src = variant.src;
+      });
+    });
 
     var canvas = el('div', 'ds-component-canvas');
     var frame = el('div', 'ds-component-frame');
@@ -617,10 +653,15 @@
       var component = components[activeKey];
       var variant = component.variants[variantIndex];
       var swap = function () {
-        stage.innerHTML = componentMarkup(activeKey, variantIndex);
+        var image = new Image(variant.intrinsicWidth, variant.intrinsicHeight);
+        image.className = 'ds-component-image';
+        image.src = variant.src;
+        image.alt = '';
+        image.decoding = 'async';
+        stage.replaceChildren(image);
         frame.setAttribute('aria-label', 'Auto123 ' + component.label + ' component, variant ' + (variantIndex + 1) + ' of ' + component.variants.length);
-        frame.style.setProperty('--component-width', variant[0] + 'px');
-        frame.style.setProperty('--component-height', variant[1] + 'px');
+        frame.style.setProperty('--component-width', variant.width + 'px');
+        frame.style.setProperty('--component-height', variant.height + 'px');
         frame.style.setProperty('--component-radius', component.radius + 'px');
         frame.dataset.tone = component.tone;
         requestAnimationFrame(function () { stage.classList.remove('is-switching'); });

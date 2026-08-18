@@ -288,7 +288,7 @@
 #atoms .ds-arrow { border-color: #e8e9ed; }
 
 #atoms .ds-carousel { width: 920px; max-width: 100%; height: 400px; overflow: visible; }
-#atoms .ds-track { height: 400px; gap: 12px; padding-left: 160px; align-items: flex-start; }
+#atoms .ds-track { height: 400px; gap: 12px; padding-left: 0; align-items: flex-start; }
 #atoms .ds-card { width: 600px; height: 400px; flex: 0 0 600px; padding: 4px; gap: 4px; background: #f4f6fa; }
 #atoms .ds-card[data-play="textarea"] { height: 394px; }
 #atoms .ds-card-head { height: 31px; flex: 0 0 31px; padding: 8px; border: 0; }
@@ -346,18 +346,32 @@
       and its corner radius is CSS, not baked into the asset. ── */
 .ds-pagex { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 .ds-pagex-row {
+  width: 100%; max-width: 100%; box-sizing: border-box;
   height: 541px; display: flex; align-items: flex-start; justify-content: center; gap: 8px;
   padding: 12.5px; border: 0.5px solid var(--a-hair); border-radius: var(--a-r4);
   overflow: hidden;
 }
-.ds-pagex-desktop { flex: 1 1 0; min-width: 0; height: 100%; }
+.ds-pagex-desktop { flex: 1 1 0; min-width: 0; max-width: 100%; height: 100%; }
 .ds-pagex-mobile  { flex: 0 0 auto; height: 100%; aspect-ratio: 189.066 / 496.426; }
-.ds-pagex-row img {
-  width: 100%; height: 100%; display: block; object-fit: cover;
-  border-radius: var(--a-r4); border: 0;
-  background: #fff; box-shadow: 0 2px 2px rgba(5,22,57,.08);
+.ds-pagex-desktop,
+.ds-pagex-mobile {
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 0.5px solid var(--a-hair);
+  border-radius: var(--a-r4);
+  background: #fff;
+  box-shadow: 0 2px 2px rgba(5,22,57,.08);
 }
-.ds-pagex-mobile img { object-fit: contain; }
+.ds-pagex-row img {
+  width: 100%; height: 100%; display: block; object-fit: contain;
+  object-position: center top;
+  border-radius: 0; border: 0;
+  background: #fff; box-shadow: none;
+}
+.ds-pagex-desktop img {
+  width: 100%; max-width: 100%; height: auto;
+  object-fit: initial; object-position: initial;
+}
 
 .ds-section-head { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 .ds-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; width: 560px; max-width: 100%; margin: 0 auto; }
@@ -430,8 +444,26 @@
   padding: 9px 8px; border-bottom: 0.5px solid var(--a-hair);
 }
 .ds-card-title { font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: #000; }
-.ds-play { width:78px; height:15px; flex:0 0 78px; display:block; }
+.ds-play {
+  width:78px; height:15px; flex:0 0 78px; display:block;
+  position:relative; overflow:hidden;
+}
 .ds-play img { width:78px; height:15px; display:block; }
+.ds-play::after {
+  content:'';
+  position:absolute;
+  inset:-8px auto -8px -45%;
+  width:34%;
+  transform:skewX(-22deg);
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.92), transparent);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  animation:dsPlayShimmer 2.4s cubic-bezier(.4,0,.2,1) infinite;
+}
+@keyframes dsPlayShimmer {
+  0%, 48% { left:-45%; }
+  78%, 100% { left:125%; }
+}
 @keyframes dsPlayShine {
   0%, 52% { background-position:100% 0; }
   82%, 100% { background-position:0 0; }
@@ -441,7 +473,7 @@
   82% { filter:brightness(1.75) saturate(.45); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ds-play { animation:none; }
+  .ds-play::after { animation:none; display:none; }
 }
 .ds-card-body { flex: 1; display: flex; min-height: 0; }
 .ds-preview { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 16px; }
@@ -627,6 +659,12 @@
 }
 .ds-component-stage.is-switching { opacity: 0; transform: scale(.985); }
 .ds-component-stage > * { width: 100%; height: 100%; }
+.ds-component-image {
+  display: block;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+}
 
 /* Exact Figma icon layers used by the coded navigation and message states. */
 .cmp-icon { width: 24px; height: 24px; position: relative; display: inline-block; flex: 0 0 24px; }
@@ -916,7 +954,7 @@
 #ios-components .ds-head-row { align-items: center; }
 #ios-components .ds-head-row h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.72px; line-height: 1.25; }
 #ios-components .ds-carousel { overflow: visible; }
-#ios-components .ds-track { gap: 12px; padding-left: 160px; align-items: flex-start; }
+#ios-components .ds-track { gap: 12px; padding-left: 0; align-items: flex-start; }
 #ios-components .ds-card { height: 500px; }
 #ios-components + .c-block { margin-top: -24px; }
 .ds-ios-card { padding: 4px; gap: 4px; background: #f4f6fa; }
@@ -931,13 +969,14 @@
 .ios-demo-button > * { position: relative; z-index: 1; }
 .ios-demo-button b { font: inherit; }
 .ios-button-icon { width: 24px; height: 24px; flex: 0 0 24px; display: grid; place-items: center; }
+.ios-button-icon[hidden] { display: none; }
 .ios-button-icon img { width: 14px; height: 13.5px; display: block; }
 .ios-button-icon img.is-right { transform: scaleX(-1); }
 .ios-demo-button.is-medium { width: 126px; height: 48px; padding: 8px 12px; gap: 8px; }
 .ios-demo-button.is-medium .ios-button-icon { width: 20px; height: 20px; flex-basis: 20px; }
 .ios-demo-button.is-small { width: 104px; height: 32px; padding: 8px; gap: 4px; font-size: 14px; line-height: 20px; letter-spacing: -.14px; }
 .ios-demo-button.is-small .ios-button-icon { width: 20px; height: 20px; flex-basis: 20px; }
-.ios-demo-button.is-secondary { background-color: rgba(255,255,255,.15); background-image: none; border-color: transparent; color: #000; box-shadow: 0 4px 32px -8px rgba(0,17,42,.07), 0 0 48px -8px rgba(0,17,42,.05); }
+.ios-demo-button.is-secondary { background-color: rgba(255,255,255,.15); background-image: none; border-color: transparent; color: #000; -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); box-shadow: 0 4px 32px -8px rgba(0,17,42,.07), 0 0 48px -8px rgba(0,17,42,.05); }
 .ios-demo-button.is-secondary .ios-button-icon img { filter: brightness(0); }
 .ios-demo-button.is-tertiary { width: 102px; height: 28px; padding: 2px 0; gap: 4px; border-color: transparent; background: transparent; color: #3aaa8f; box-shadow: none; }
 .ios-demo-button.is-tertiary::before { display: none; }
