@@ -81,7 +81,9 @@
       </div>
 
       <figure class="c-figure reveal">
-        <img class="c-cover" src="images/cases/cover-careplans-1280.webp" srcset="images/cases/cover-careplans-768.webp 768w, images/cases/cover-careplans-1280.webp 1280w, images/cases/cover-careplans-1840.webp 1840w, images/cases/cover-careplans-2560.webp 2560w" sizes="(max-width: 1024px) calc((100vw - 32px) * 2), (max-width: 1600px) 116vw, 1840px" width="2560" height="1600" data-full="images/cases/cover-careplans-2560.webp" alt="Treatment program builder" decoding="async" fetchpriority="high">
+        <video class="c-cover-video js-autoplay-video" autoplay muted loop playsinline preload="none" poster="images/cases/cover-careplans-1280.webp" aria-label="Treatment program builder animation">
+          <source data-src="videos/subscription-builder.mp4" type="video/mp4">
+        </video>
       </figure>
 
       <div class="c-block reveal">
@@ -223,6 +225,7 @@
 <script src="header-nav.js"></script>
 <script src="page-transition.js"></script>
 <script src="image-guard.js"></script>
+<script src="case-video.js"></script>
 <script>
   gsap.registerPlugin(ScrollTrigger);
   document.fonts.ready.then(() => {

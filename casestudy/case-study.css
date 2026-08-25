@@ -146,6 +146,10 @@ img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; use
 .c-figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line); }
 /* Designed cover graphic that opens each case study — carries its own bg. */
 .c-figure img.c-cover { border: none; border-radius: 0; }
+.c-figure video.c-cover-video {
+  width: 100%; height: auto; aspect-ratio: 16 / 10;
+  object-fit: cover; display: block; border: none; background: #f4f6fa;
+}
 .c-figure p.cap { font-size: 16px; text-align: center; letter-spacing: -0.32px; line-height: 1.6; }
 .c-figure-row { display: flex; gap: 8px; width: 100%; }
 .c-figure-row img { flex: 1; min-width: 0; height: auto; border: 1px solid var(--line); display: block; }

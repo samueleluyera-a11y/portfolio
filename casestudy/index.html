@@ -145,6 +145,16 @@
       width: 100%; height: 100%; object-fit: cover;
       border-radius: 16px; display: block;
     }
+    .hub-video {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; pointer-events: none;
+      transform-origin: center;
+      transition: transform .45s cubic-bezier(.22,1,.36,1);
+    }
+    .case-card.is-in:hover .hub-video { transform: scale(1.045); }
+    @media (prefers-reduced-motion: reduce) {
+      .hub-video { transform: none !important; transition: none; }
+    }
 
     /* Auto123 uses the same living hero as its case study: a coded, outlined
        frame with the real component specimens travelling left → right. */
@@ -348,8 +358,9 @@
       <div class="card-row">
         <a class="case-card reveal" href="healthcare-analytics.html">
           <div class="hub-cover">
-            <img class="hub-bg" src="images/cases/hub-bg-analytics-1280.webp" srcset="images/cases/hub-bg-analytics-768.webp 768w, images/cases/hub-bg-analytics-1280.webp 1280w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="1280" height="800" data-full="images/cases/hub-bg-analytics-1280.webp" alt="" decoding="async" fetchpriority="high">
-            <div class="hub-shot shot-analytics"><img src="images/cases/hub-screen-analytics-1280.webp" srcset="images/cases/hub-screen-analytics-768.webp 768w, images/cases/hub-screen-analytics-1280.webp 1280w, images/cases/hub-screen-analytics-1840.webp 1840w, images/cases/hub-screen-analytics-2560.webp 2560w, images/cases/hub-screen-analytics-3400.webp 3400w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="3400" height="2549" data-full="images/cases/hub-screen-analytics-3400.webp" alt="Clinical analytics dashboard" decoding="async" fetchpriority="high"></div>
+            <video class="hub-video js-autoplay-video" autoplay muted loop playsinline preload="none" poster="images/cases/cover-analytics-1280.webp" aria-hidden="true">
+              <source data-src="videos/healthcare-analytics.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="case-copy">
             <h3>When "We Need Analytics" Was the Only Brief</h3>
@@ -357,8 +368,9 @@
         </a>
         <a class="case-card reveal" href="healthcare-careplans.html">
           <div class="hub-cover">
-            <img class="hub-bg" src="images/cases/hub-bg-careplans-1280.webp" srcset="images/cases/hub-bg-careplans-768.webp 768w, images/cases/hub-bg-careplans-1280.webp 1280w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="1280" height="800" data-full="images/cases/hub-bg-careplans-1280.webp" alt="" decoding="async" loading="lazy">
-            <div class="hub-shot shot-careplans"><img src="images/cases/hub-screen-careplans-1280.webp" srcset="images/cases/hub-screen-careplans-768.webp 768w, images/cases/hub-screen-careplans-1280.webp 1280w, images/cases/hub-screen-careplans-1840.webp 1840w, images/cases/hub-screen-careplans-2560.webp 2560w, images/cases/hub-screen-careplans-3400.webp 3400w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="3400" height="2549" data-full="images/cases/hub-screen-careplans-3400.webp" alt="Treatment program builder" decoding="async" loading="lazy"></div>
+            <video class="hub-video js-autoplay-video" autoplay muted loop playsinline preload="none" poster="images/cases/cover-careplans-1280.webp" aria-hidden="true">
+              <source data-src="videos/subscription-builder.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="case-copy">
             <h3>Helping Hospitals Sell Treatment Programs Efficiently</h3>
@@ -372,8 +384,9 @@
       <div class="card-row">
         <a class="case-card reveal" href="enterprise-insurance-advisors.html">
           <div class="hub-cover">
-            <img class="hub-bg" src="images/cases/hub-bg-insurance-1280.webp" srcset="images/cases/hub-bg-insurance-768.webp 768w, images/cases/hub-bg-insurance-1280.webp 1280w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="1280" height="800" data-full="images/cases/hub-bg-insurance-1280.webp" alt="" decoding="async" loading="lazy">
-            <div class="hub-shot shot-insurance"><img src="images/cases/hub-screen-insurance-1280.webp" srcset="images/cases/hub-screen-insurance-768.webp 768w, images/cases/hub-screen-insurance-1280.webp 1280w, images/cases/hub-screen-insurance-1840.webp 1840w, images/cases/hub-screen-insurance-2560.webp 2560w, images/cases/hub-screen-insurance-3400.webp 3400w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="3400" height="2198" data-full="images/cases/hub-screen-insurance-3400.webp" alt="Insurance advisor client profile" decoding="async" loading="lazy"></div>
+            <video class="hub-video js-autoplay-video" autoplay muted loop playsinline preload="none" poster="images/cases/cover-insurance-1280.webp" aria-hidden="true">
+              <source data-src="videos/insurance.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="case-copy">
             <h3>Giving Insurance Advisors More Time for High Value Client Work</h3>
@@ -387,10 +400,9 @@
       <div class="card-row">
         <a class="case-card reveal" href="finance-loan-application.html">
           <div class="hub-cover">
-            <img class="hub-bg" src="images/cases/hub-bg-loan-1280.webp" srcset="images/cases/hub-bg-loan-768.webp 768w, images/cases/hub-bg-loan-1280.webp 1280w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="1280" height="800" data-full="images/cases/hub-bg-loan-1280.webp" alt="" decoding="async" loading="lazy">
-            <div class="hub-shot shot-loan"><img src="images/cases/hub-screen-loan-1280.webp" srcset="images/cases/hub-screen-loan-768.webp 768w, images/cases/hub-screen-loan-1280.webp 1280w, images/cases/hub-screen-loan-1840.webp 1840w, images/cases/hub-screen-loan-2560.webp 2560w, images/cases/hub-screen-loan-3400.webp 3400w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="3400" height="2106" data-full="images/cases/hub-screen-loan-3400.webp" alt="Loan offer screen" decoding="async" loading="lazy"></div>
-            <div class="hub-shot shot-loan-glow" aria-hidden="true"></div>
-            <div class="hub-shot shot-loan-mobile"><img src="images/cases/hub-screen-loan-mobile-768.webp" srcset="images/cases/hub-screen-loan-mobile-768.webp 390w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="390" height="844" data-full="images/cases/hub-screen-loan-mobile-768.webp" alt="Loan amount on mobile" decoding="async" loading="lazy"></div>
+            <video class="hub-video js-autoplay-video" autoplay muted loop playsinline preload="none" poster="images/cases/cover-loan-1280.webp" aria-hidden="true">
+              <source data-src="videos/loan-application.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="case-copy">
             <h3>Speeding up loan applications and boosting conversions</h3>
@@ -404,8 +416,9 @@
       <div class="card-row">
         <a class="case-card reveal" href="marketplaces-ab-testing.html">
           <div class="hub-cover">
-            <img class="hub-bg" src="images/cases/hub-bg-abtesting-1280.webp" srcset="images/cases/hub-bg-abtesting-768.webp 768w, images/cases/hub-bg-abtesting-1280.webp 1280w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="1280" height="800" data-full="images/cases/hub-bg-abtesting-1280.webp" alt="" decoding="async" loading="lazy">
-            <div class="hub-shot shot-abtesting"><img src="images/cases/hub-screen-abtesting-1280.webp" srcset="images/cases/hub-screen-abtesting-768.webp 768w, images/cases/hub-screen-abtesting-1280.webp 1280w, images/cases/hub-screen-abtesting-1840.webp 1840w, images/cases/hub-screen-abtesting-2560.webp 2560w, images/cases/hub-screen-abtesting-3400.webp 3400w" sizes="(max-width: 1024px) calc((100vw - 40px) * 2), 1048px" width="3400" height="2418" data-full="images/cases/hub-screen-abtesting-3400.webp" alt="Doctor list booking screen" decoding="async" loading="lazy"></div>
+            <video class="hub-video js-autoplay-video" autoplay muted loop playsinline preload="none" poster="images/cases/cover-abtesting-1280.webp" aria-hidden="true">
+              <source data-src="videos/service-booking.mp4" type="video/mp4">
+            </video>
           </div>
           <div class="case-copy">
             <h3>Exploring Service Booking Flows for A/B Validation</h3>
@@ -471,6 +484,7 @@
 <script src="header-nav.js"></script>
 <script src="page-transition.js"></script>
 <script src="image-guard.js"></script>
+<script src="case-video.js"></script>
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
