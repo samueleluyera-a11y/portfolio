@@ -32,7 +32,6 @@
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) playVideo(entry.target);
-      else if (!entry.target.paused) entry.target.pause();
     });
   }, { rootMargin: '240px 0px', threshold: 0.01 });
 
